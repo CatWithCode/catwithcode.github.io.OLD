@@ -1,0 +1,10 @@
+{
+  "graph": [],
+  "links": [
+],
+  "nodes": [
+	{"sl":0, "size": 10, "score": 0.5, "id": "Nokia", "type":"circle"}
+],
+  "directed": false,
+  "multigraph": false
+}
