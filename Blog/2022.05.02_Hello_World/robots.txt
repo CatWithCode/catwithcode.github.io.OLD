@@ -1,4 +1,0 @@
-Sitemap: https://catwithcode.github.io/sitemap.xml
-
-User-agent: *
-Disallow:
