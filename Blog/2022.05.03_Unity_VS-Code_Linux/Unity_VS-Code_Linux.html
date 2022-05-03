@@ -7,12 +7,51 @@
   <body align="center">
     <script src="https://catwithcode.github.io/Assets/GetTopBar.js"></script>
     
-    <h1>Hello World</h1>    
-    <h3>This is my first website-Content i ever made. So hello. I'm a girl from Germany. I work as a software Developer. I know a lot  but not enough about C# and WPF and make Industrial software for machinery and bookkeeping. I love playing games, modding and tinkering. Thanks to that i find a lot of random and obscure stuff in my daily life. I always wanted a way to document it. I just posted that stuff on Twitter or Reddit but as everyone knows after some time it gets archived on Reddit or drowns in content on Twitter. But I found that every few weeks i get a message about some things I did a while ago from people that need help with doing it them self and often the information was already archived or drowning in other content. Now i have a Webpage to document everything I want. My plans for now is to take all the things I posted in the past and post them here (with some updated information). After that I post from time to time stuff on here. Because I use GitHub for this Blog (and I m just lazy) there is no comments function. Checking ever comment if it is clean and not dangerous takes to much time (and as already mentioned, I'm L-A-Z-Y). If you have something to add just message me on Twitter or GitHub (look at the 'CONTACT"-Page) and I will update the Blog-entry if needed or add your comment.</h3>
+    <h1>Unity-Game-Engine with Visual Studio Code on Arch Linux / Manjaro Linux</h1>    
+    <h3>Installing and using the Unity-Engine on Linux can be complected, especially on Arch Linux and with Visual Studio Code. Here is my way to install everything an configure it in a way that everthing works. There are some parts that can not be solved with just OpenSource Software so keep that in mind!</h3>
     <br>
-    <h3>If you are wondering what my Blog icon is:</h3>
-    <h4>It is the main character of a game I started to develop around a year ago. I'm not working on it at the moment but that can change in the future. Here are a view Images from her (Blurry and watermarked. I don't want someone to steal my stuff again (happend in the past already. And yes I know the sprites don't look all that good but anyways. If that annoys you I did my job right 😛)):</h4> 
-
-    <a href=""> <img src="DATA/Blury.png" alt="Blurry and Watermaked Sprite-Set of my Character" style="width:100%;height:100%";></a>
-    </body>
+    <ol>
+      <li><p>First you need to fulfill some dependencies. Install the following packages (on other Disros find them, on Arch just execute the following):</p>
+        <p><u><i>sudo pacman -S code dotnet-sdk mono mono-tools mono-msbuild mono-msbuild-sdkresolver mono-addins</u></p>
+      </li>
+      <br>
+      <li>You need to install Visual Studio Code from the official Website or the AUR on Arch Linux. The OSS version will not work! For some reason the OSS version can not use the .NET-CORE stuff for C#. If your system complains that CSS-VS-Code and the MS-VS-CODE version interfere, uninstall the OSS-VS-CODE.
+      <br>
+      <br>
+      <b>MS-VS-CODE Version's:</b>
+      <p>
+        <a href="https://code.visualstudio.com/">visualstudio.com</a> 
+        <b> or </b> 
+        <a href="https://aur.archlinux.org/packages/visual-studio-code-bin">AUR</a>
+      </p>
+      </li>
+      <br>
+      <li><p>Install the following VS-Code-Addons shown in the Addons-Image below.</p></li>
+      <br>
+      <li><p>Now download UnityHub, make a Unity account and login. Inside UnityHub install your needed Unity-version, create a Project and start it. Test if it compiles and fix the issues if it does not compile.
+      </p>
+      <p>
+        <b>UnityHub: </b>
+        <a href="https://unity3d.com/de/get-unity/download">unity3d.com</a> 
+      </p>
+      </li>
+      <br>
+      <li><p>Open a Unity-Project and go to "Edit>Preferences>External Tools" and point the editor to "usr/bin/code" if you installed it as a package or the executable location if you got it in a other way. Now close the settings and reopen "Edit>Preferences>External Tools" and click on  "regenerating the assembly files".</p></li>
+      <br>
+      <li><p>Now when you create a C#-File and open it it should open in VS-Code with Intellisense working.</p></li>
+    </ol>
+    <br>
+    <figure>
+      <img src="DATA/VS-Code-Addons.jpg" alt="VS-Code-Addons Image" style="width:50%;height:100%";/>
+      <figcaption> VS-Code-Addons needed </figcaption>
+    </figure>
+    <br>
+    <b>Sources:</b>
+    <ul>
+      <li><a href="https://www.reddit.com/r/archlinux/comments/ihydj9/unity3d_and_vscode_working_on_arch_linux/">reddit.com</a></li>
+      <li><a href="https://wiki.archlinux.org/title/Visual_Studio_Code">wiki.archlinux.org</a></li>
+      <li><a href="https://forum.unity.com/threads/solved-unity-with-vs-code-and-intellisense-on-linux-mint.986088/">forum.unity.com</a></li>
+    </ul>    
+    <h5>2022.05.03 - 12:22</h5>  
+  </body>
 </html>
