@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://catwithcode.github.io/Assets/GetHead.js"></script>
+    <title>CatWithCode - Hello World</title>
+  </head>
+  <body align="left">
+    <script src="https://catwithcode.github.io/Assets/GetTopBar.js"></script>
+    
+    <h1>Force Update on KaiOS Nokia-Phones</h1>    
+    <h4>I had bought a Nokia 2720 Flip with KaiOS on it. For some reason KaiOS Phone Updates must be distributed by the Provider who sells it or the department of the producer in the local region (why the fuck did they think that's a good idea!?!!!). You can guess that the resulted is that many phones don't get updates.</h4>
+    <h4>BUT there is a way to fix this. As typical of small and specific things resources needed are very hard to find. On the KaiOS Discord is a script and a KaiOS Model List BUT for some reason they made it so god damn hard to find. You only get it when you search a very specific string and even then it is all the way back. I linked directly to it in the original post so you don't have to find it on your own. Sadly, I cannot offer the files here directly because of legal reasons. I don't know who made them. I can only link to them. If they are gone at some point, message me.</h4>
+    <h3>You need to use the Script on Linux or WSL.</h3>
+    <h1>BACKUP YOUR PHONE WITH THE DEV-TOOLS SO YOU CAN RESTORE YOUR FIRMWARE TO 100% SO THE HASH IS CORRECT AGAIN! IF YOU DON'T DO IT AND THE UPDATE FAILS YOUR PHONE IS BRICKED WITH IN MOST CASES, NO WAY TO RESTORE IT BECAUSE OF MISSING FIRMWARE.IMG FILES!</h1>
+    <br>
+    <ul>
+      <li>
+        <h3>You need the CUID of you KaiOS Device. To get it go to your Dailer on your Phone and dial "*#0000#"</h3>
+      </li>
+      <li>
+        <h3>First you need to get a few details. Thyp the folowing an look at the Output(Replace the #...# things with your Data):</h3>
+        
+        <p><u><i>./fota.sh check #YOUR_CUID# #YOUR_CURENT_VERSION#</i></u></p>
+        <br>
+        <p>For example, what I typed and got as my output:</p>
+        <p>INPUT: <u><i>./fota.sh check BTS-23BTS75DK00 23.00.17.02</i></u></p>
+        <p>OUTPUT: <u><i>BTS-23BTS75DK00: 23.00.17.02: 30.00.17.05 (14655)</i></u></p>
+      </li>
+      <br>
+      <li>
+        <h3>So now we have everything we need. The number in the () is your Update Package and the Software Version after that one you typed is the newest version for your model number. Now we need to get the download URL. Type the following and look at the Output (Replace the #... # things with your Data):</h3>
+
+        <p><u><i>./fota.sh download #YOUR_CUID# #YOUR_CURENT_VERSION# #NEWEST_UPDATE_FOR_YOUR_MODEL# #YOUR_UPDATE_PACKEGE_NUMBER#</i></u></p>
+        <br>
+        <p>For example, what I typed and got as my output:</p>
+        <p>INPUT: <u><i>./fota.sh download BTS-23BTS75DK00 23.00.17.02 30.00.17.05 14655</i></u></p>
+        <p>OUTPUT: <u><i>http://slv.fota.kaiostech.com/727cc8370782db009e8013c579b781fe5fe843c5/57d5d30a51d04680a1abf58396d48a1c4d874c8f/14655/7463</i></u></p>
+      </li>
+      <li>
+        <h3>Now copy the URL and open it in the browser or in a download manager and download the file. You will get a file without extension. Add a ".zip" to the file name. Now you have an Update File. My File was named 7463 and I renamed it to 7463.zip. Now copy it to your phone/sdcard. Reboot your phone into the recovery mode and flash the zip file. If everything goes well you are done. I highly recommend to do a factory reset so everything is clean after the update.</h3>
+      </li>
+    </ul>
+    <h3>For my model, there was no output or update at all. That is the issue I was so angry at the beginning of this blog. I fixed it by looking at the Model list file and using a different model of my phone. After that I just did everything how I described above and was done with updating. I would never recommend this! For me it worked but bricking is a high risk in such a case. And after bricking with a wrong update you can not install OEM updates anymore because your firmware hash is wrong from this point on and updates will always fail.</h3>
+    <h3>If you want to do this anyway. Here are all details what I have and what I used:
+      <ul>
+        <li>My Device: BTS-23BTS75IT00</li>
+        <li>Used Firmware Update from "BTS-23BTS75DK00" </li>
+        <li>Updated from 23.00.17.02 to 30.00.17.05</li>
+        <li>Update-Package used: 14655</li>
+        <li>URL I got: http://slv.fota.kaiostech.com/727cc8370782db009e8013c579b781fe5fe843c5/57d5d30a51d04680a1abf58396d48a1c4d874c8f/14655/7463</li>      
+      </ul>
+    </h3>
+    <b>Sources:</b>
+    <ul>
+      <li><a href="https://discord.com/channels/472006912846594048/472006912846594050/894241013189705808">Discord - The origin of the Script</a></li>
+      <li><a href="https://discord.com/channels/472006912846594048/472006912846594050/894241901996310609">Discord - The origin of the Model list file</a></li>
+    </ul>    
+    <h5>2022.05.03 - 16:34</h5>
+  </body>
+</html>
