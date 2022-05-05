@@ -6,12 +6,14 @@ document.write('\
     <br>\
     <br>\
     <b>&nbsp;</b>\
-    <a href="https://catwithcode.github.io/blog.html">BLaaaaOG</a>\
+    <a href="https://catwithcode.github.io/blog.html">BLOG</a>\
     <b>&nbsp;</b>\
     <a href="https://catwithcode.github.io/privacy.html">PRIVACY</a>\
     <b>&nbsp;</b>\
     <a href="https://catwithcode.github.io/contact.html">CONTACT</a> \
     <b>&nbsp;</b>\
     </h2>\
+    <br>\
+    <br>\
     \
 ');
