@@ -4,7 +4,6 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
 <url>
   <loc>https://catwithcode.github.io/</loc>
@@ -25,6 +24,22 @@
 <url>
   <loc>https://catwithcode.github.io/contact.html</loc>
   <lastmod>2022-05-05T20:32:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://catwithcode.github.io/Blog/2022.05.02_Hello_World/Hello_World.html</loc>
+  <lastmod>2022-05-06T20:32:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://catwithcode.github.io/Blog/2022.05.03-01_Unity_VS-Code_Linux/Unity_VS-Code_Linux.html</loc>
+  <lastmod>2022-05-06T20:32:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://catwithcode.github.io/Blog/2022.05.03-02_MonoGame_MGCB_Linux_Error/MonoGame_MGCB_Linux_Error.html</loc>
+  <lastmod>2022-05-06T20:32:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://catwithcode.github.io/Blog/2022.05.03-03_Nokia_Force_Update/Nokia_Force_Update.html</loc>
+  <lastmod>2022-05-06T20:32:11+00:00</lastmod>
 </url>
 
 
