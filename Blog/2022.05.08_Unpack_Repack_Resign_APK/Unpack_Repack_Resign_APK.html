@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://catwithcode.github.io/Assets/GetHead.js"></script>
+    <title>CatWithCode - Unpack, Repack and Resign APKs/APPs</title>
+  </head>
+  <body align="left">
+    <script src="https://catwithcode.github.io/Assets/GetTopBar.js"></script>
+    
+    <h1>Unpack, Repack and Resign APKs/APPs</h1>    
+    <h3>Sometimes it can be useful to make modifications to an Apps AndroidManifest.xml. When you have developed an app years ago and you want to change some propriety's and you deleted/lost the source code. When you have a very old android version and an app does not install because of some artificial limitation from developer even when the app is just a simple app like a text editor. Or you want to use an app like a file manager from your old phone on your new phone but the phone maker made a dependency to one file in the system so the app only installs on this phone and not any other. In such cases this method would work.</h3>
+    <h1>This can <u><b>!NOT!</b></u> be used to remove DRM, remove Ads, cheat in games or modify any of the source code. You only get access to some assets like .png's and the AndroidManifest. THAT'S IT! This also not works with apps that check their certificate, Hash or connect to anything on the internet. This works only on offline only apps like some old apps/games or some system apps like keyboards, audio recorder or file manager. You also can not replace apps with this. Android sees the new apk as it completely new app. YOU ARE <U>!NOT!</U> ALLOWED TO UPLOAD, DISTRIBUTE OR SHARE THE FINAL APK FILE!</h1>
+    <h2><u>This may or may not be legal in your region.</u></h2>
+    <h3>You also need to know how to work with text xml files.</h3>
+    <h3>This also ONLY works on Linux and WSL.</h3>
+
+    <br>
+    <h3>-Download apktool.</h3>
+    <h3>-You need to Unpack you apk. For that you use apktool:</h3>
+    <p><u><i>java -jar apktool.jar d MyApp.apk</i></u></p>
+    <br>
+    <h3>-Now you can change the AndroidManifest.xml and make your needed changes. If you are doing this to install an incompatible app, it can help to install the APK with help from android adb to see the exact error message. That can be a really good starting point.</h3>
+    <br>
+    <h3>-After that you need to Repack the apk. For that do the following:</h3>
+    <p><u><i>java -jar apktool_2.6.1.jar b MyApp</i></u></p>
+    <br>
+    <h3>You find your Repacked apk inside the dist folder in the Project folder (In my case /MyApp/dist/MyApp.apk)</h3>
+    <br>
+    <h3>Now you need to Resign the APK. You also need to generate a certificate for that. Java has a key tool build in in its jdk. You need to go into the java folder to make sure you use the same version of java to create a certificate and sign an app. I use arch. If the path is different on your distro change the path accordingly.</h3>
+    <p><u><i>/usr/lib/jvm/java-8-openjdk/bin/keytool -genkey -v -keystore /home/#YOURNAME#/keyStore.keystore -alias app -keyalg RSA -keysize 2048 -validity 10000</i></u></p>
+    <h3>Fill the Details with the needed things. How real these are is on you.</h3>
+    <br>
+    <h3>Now resign your app:</h3>
+    <p><u><i>/usr/lib/jvm/java-8-openjdk/bin/jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore /home/#YOURNAME#/keyStore.keystore home/#YOURNAME#/MyApp/dist/MyApp.apk app</i></u></p>
+    <br>
+    <h3>If everything has gone right your APK is finished and can be installed.</h3>
+    <br>
+    <b>Sources:</b>
+    <ul>
+      <li><a href="https://ibotpeaches.github.io/Apktool/">Apktool - GitHub Page</a></li>
+      <br>
+      <b><b>Helpful Link's:</b></b>
+      <li><a href="https://stackoverflow.com/questions/66354829/how-to-correctly-re-compile-an-apk-file">Unpack and Repack - Stackoverflow</a></li>
+      <li><a href="https://stackoverflow.com/questions/10930331/how-to-sign-an-already-compiled-apk">Resign App - Stackoverflow</a></li>
+    </ul>    
+    <h5>2022.05.03 - 16:34</h5>
+  </body>
+</html>
