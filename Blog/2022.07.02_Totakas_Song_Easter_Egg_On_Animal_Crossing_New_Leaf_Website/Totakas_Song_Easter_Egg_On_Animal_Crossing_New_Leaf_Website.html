@@ -1,15 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+  <script>
+    function createiFrame() {
+      let iFrameDiv = document.getElementById('iFrameDiv1');
+      let iFrame = document.createElement('iframe');
+      iFrame.id = 'iFrame1';
+      iFrameDiv.appendChild(iFrame);
+      document.getElementById('iFrame1').width = '0'
+      document.getElementById('iFrame1').height = '0'
+      document.getElementById('iFrame1').frameborder='0'
+      document.getElementById('iFrame1').webkitallowfullscreen='true',
+      document.getElementById('iFrame1').mozallowfullscreen='true'
+
+      let iFrameDiv2 = document.getElementById('iFrameDiv2');
+      let iFrame2 = document.createElement('iframe');
+      iFrame2.id = 'iFrame2';
+      iFrameDiv2.appendChild(iFrame2);
+      document.getElementById('iFrame2').width = '0'
+      document.getElementById('iFrame2').height = '0'
+      document.getElementById('iFrame2').frameborder='0'
+      document.getElementById('iFrame2').webkitallowfullscreen='true',
+      document.getElementById('iFrame2').mozallowfullscreen='true'
+    }
+  </script>
   <head>
     <script src="https://catwithcode.github.io/Assets/GetHead.js"></script>
     <title>CatWithCode - Totaka's Song Easter Egg On Animal Crossing: New Leaf Website</title>
   </head>
-  <body align="left">
+  <body align="left" onload="createiFrame()">
     <script src="https://catwithcode.github.io/Assets/GetTopBar.js"></script>
     
-    <h1>I found the Totaka's Song Easter Egg on a offical Animal Crossing: New Leaf Website in 2015</h1>    
-    <h3>More Text and Information comming soon!</h3>
-    
+    <h1>I was the one who found the Totaka's Song Easter Egg on a offical Animal Crossing: New Leaf Website in 2015</h1>
+    <h3>I loved to play this game back then. I visited the website and saw that there was a little note animation above K.K. Slider. I clicked on him and there it was- Totaka's Song. I found it so cool! So I recorded it with a screen recorder. After that I slapped a cringe intro in front of it because 2015 and posted it to YouTube. The website was gone a few days later and nothing was left. No backups. As far as I know other no one else had found it back then. My friends did not believe me because the website wasn't there anymore. A lot of websites and the YouTube channel over the years took my video and noted the information. Often they did not credit me.... yeah modern internet. I wanted a way to preserve it. So I got into contact with someone at Archive.org and now it is on there Archive and preserved.</h3>
+    <h3>Finally, I have done what I wanted to do for years... . So. You want to see it? COOL! I made iFrames for you to look at the videos. The first to Archive.org and the other one to YouTube.com (if it is still online). If you want, you can also just directly go to the websites with the links in the "Sources" section.</h3>
+
+    <h3><u>For your own privacy and to stay true to my own website rules I made a little bit of JS-Code so nothing gets loaded until you click the corresponding buttons. I don't want any external stuff on my side that does stuff I don't know about. I hate that literally any website today loads some random BS from other servers and websites without even asking. Privacy my ass... . After you click the buttons the videos load embedded and the website owner behind it can do what they want. You literally load a different website only that it is inside an other website.</u></h3>
+    <br>
+    <button type="button" id="ArchiveDotOrgButton" onClick="
+      document.getElementById('iFrame1').src = 'https://archive.org/embed/totakas-song-easter-egg-on-animal-crossing-new-leaf-website-lost',
+      document.getElementById('iFrame1').width='100%',
+      document.getElementById('iFrame1').height='480'
+    ">Load <u>Archive.org</u> Video</button>
+    <br>
+    <div id="iFrameDiv1"> </div>
+    <br>
+    <button type="button" id="ArchiveDotOrgButton" onClick="
+      document.getElementById('iFrame2').src = 'https://www.youtube-nocookie.com/embed/H8NBtl8RKWo',
+      document.getElementById('iFrame2').width='100%',
+      document.getElementById('iFrame2').height='480'
+    ">Load <u>YouTube.com</u> Video</button>
+    <br>
+    <div id="iFrameDiv2"> </div>
     <br>
     <b>Sources:</b>
     <ul>
@@ -18,6 +59,6 @@
       <li><a href="https://nintendo.fandom.com/wiki/Totaka%27s_Song">Fandom.com</a></li>
       <li><a href="https://www.nintendo.de/Spiele/Nintendo-3DS/Animal-Crossing-New-Leaf-273841.html">Nintendo.de</a></li>
     </ul>    
-    <h5>2022.07.02 - 01:30</h5>  
+    <h5>2022.07.02 - 23:10</h5>  
   </body>
 </html>

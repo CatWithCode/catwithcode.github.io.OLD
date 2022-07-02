@@ -1,17 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+  <script>
+    function createiFrame() {
+      let iFrameDiv1 = document.getElementById('iFrameDiv1');
+      let iFrame1 = document.createElement('iframe');
+      iFrame1.id = 'iFrame1';
+      iFrameDiv1.appendChild(iFrame1);
+      document.getElementById('iFrame1').width = '0'
+      document.getElementById('iFrame1').height = '0'
+      document.getElementById('iFrame1').frameborder='0'
+      document.getElementById('iFrame1').webkitallowfullscreen='true',
+      document.getElementById('iFrame1').mozallowfullscreen='true'
+    }
+  </script>
   <head>
     <script src="https://catwithcode.github.io/Assets/GetHead.js"></script>
     <title>CatWithCode - TITEL</title>
   </head>
-  <body align="left">
+  <body align="left" onload="createiFrame()">
     <script src="https://catwithcode.github.io/Assets/GetTopBar.js"></script>
     
     <h1>Titel</h1>    
     <h3>Text</h3>
     <p><u><i>CODE</i></u></p>
-    <a href="">Link</a>    
+    <a href="">Link</a>
+    <br>    
     <a href=""><img src="" alt="" style="width:100px;height:100px";></a>
+    <br>
+    <button type="button" id="ArchiveDotOrgButton" onClick="
+      document.getElementById('iFrame1').src = '',
+      document.getElementById('iFrame1').width='100%',
+      document.getElementById('iFrame1').height='480',
+      document.getElementById('iFrame1').frameborder='0',
+      document.getElementById('iFrame1').webkitallowfullscreen='true',
+      document.getElementById('iFrame1').mozallowfullscreen='true'
+    ">Load BUTTON1</button>
+    <br>
+    <div id="iFrameDiv1"> </div>
     <br>
     <b>Sources:</b>
     <ul>
