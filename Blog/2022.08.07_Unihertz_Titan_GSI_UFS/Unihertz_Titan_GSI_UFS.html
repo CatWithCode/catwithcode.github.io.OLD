@@ -9,33 +9,37 @@
     
     <h1>Unihertz Titan, GSI, Android 12 and UFS</h1>
     <h3>First of all; What is UFS and what does it mean for me. The first Titans have EMMC-Memory (The phone storage). UFS is a faster type of memory and in pretty much every model after the first year of production as far as the community is concernt. UFS is faster and generally better BUT the way how it interacts with Modding stuff and the firmware is drastic... . That's why you need to be very careful and do a lot of research before you try anything or you will end up with a seemingly HardBricked phone. At the moment the TWRP ONLY really works on EMMC and the start of unlocking and Modding is different. GSIs, after everything is prepared are installed, are used and flashed the same way. But the SP-Flash-Tool needs different files for different types of memory and most importantly, you cannot install any ZIPs with UFS Titans at the moment. This can, but most likely will not, change in the future.</h3>    
-    <h3>I did a ton of research to install a custom GSI on my Unihertz Titan. As you might expect for such a small production / slowly selling phone, the support and amount of users are relatively small. One other thing is that Unihertz dose; They don't release their Kernel Code, which they're obligated to do when they release a custom Version of android (Every Phone every has a modified version of stock android on it.). This guide expects from you that you know at least the basics regarding Android Modding and the Linux Terminal / Windows CMD! Do your research! This guide uses the Android 10 as Base and the last Update at that point (07.08.2022 - Android 10.0). In this guide I install the a vanilla gsi (clean from anything, that means fully FOSS and ASOP). There are always multiple links (Mirrors, the Main posts, related stuff and the files them self. It's important that you read what the stuff is!). We will use AOSP 12.1 v414 by phhusson in this guide.
+    <h3>I did a ton of research to install a custom GSI on my Unihertz Titan. As you might expect for such a small production / slowly selling phone, the support and amount of users are relatively small. One other thing is that Unihertz dose; They don't release their Kernel Code, which they're obligated to do when they release a custom Version of android (Every Phone every has a modified version of stock android on it.). This guide expects from you that you know at least the basics regarding Android Modding and the Linux Terminal / Windows CMD! Do your research! This guide uses the Unihertz Titan Stock UFS Android 10 as Base and with the last Update at that point (07.08.2022 - Android 10.0). In this guide I install a vanilla gsi (clean from anything, that means fully FOSS and AOSP). There are always multiple links (Mirrors, the Main posts, related stuff and the files them self. It's important that you read what the files do / are needed for!). We will use AOSP 12.1 v414 by phhusson (system-squeak-arm64-ab-vanilla.img) in this guide.
     </h3>
     <h3>Anyway. I hope you find this documentation of my time intensive research useful! As always: IF YOU TRY ANYTHING WRITTEN ON THIS BLOG YOU ARE DOING IT AT YOUR OWN RISK! IT SHOULD BE OBVIOUS! DON'T COME TO ME CRYING IF SOMETHING WENT WRONG. THAT'S YOUR PROBLEM AND ONLY YOURS!</h3>
-    <h3>First check what type of flash you have. As the title of this entry says this is only for UFS-Flash Titans. If you have an EMMC Titan then you need to look how to do it for yourself!!! Lets Check</h3>
+    <h3>First check what type of flash you have. As the title of this entry says this is only for UFS-Flash Titans. If you have an EMMC Titan then you need to look how to do it for yourself!!! Lets Check:</h3>
     <h3>You can use Device Info HW (<a href="https://play.google.com/store/apps/details?id=ru.andr7e.deviceinfohw&hl=de&gl=US">https://play.google.com/store/apps/details?id=ru.andr7e.deviceinfohw&hl=de&gl=US</a> - See Image below) or download Androbench and check your Sequential Read Speed. Above 450 mbps is UFS, below EMMC (<a href="https://unihertz-titan.neocities.org/">https://unihertz-titan.neocities.org/</a>).</h3>
+    
     <a href=""><img src="DATA/Hw-Info.png" alt="Screenshot of Device Info HW, Blured with Flash Type marked" style="width:400px;height:400px";></a>
-    <h3>When you are VERY VERY VERY VERY sure that your Titan is UFS then continue. WARNING: YOU WILL LOSE ALL DATA ON THE PHONE! BACKUP THEM UP!</h3>
-    <h3><u>Preparation and what to do in the worst case:</u> Make ABSOLUTLY sure you have a working Sp-Flash-Tool v5.2152 !BEFORE! something goes wrong. If you get a bootloop you can use it to get it back to boot. Just flash what you messed up. Download Agent: /DA_PL.bin. Add the Scatter-loading File. Download Only. Now mark your broken partitions. In most cases System.img or/and Boot.Img. Now press Download! Lets hope you  will never need this. But sadly on the Titan there is nearly no way to get into the fastboot mode without a working rom. As soon you get a bootloop you need a way to reflash the stock system.img to get it un-SoftBricked. How stupid!</h3>
+    
+    <h3>When you are VERY VERY VERY VERY sure that your Titan is UFS then continue. WARNING: YOU WILL LOSE ALL DATA ON THE PHONE! DO A BACKUP UP!</h3>
+    <h3><u>Preparation and what to do in the worst case:</u> Make ABSOLUTLY sure you have a working Sp-Flash-Tool v5.2152 !BEFORE! something goes wrong. If you get a bootloop you can use it to get it back to boot. Just flash what you messed up. Download Agent: /DA_PL.bin. Add the Scatter-loading File. Download Only. Now mark your broken partitions. In most cases System.img or/and Boot.Img. Now press Download! Lets hope you  will never need this. But sadly on the Titan there is nearly no way to get into the fastboot mode without a working rom. As soon as you get a bootloop you need a way to reflash the stock system.img to get it un-SoftBricked. How stupid!</h3>
     <h3>FlashTool:</h3>
-    <a href="https://spflashtools.com/linux/sp-flash-tool-v5-2152-for-linux">https://spflashtools.com/linux/sp-flash-tool-v5-2152-for-linux</a><
+    <a href="https://spflashtools.com/linux/sp-flash-tool-v5-2152-for-linux">https://spflashtools.com/linux/sp-flash-tool-v5-2152-for-linux</a>
     <br>
     <br>
     <h3>Firmware SPECIFIC and ONLY for the Unihert Titan [UFS]</h3>
-    <a href="https://drive.google.com/file/d/1FncSM6FBzJKhrwknEOh3utqkAcMvSfxU/view">https://drive.google.com/file/d/1FncSM6FBzJKhrwknEOh3utqkAcMvSfxU/view</a><
+    <a href="https://drive.google.com/file/d/1FncSM6FBzJKhrwknEOh3utqkAcMvSfxU/view">https://drive.google.com/file/d/1FncSM6FBzJKhrwknEOh3utqkAcMvSfxU/view</a>
     <br>
-    <a href="https://drive.google.com/file/d/1Jw2ef4prAeytUI6DfyWQEELT8ojjmQKW/view">https://drive.google.com/file/d/1Jw2ef4prAeytUI6DfyWQEELT8ojjmQKW/view</a><
+    <a href="https://drive.google.com/file/d/1Jw2ef4prAeytUI6DfyWQEELT8ojjmQKW/view">https://drive.google.com/file/d/1Jw2ef4prAeytUI6DfyWQEELT8ojjmQKW/view</a>
     <br>
     <a href="https://drive.google.com/file/d/1Jw2ef4prAeytUI6DfyWQEELT8ojjmQKW/view
     https://discord.com/channels/722458117266210887/722494185776611399/884722461340479509">https://drive.google.com/file/d/1Jw2ef4prAeytUI6DfyWQEELT8ojjmQKW/view
     https://discord.com/channels/722458117266210887/722494185776611399/884722461340479509</a>
     <br>
 
-    <h3>Now to the imporant part:</h3>
+    <h3>Now to the imporant part:</h3>   
     <h3>First, why are there different ways to do an unlock and gsi-flash between EMMC and UFS?:</h3>
     <a href="https://github.com/phhusson/unihertz_titan/issues/5">https://github.com/phhusson/unihertz_titan/issue/5</a>
     <br>
-    <h3>The modified boot image (You need the one with the vbmeta patch [magisk_patched-24000_Xkyu1_vbmeta. img] (that checks on boot if the System was modified (Hash-Check))). When it is patched you can boot what you want like it is on a PC:</h3>
+    <h3>The GSI [<b>system-squeak-arm64-ab-vanilla</b>/FLOSS/GAPPS/GOGAPPS.img]:</h3>    
+    <a href="https://github.com/phhusson/treble_experimentations/releases/">https://github.com/phhusson/treble_experimentations/releases/</a>
+    <h3>The modified boot image (You need the one with the vbmeta patch [magisk_patched-24000_Xkyu1_vbmeta.img] (that checks on boot if the System was modified (Hash-Check))). When it is patched you can boot what you want like it is on a PC:</h3>
     <a href="https://discord.com/channels/722458117266210887/722618142039343114/936872357878988831">https://discord.com/channels/722458117266210887/722618142039343114/936872357878988831</a>
     <br>
     <a href="https://drive.google.com/drive/u/1/folders/1Yd8MYADjbeaXQMudyUYQkmqIKTSH4M9g">https://drive.google.com/drive/u/1/folders/1Yd8MYADjbeaXQMudyUYQkmqIKTSH4M9g</a>
@@ -140,6 +144,7 @@
       <li><a href="https://github.com/SolidHal">https://github.com/SolidHal</a></li>
       <li><a href="https://unihertz-titan.neocities.org/">https://unihertz-titan.neocities.org/</a></li>
       <li><a href="https://github.com/phhusson/treble_experimentations/releases/tag/v414">https://github.com/phhusson/treble_experimentations/releases/tag/v414</a></li>
+      <li><a href="https://github.com/phhusson/treble_experimentations/releases/">https://github.com/phhusson/treble_experimentations/releases/</a></li>
       <li><a href="https://www.blackberrybase.net/showthread.php?140145-Android12-auf-dem-Titan">https://www.blackberrybase.net/showthread.php?140145-Android12-auf-dem-Titan</a></li>
       <li><a href="https://www.blackberrybase.net/forumdisplay.php?842-Titan">https://www.blackberrybase.net/forumdisplay.php?842-Titan</a></li>
       <li><a href="https://www.blackberrybase.net/showthread.php?139504-Titan-gerootet!">https://www.blackberrybase.net/showthread.php?139504-Titan-gerootet!</a></li>
