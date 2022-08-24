@@ -31,13 +31,15 @@
     <br>
     <a href="https://unihertz-titan.neocities.org/">https://unihertz-titan.neocities.org/</a>
     <br>
-    <h3>Now to the imporant part:</h3>   
+    <h3>Now to the imporant part. What you need to know, to have and to do:</h3>   
     <h3>First, why are there different ways to do an unlock and gsi-flash between EMMC and UFS?:</h3>
     <a href="https://github.com/phhusson/unihertz_titan/issues/5">https://github.com/phhusson/unihertz_titan/issue/5</a>
     <br>
     <h3>The GSI (In my case the AOSP 12.1 v414) [system-squeak-arm64-ab-vanilla/FLOSS/GAPPS/GOGAPPS.img]:</h3>    
     <a href="https://github.com/phhusson/treble_experimentations/releases/">https://github.com/phhusson/treble_experimentations/releases/</a>
-    <h3>The modified boot image (You need the one with the vbmeta patch [magisk_patched-24000_Xkyu1_vbmeta.img] (that checks on boot if the System was modified (Hash-Check))). When it is patched you can boot what you want like it is on a PC:</h3>
+    <h3>A modified boot image (A modified boot.img with the vbmeta patched. It checks if your System was modified before booting). The easiest way to make one is to get the boot.img for your Titan (From your Firmware Archive for the SPFlashTool) and patch it with Magisk. It has an option to patch vbmeta in the boot.img. When it is patched you can boot what you want, similar to a PC:</h3>
+    <a href="https://github.com/topjohnwu/Magisk">https://github.com/topjohnwu/Magisk</a>
+    <h3>If you really REALLY don't want to do this yourself, you could use this boot.img from the Titan Discord. I highly HIGHLY recommend you do it yourself for security reasons! If you still choice to go this route, here is a link to it:</h3>
     <a href="https://discord.com/channels/722458117266210887/722618142039343114/936872357878988831">https://discord.com/channels/722458117266210887/722618142039343114/936872357878988831</a>
     <br>
     <h3>Enable the Developer-Options and then enable USB-Debugging in the Developer settings, connect your computer and then do the following in the terminal:</h3>
@@ -48,7 +50,7 @@
     <p><u><i>adb reboot fastboot</i></u></p>
     <p><u><i>fastboot -w</i></u></p>
     <p><u><i>fastboot erase system</i></u></p>
-    <p><u><i>fastboot flash boot magisk_patched-24000_Xkyu1_vbmeta.img</i></u></p>
+    <p><u><i>fastboot flash boot YOUR_PATCHED_BOOT.img</i></u></p>
     <p><u><i>fastboot fastboot flash system system-squeak-arm64-ab-vanilla.img</i></u></p>
     <p><u><i>fastboot reboot</i></u></p>
     <h3>After some time (Without a second reboot) the Unihertz logo should disappear and most likely you get a black screen. THAT'S GOOD! That means that the GSI is booting!!! Most boot logos don't work on the 1:1 screen of the Titan I discovered.</h3>
