@@ -118,6 +118,8 @@
 
     <h3>FIXES/WORKAROUNDs:</h3>
     <ul>
+      <li>Disable USB-Debugging after you're done with installing. For some reason some GSI's run better with it disabled (GSI's were made by Google to make debugging is easier and cheaper for developers). Could be that there is some background output with it enabled. It is also safer to keep it disabled.</li>
+      <li>On some GSI's the System-App "Intent Filter Verification Service" keeps Crashing. If that's the case you can disable it with the following ADB-Command (I didn't find any negative impact by doing this for now.): <i><u>adb shell pm disable-user com.android.statementservice</u><i></i></li>
       <li>I needed to set my APN manually to get mobile internet to work. After that it worked perfectly!</li>
       <li>Headphone Jack works (Enable: Settings/Phh Treble Settings/Misc features/Use alternate way to detect headsets. Then REBOOT! Now it works!)</li>
       <li>The Stock Camera app is a bit buggy with the weird camera format of the Titan, OpenCamera with 1:1 aspect ratio fixed it (it can be a bit annoying to find all the perfect settings for the current phone, but after everything is dialed in its literally the best camera app out there). Every camera app with custom/more aspect ratios will work.</li>
@@ -196,6 +198,6 @@
       <li><a href="https://github.com/TrebleDroid/treble_experimentations">https://github.com/TrebleDroid/treble_experimentations</a></li>
       <li><a href="https://github.com/TrebleDroid/treble_experimentations/releases">https://github.com/TrebleDroid/treble_experimentations/releases</a></li>
     </ul>
-    <h5>2022.11.10 - 15:12</h5>  
+    <h5>2022.11.10 - 16:12</h5>  
   </body>
 </html>
