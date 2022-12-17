@@ -53,8 +53,8 @@
     <br>
     <h3>The only thing missing to get Linux to boot with the GPU as the Display-Output is the Firmware. Most Distors will not have the firmware files for some time, so you need to force the Kernel to use them.</h3>
     <h3>Download the newest Linux Firmware .tar.gz: <a href="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git">https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git</a></h3>
-    <h3>Now you need to put all AMDGPU files in your Firmware folder (I highlight recommend that you backup the "/lib/firmware/amdgpu/" before using this command):</h3>
-    <p><u><i>sudo cp ../linux-firmware/amdgpu/* /lib/firmware/amdgpu/</i></u></p>
+    <h3>Now you need to put all AMDGPU files in your Firmware folder (I highlight recommend that you backup "/lib/firmware/amdgpu/" before using this command):</h3>
+    <p><u><i>sudo cp "PATH TO ARCHIVE"/linux-firmware/amdgpu/* /lib/firmware/amdgpu/</i></u></p>
     <br>
     <h3>The only thing missing now is to rebuild the initframfs. After that, the Kernel should recognize the GPU:</h3>
     <p><u><i>sudo update-initramfs -c -k $(uname -r)</i></u></p>
