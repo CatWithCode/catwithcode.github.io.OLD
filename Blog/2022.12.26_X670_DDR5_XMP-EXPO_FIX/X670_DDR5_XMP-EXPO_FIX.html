@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"> 
+  <head>
+    <script src="https://catwithcode.github.io/Assets/GetHead.js"></script>
+    <title>CatWithCode - AM5, X670, DDR5 and fixing XMP/EXPO</title>
+  </head>
+  <body align="left" onload="createiFrame()">
+    <script src="https://catwithcode.github.io/Assets/GetTopBar.js"></script>
+    
+    <h1>AM5, X670, DDR5 and fixing XMP/EXPO</h1>    
+    <h3>I had the issue that my "Gigabyte X670 GAMING X AX" with "F5a"-BIOS together with an "AMD Ryzen 9 7900X" and "32GB (2x 16GB) G.Skill Trident Z5 RGB black DDR5-6000 DIMM CL40-40-40-96 Dual Kit" - "F5-6000J4040F16GX2-TZ5RK" with XMP enabled was not stable.</h3>
+    <h3>After a lot of trial and error I found out that it actually was stable <u>on the first boot</u>! That was the key to the issue. After contacting the Gigabyte Supoort and making sure that this hardware combination is actually tested by them (the Gigabyte labs confirmed that is stable with a screenshot. THX Gigabyte Support! You rock!) I was on the right way. After some more research I found an article that mentioned that there Overclocking was a lot more stable when they disabled "Memory Context Restore"! This Mainboard takes forever to boot up and a few more seconds are negligible in this case. SO I tried it. I enabled "XMP", "Low Latancy Supoort", "XMP High Bandwidth Supoort" and disabled the "Memory Context Restore"! IT WORKS NOW! The only thing still broken is sleep mode in Linux (IDK. about Windows. I don't use it). All of this can be avoided after Gigabyte fixes this issue in a new BIOS version. It's bleeding edge hardware and issues are to be expected! After that XMP would just work and Sleepmode would also not be broken with it enabled. It seems like a BIOS issue with certain RAM and CPU combinations. For now we just need to wait, don't use sleep mode and use this workaround.</h3>
+    <br>
+    <h1><u>HOW I FIXED IT!:</u></h1>
+    <h3>Tweaker -> Extreme Memory Profile (XMP/EXPO) = Enabled</h3>
+    <h3>Tweaker -> Low Latancy Supoort = Enabled</h3>
+    <h3>Tweaker -> XMP High Bandwidth Supoort = Enabled</h3>
+    <h3>Tweaker -> Advanced Memory Settings -> Power Down Enable = Diabled</h3>
+    <h3>Settings -> AMD CBS -> UMC Common Options -> DDS Options -> DDR Memory Features -> Memory Context Restore = Disabled</h3>
+    <br>
+    <h3>I informed Gigabyte about my findings and hope they can fix it in an update!</h3>
+    <h3>A lot of thanks to the people behind this article <a href="https://skatterbencher.com/2022/10/09/skatterbencher-46-amd-ryzen-9-7900x-overclocked-to-5900-mhz/">https://skatterbencher.com/2022/10/09/skatterbencher-46-amd-ryzen-9-7900x-overclocked-to-5900-mhz/</a>. It was the key at the end to get it fixed!</h3>
+    <b>Sources:</b>
+    <ul>
+      <li><a href="https://skatterbencher.com/2022/10/09/skatterbencher-46-amd-ryzen-9-7900x-overclocked-to-5900-mhz/">https://skatterbencher.com/2022/10/09/skatterbencher-46-amd-ryzen-9-7900x-overclocked-to-5900-mhz/</a></li>
+      <li><a href="https://skatterbencher.com/2022/10/09/skatterbencher-46-amd-ryzen-9-7900x-overclocked-to-5900-mhz/#Memory_Context_Restore">https://skatterbencher.com/2022/10/09/skatterbencher-46-amd-ryzen-9-7900x-overclocked-to-5900-mhz/#Memory_Context_Restore</a></li>
+      <li><a href="https://esupport.gigabyte.com">https://esupport.gigabyte.com</a></li>
+      <li><a href="https://www.gigabyte.com/Motherboard/X670-GAMING-X-AX-rev-10/support#support-dl-bios">https://www.gigabyte.com/Motherboard/X670-GAMING-X-AX-rev-10/support#support-dl-bios</a></li>
+      <li><a href="https://www.gigabyte.com/Motherboard/X670-GAMING-X-AX-rev-10/support#support-memsup">https://www.gigabyte.com/Motherboard/X670-GAMING-X-AX-rev-10/support#support-memsup</a></li>
+      <li><a href="https://www.gskill.com/product/165/374/1640229971/F5-6000J4040F16GX2-TZ5RK-F5-6000J4040F16GA2-TZ5RK">https://www.gskill.com/product/165/374/1640229971/F5-6000J4040F16GX2-TZ5RK-F5-6000J4040F16GA2-TZ5RK</a></li>
+      <li><a href="https://www.reddit.com/r/buildapc/comments/r00w8t/xmp_profile_on_msi_z690_motherboard_prevents/">https://www.reddit.com/r/buildapc/comments/r00w8t/xmp_profile_on_msi_z690_motherboard_prevents/</a></li>
+      <li><a href="https://youtu.be/XNw8bakYc0w">https://youtu.be/XNw8bakYc0w</a></li>
+      <li><a href="https://youtu.be/j2HrrpwTsCE">https://youtu.be/j2HrrpwTsCE</a></li>
+      <li><a href="https://youtu.be/Bi7jPcqOntk">https://youtu.be/Bi7jPcqOntk</a></li>
+    </ul>    
+    <h5>2022.12.26 - 15:45</h5>  
+  </body>
+</html>
