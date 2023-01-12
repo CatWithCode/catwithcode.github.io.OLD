@@ -96,7 +96,8 @@
     <ul>
       <li>AOSP 12.1 v414 - Android 12 - (phh (phhusson)) - Works, except for the Keyboard-Backlight.</li>
       <li>Lineage-19.1-20221011-UNOFFICIAL-arm64_bvS - Android 12 - (AndyYan) - Really fast and stable.</li>
-      <li>/e/OS 1.4 20220924220853 - Android 10 - (E Foundation) - Works great! Fast! Android 10... :S.</li>
+      <li>/e/OS 1.4 20220924220853 - Android 10 - (E Foundation) - Works great! Fast! Android 10... :S. (Needs the "Use alternate way to detect headsets"-Fix with the adb command! THE OPTION IS MISSING! USE THE ADB COMAND FROM THE "FIXES/WORKAROUNDs"-SECTION)</li>
+      <li>/e/OS 1.6 20221204240086 - Android 10 - (E Foundation) - Works even better then v1.4! Fast! Android 10... :S. (Needs the "Use alternate way to detect headsets"-Fix with the adb command! THE OPTION IS MISSING! USE THE ADB COMAND FROM THE "FIXES/WORKAROUNDs"-SECTION)</li>
       <li>LineageOS 20 "Light" - 20221109 - Android 13 - (AndyYan) - DOSE !NOT! BOOT! Unknown why. It tries to boot and after 2 tries shows a screen where it wants to format the DATA-Partition which does not work.</li>
       <li>Android_13.0.0_r14 ci-20221113 - Android 13 - (TrebleDroid Builders) - Works as good as any other phh (phhusson) GSI, because they are the successor of them. Uses a lot of battery and is very slow on the Unitherz Titan (Seems like it is a Unihertz Titan specific issue). Keyboard-Backlight still dose not work. Many AOSP-Stock-System-App's are so outdated that they don't work all that well today (Contacts, Gallery, ...). You can replace them with alternatives (App's from SimpleMobileTools for exapmle).</li>
       <li>LineageOS-20.0-20221111-UNOFFICIAL-arm64_bvS - TD-based (android_13.0.0_r14 ci-20221113) - Android 13 - (AndyYan) - Works great! VERY Fast!</li>
@@ -125,6 +126,7 @@
       <li>On some GSI's the System-App "Intent Filter Verification Service" keeps Crashing. If that's the case you can disable it with the following ADB-Command (I didn't find any negative impact by doing this for now.): <i><u>adb shell pm disable-user com.android.statementservice</u></i></li>
       <li>I needed to set my APN manually to get mobile internet to work. After that it worked perfectly!</li>
       <li>Headphone Jack works (Enable: Settings/Phh Treble Settings/Misc features/Use alternate way to detect headsets. Then REBOOT! Now it works!)</li>
+      <li>If the "Use alternate way to detect headsets" dose not exist in your PHH-Settings you can enable it with "adb root" and then "adb shell setprop persist.sys.overlay.devinputjack true". Now reboot!</li>
       <li>The Stock Camera app is a bit buggy with the weird camera format of the Titan, OpenCamera with 1:1 aspect ratio fixed it (it can be a bit annoying to find all the perfect settings for the current phone, but after everything is dialed in its literally the best camera app out there). Every camera app with custom/more aspect ratios will work.</li>
       <li>Very stable! Some debug settings cause forced reboots, but they work after that.</li>
       <li><strike>The Screen rotation can be a little buggy sometimes because of the resolution of the Titan (1440x1440 - 1:1). The stock rotation manager is not there anymore thx to the GSI. To FORCE all Apps to be in portrait mode use a Rotation Manager App. I recommend this OpenSource App [It is a little old but still works perfectly. Nice job!]: <a href="https://f-droid.org/en/packages/com.spydiko.rotationmanager_foss/">https://f-droid.org/en/packages/com.spydiko.rotationmanager_foss/</a></strike> DON'T USE THE Rotation Manager FROM THE F-DROID STORE ON GSIs ON THE TITAN! IT SADLY CAUSES RANDOM REBOOTS IN THIS SCENARIO! USE SOMETHING ELSE (I'm still searching for a good replacement myself.)!!!</li>
@@ -207,7 +209,8 @@
       <li><a href="https://f-droid.org/de/packages/mattecarra.accapp/">https://f-droid.org/de/packages/mattecarra.accapp/</a></li>
       <li><a href="https://github.com/MatteCarra/AccA">https://github.com/MatteCarra/AccA</a></li>
       <li><a href="https://github.com/VR-25/acc">https://github.com/VR-25/acc</a></li>
+      <li><a href="https://forum.xda-developers.com/t/fix-brightness-slider-and-headphone-bug-for-any-gsi-rom.4172145/">https://forum.xda-developers.com/t/fix-brightness-slider-and-headphone-bug-for-any-gsi-rom.4172145/</a></li>
     </ul>
-    <h5>2022.11.19 - 12:08</h5>  
+    <h5>2023.01.12 - 23:38</h5>  
   </body>
 </html>
