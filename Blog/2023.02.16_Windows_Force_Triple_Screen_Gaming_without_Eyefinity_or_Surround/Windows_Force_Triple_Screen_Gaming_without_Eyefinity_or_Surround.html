@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"> 
+  <head>
+    <script src="https://catwithcode.github.io/Assets/GetHead.js"></script>
+    <title>CatWithCode - Force Triple Screen Gaming without Eyefinity or Surround on Windows</title>
+  </head>
+  <body align="left" onload="createiFrame()">
+    <script src="https://catwithcode.github.io/Assets/GetTopBar.js"></script>
+    
+    <h1>Force Triple Screen Gaming without Eyefinity or Surround on Windows</h1>    
+    <h3>I wanted to play Racing-Games and others in a very weird tripple screen setup on windows. It is a Portrait Lanscape Portrait (PLP) -Setup. And to top it off, it is P1080p-60hz, L1440p-165hz-P1080p-60hz.</h3>
+    <h3>As you already expected to set up Eyefinity or Surround is impossible these days with such a specific setup. AMD allowed such things in their old driver but not in the newer ones. And in general triple screen gaming is as janky and bad as it always was. Especially if you use your PC for anything else than one game and setup. So... I tried other solutions. Form third party software to modded drivers to finding the custom resolutions of the driver in the registry directly and modifying them with a hex-editor and even modified display capabilities-data with CRU, but nothing worked. The goal at the end is to expose a resolution to the game that makes it scale over all screens.</h3>
+    <h3>I found a solution: First I need to set the needed resolution in the game I want to play, in this case (4720x1440). Most games don't allow that (Assetto Corsa (Content Manager) is one of the few exceptions out there It allows it and just setting this resolution in the settings is enough for it works perfectly. But for most games you need to go into the Config-Files and put the resolution there. The game must be windowed too. Most of the time setting it in the config is enough, sometimes (Forza horizon 5 for example) you need to set it windowed every time or just press ALT+RETURN (ALT+ENTER) to switching it into some kind of window mode (getting games into some kind windowed-mode is <u>always</u> possible.</h3>
+    <h3>After the config stuff there is only one thing missing. There is a program called SRWE (Simple Runtime Window Editor). It allows you to manipulate program windows (not modifying the game, just the rendering window object of windows). First off, you MUST create a profile! Setting the details when everything is already running dose not work! Create a profile in it with the right settings. I want the left site of the window to be on the left site of the left screen (obviously), so I set X to -1080 (The current width resolution of my left screen). Then I set width 4720 and height 1440, now I save the profile. I start my game, make it windowd or borderless if necessary And then I go into SRWE and select the game, set the checkmark on the top most entry on the left and then I load the profile and I'm done. Sometimes games reset there window when ALT+TAB is pressed, then I just reload the profile and go back into the game. After days of testing I could not find any game it dose not work with (Games where it makes sense like first/third person games or racing games and stuff like this). It is janky and a little finicky but the best solution for now and it works relatively reliable (even in comparison to Eyefinity or Surround LOL).</h3>
+    <h3>Everything useful I found while researching is also in the Sources-Section.</h3>
+
+    <h3>The Tool: <a href="https://github.com/dtgDTGdtg/SRWE">https://github.com/dtgDTGdtg/SRWE</a></h3>
+
+    <b>Sources:</b>
+    <ul>
+      <li><a href="https://github.com/dtgDTGdtg/SRWE">https://github.com/dtgDTGdtg/SRWE</a></li>
+      <li><a href="https://www.pcgamingwiki.com/wiki/Home">https://www.pcgamingwiki.com/wiki/Home</a></li>
+      <li><a href="https://www.wsgf.org/">ttps://www.wsgf.org/</a></li>
+      <li><a href="https://youtu.be/-irPlVdDdJo">https://youtu.be/-irPlVdDdJo</a></li>
+      <li><a href="https://youtu.be/8b-KOMFb8To">https://youtu.be/8b-KOMFb8To</a></li>
+      <li><a href="https://youtu.be/ePMIn1LbgFg">https://youtu.be/ePMIn1LbgFg</a></li>
+      <li><a href="https://youtu.be/sWWGpQVHJh8">https://youtu.be/sWWGpQVHJh8</a></li>
+      <li><a href="https://www.monitortests.com/forum/Thread-Custom-Resolution-Utility-CRU">https://www.monitortests.com/forum/Thread-Custom-Resolution-Utility-CRU</a></li>
+      <li><a href="https://www.patreon.com/ToastyX">https://www.patreon.com/ToastyX</a></li>
+      <li><a href="https://www.monitortests.com/forum/Thread-Scaled-Resolution-Editor-SRE">https://www.monitortests.com/forum/Thread-Scaled-Resolution-Editor-SRE</a></li>
+      <li><a href="https://www.monitortests.com/forum/Thread-AMD-ATI-Pixel-Clock-Patcher">https://www.monitortests.com/forum/Thread-AMD-ATI-Pixel-Clock-Patcher</a></li>
+      <li><a href="https://www.monitortests.com/forum/Thread-NVIDIA-Pixel-Clock-Patcher">https://www.monitortests.com/forum/Thread-NVIDIA-Pixel-Clock-Patcher</a></li>
+      <li><a href="https://www.thewindowsclub.com/how-to-create-set-custom-resolution-on-windows">https://www.thewindowsclub.com/how-to-create-set-custom-resolution-on-windows</a></li>
+      <li><a href="https://www.amd.com/en/support/kb/faq/dh3-032">https://www.amd.com/en/support/kb/faq/dh3-032</a></li>
+      <li><a href="https://www.techwalla.com/articles/how-to-force-a-resolution-in-windows-using-the-registry">https://www.techwalla.com/articles/how-to-force-a-resolution-in-windows-using-the-registry</a></li>
+      <li><a href="https://community.amd.com/t5/drivers-software/how-to-add-custom-vsr-resolution/td-p/478815">https://community.amd.com/t5/drivers-software/how-to-add-custom-vsr-resolution/td-p/478815</a></li>
+      <li><a href="https://www.reddit.com/r/AMDHelp/comments/awaard/cannot_create_a_custom_resolution/">https://www.reddit.com/r/AMDHelp/comments/awaard/cannot_create_a_custom_resolution/</a></li>
+      <li><a href="https://www.reddit.com/r/AMDHelp/comments/awaard/comment/ehl72vl/?utm_source=share&utm_medium=web2x&context=3">https://www.reddit.com/r/AMDHelp/comments/awaard/comment/ehl72vl/?utm_source=share&utm_medium=web2x&context=3</a></li>
+      <li><a href="https://www.reddit.com/r/cloudygamer/comments/jisq43/how_to_delete_resolutions_on_windows_useful_for/">https://www.reddit.com/r/cloudygamer/comments/jisq43/how_to_delete_resolutions_on_windows_useful_for/</a></li>
+      <li><a href="https://social.technet.microsoft.com/Forums/windows/en-US/8e35fe49-6f89-4476-b138-c24a93d98089/change-the-screen-resolution-using-registry-or-command-line?forum=w7itprogeneral">https://social.technet.microsoft.com/Forums/windows/en-US/8e35fe49-6f89-4476-b138-c24a93d98089/change-the-screen-resolution-using-registry-or-command-line?forum=w7itprogeneral</a></li>     
+    </ul>    
+    <h5>2023.02.17 - 00:26</h5>  
+  </body>
+</html>
