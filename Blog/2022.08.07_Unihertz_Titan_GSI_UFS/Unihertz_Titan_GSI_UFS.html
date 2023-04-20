@@ -96,7 +96,7 @@
     <ul>
       <li>AOSP 12.1 v414 - Android 12 - (phh (phhusson)) - Works, except for the Keyboard-Backlight.</li>
       <li>Lineage-19.1-20221011-UNOFFICIAL-arm64_bvS - Android 12 - (AndyYan) - Really fast and stable.</li>
-      <li>[/e/OS 1.4 20220924220853 - /e/OS 1.6 20221204240086 - /e/OS 1.7 20230113251029] - Android 10 - (E Foundation) - Works great! Fast! Android 10... :S. [Needs the "Use alternate way to detect headsets"-Fix with the adb command (THE OPTION IS MISSING! USE THE ADB COMAND FROM THE "FIXES/WORKAROUNDs"-SECTION) and the Linear brightness slider from the "FIXES/WORKAROUNDs"-SECTION.]</li>
+      <li>[/e/OS 1.4 20220924220853 - /e/OS 1.6 20221204240086 - /e/OS 1.7 20230113251029 - /e/OS 1.9 20230312268823 - /e/OS 1.10 20230417280390] - Android 10 - (E Foundation) - Works great! Fast! Android 10... :S. [Needs the "Use alternate way to detect headsets"-Fix with the adb command (THE OPTION IS MISSING! USE THE ADB COMAND FROM THE "FIXES/WORKAROUNDs"-SECTION) and the Linear brightness slider from the "FIXES/WORKAROUNDs"-SECTION.]</li>
       <li>LineageOS 20 "Light" - 20221109 - Android 13 - (AndyYan) - DOSE !NOT! BOOT! Unknown why. It tries to boot and after 2 tries shows a screen where it wants to format the DATA-Partition which does not work.</li>
       <li>Android_13.0.0_r14 ci-20221113 - Android 13 - (TrebleDroid Builders) - Works as good as any other phh (phhusson) GSI, because they are the successor of them. Uses a lot of battery and is very slow on the Unitherz Titan (Seems like it is a Unihertz Titan specific issue). Keyboard-Backlight still dose not work. Many AOSP-Stock-System-App's are so outdated that they don't work all that well today (Contacts, Gallery, ...). You can replace them with alternatives (App's from SimpleMobileTools for exapmle).</li>
       <li>LineageOS-20.0-20221111-UNOFFICIAL-arm64_bvS - TD-based (android_13.0.0_r14 ci-20221113) - Android 13 - (AndyYan) - Works great! VERY Fast!</li>
@@ -134,7 +134,11 @@
     </ul>
     
     <h3>One interesting thing is that, on the Stock-ROM, I never got ANY SD-Card to work. But on GSI-Rom's it worked perfectly. On Stock it formatted the SD-Card but then treated it like it was a new one and asked for formatting again. This circle of formatting never ended, but on GSI's it worked perfectly.</h3>
-
+    <h3>Also: One thing that can extend battery life even further is to lower the resolution. I tried around and half works best. That means going from 1440x1440@400dpi to 720x720@200dpi. Is it noticeable? Yes, its a little bit more blurry, but thats it. The Titan does not have the best screen to begin with, to be honest. But even more battery life for a slightly worse image sounds good to me, the image was never great to begin with. Before I had around 3 days battery life, now it is around 3.5 to 4. and thats with it driven daily for around a year and a half now. If you want to do it too, here are the commands (Needs Android adb enabled for execution, should be disabled after that for security and performance. Be sure to copy everything, this can make the UI unusable if mistyped or miscopied):</h3>
+    <p>720p (Lower):</p>
+    <p><u><i>adb shell wm size 720x720 && adb shell wm density 200</i></u></p>
+    <p>1440p (Original)</p>
+    <p><u><i>adb shell wm size 1440x1440 && adb shell wm density 400</i></u></p>
     <br>
     <h3>I hope I could help you with the documentation of my adventures with Unihertz Titan Modding on a UFS-Model.</h3>
     <br>
@@ -210,7 +214,8 @@
       <li><a href="https://github.com/MatteCarra/AccA">https://github.com/MatteCarra/AccA</a></li>
       <li><a href="https://github.com/VR-25/acc">https://github.com/VR-25/acc</a></li>
       <li><a href="https://forum.xda-developers.com/t/fix-brightness-slider-and-headphone-bug-for-any-gsi-rom.4172145/">https://forum.xda-developers.com/t/fix-brightness-slider-and-headphone-bug-for-any-gsi-rom.4172145/</a></li>
+      <li><a href="https://stackoverflow.com/questions/33931612/how-to-use-adb-to-change-resolution-of-device">https://stackoverflow.com/questions/33931612/how-to-use-adb-to-change-resolution-of-device</a></li>
     </ul>
-    <h5>2023.01.23 - 09:15</h5>  
+    <h5>2023.04.19 - 20:15</h5>  
   </body>
 </html>
