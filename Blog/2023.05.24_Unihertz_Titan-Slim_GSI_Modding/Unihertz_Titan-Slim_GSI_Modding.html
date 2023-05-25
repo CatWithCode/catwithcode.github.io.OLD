@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://catwithcode.github.io/Assets/GetHead.js"></script>
+    <title>CatWithCode - Unihertz Titan Slim - GSI's and Modding</title>
+  </head>
+  <body align="left" onload="createiFrame()">
+    <script src="https://catwithcode.github.io/Assets/GetTopBar.js"></script>
+    
+    <h1>Unihertz Titan Slim - GSI's and Modding</h1>    
+    <h3>It's me again trying to mod Unihertz Titan Phone. But this time all of the sesearch and documentation (and even development) work was already done by <a href="https://github.com/rumplestilzken">rumplestilzken @ Github</a> with absolutely great tools and documentation. This entry is only to show in what order I did everything and how it worked out. This one will be written more like a continues Blog entry because I'm writing this over the time I wait for the phone to arrive until I have it modded and working. Last time I modded a Unihertz and wrote an entry about it I primarily did research and testing. The development and reverse engineering was already done, just not in one place and all over the internet.</h3>
+    <h3>This time no stupid UFS and EMMC stuff. Only a VM with Ubuntu and easy to follow guide form rumplestilzken. Just doing everything rumplestilzken documented! THANKS AGAIN TO THEM! YOU ARE DOING SUCH A GREAT JOB!!!</h3>
+    <h3>As last time, it is important that you have all files prepared, the phone charged and a working SP Flash Tool!!!</h3>
+    <h3>If somthing goes wrong reflash the original file with fastboot or, if not accessible, SP Flash Tool. In most cases vbmeta, boot.img or the super.img.</h3>
+    <br>
+    <h3>What I did and how it went:</h3>
+    <ul>
+      <li><h2><b><u>1. Creating the Custom Rom super.img:</u></b></h2></li>
+      <li>Downloading the Stock.img, Downloading Andy Yan's "lineage-20.0-20230507-UNOFFICIAL-arm64_bvN.img.xz"-GSI, preparing the "mksuper" tools from rumplestilzken, following their guide to creating a super.img with the command: <p><u><i>python3 mksuper.py -dev slim</i></u></p></li>
+      <li><h2><b><u>2. Preparing, Unlocking and Reseting the phone:</u></b></h2></li>
+      <li>Starting the phone</li>
+      <li>Testing everything for a few days to make sure the Hardware works to 100%, because warranty.</li>
+      <li>Going into the settings, enabling "OEM Unlock" and "USB-Debugging"</li>
+      <li><p><u><i>adb reboot bootloader</i></u></p></li>
+      <li><p><u><i>fastboot flashing unlock</i></u></p></li>
+      <li>YES</li>
+      <li>Going into the settings again, enabling "OEM Unlock" and "USB-Debugging</li>
+      <li><h2><b><u>3. Rooting the phone:</u></b></h2></li>
+      <li>Preparing a boot.img with the Magisk App (with vbmeta-patches)</li>
+      <li><p><u><i>adb reboot bootloader</i></u></p></li>
+      <li><p><u><i>fastboot flash boot magisk-boot.img</i></u></p></li>
+      <li><p><u><i>fastboot flash --disable-verity --disable-verification vbmeta vbmeta.img</i></u></p></li>
+      <li><p><u><i>fastboot flash --disable-verity --disable-verification vbmeta_system vbmeta_system.img</i></u></p></li>
+      <li><p><u><i>fastboot flash --disable-verity --disable-verification vbmeta_vendor vbmeta_vendor.img</i></u></p></li>
+      <li><p><u><i>fastboot reboot</i></u></p></li>
+      <li>Checking if Root is working</li>
+      <li><h2><b><u>4. Flashing the Custom Rom:</u></b></h2></li>
+      <li><p><u><i>adb reboot bootloader</i></u></p></li>
+      <li><p><u><i>fastboot erase super</i></u></p></li>
+      <li><p><u><i>fastboot erase cache</i></u></p></li>
+      <li><p><u><i>fastboot erase userdata</i></u></p></li>
+      <li><p><u><i>fastboot flash super super.new.img</i></u></p></li>
+      <li><p><u><i>fastboot reboot</i></u></p></li>
+      <li>Going into the settings again, enabling "OEM Unlock" and "USB-Debugging</li>
+      <li><h2><b><u>5. Preparing the Keyboard Files:</u></b></h2></li>
+      <li>Downloading this: <a href="https://github.com/SolidHal/Unihertz-Titan-lineageos-microg/">https://github.com/SolidHal/Unihertz-Titan-lineageos-microg/</a> and replacing the files inside the "resources/keyboard/Android10" Folder with these: <a href="https://github.com/rumplestilzken/device_unihertz_gargoyle/tree/main/gargoyle_slim/keyboard">https://github.com/rumplestilzken/device_unihertz_gargoyle/tree/main/gargoyle_slim/keyboard</a></li>
+      <li><h2><b><u>6. Copying the Keyboard Files:</u></b></h2></li>
+      <li><p><u><i>adb root</i></u></p></li>
+      <li><p><u><i>adb remount</i></u></p></li>
+      <li><p><u><i>adb shell mount -o remount,rw /</i></u></p></li>
+      <li><p><u><i>adb push ../Unihertz-Titan-lineageos-microg-master-slim/resources/keyboard/Android10/system_usr_idc/* /system/usr/idc/</i></u></p></li>
+      <li><p><u><i>adb push ../Unihertz-Titan-lineageos-microg-master-slim/resources/keyboard/Android10/system_usr_keychars/* /system/usr/keychars/</i></u></p></li>
+      <li><p><u><i>adb push ../Unihertz-Titan-lineageos-microg-master-slim/resources/keyboard/Android10/system_usr_keylayout/* /system/usr/keylayout/</i></u></p></li>
+      <li><p><u><i>adb shell settings put secure show_ime_with_hard_keyboard 0</i></u></p></li>
+      <li><p><u><i>adb push ../Unihertz-Titan-lineageos-microg-master-slim/resources/keyboard/Android10_function/system_usr_idc/* /system/usr/idc/</i></u></p></li>
+      <li><p><u><i>adb push ../Unihertz-Titan-lineageos-microg-master-slim/resources/keyboard/Android10_function/system_usr_keychars/* /system/usr/keychars/</i></u></p></li>
+      <li><p><u><i>adb push ../Unihertz-Titan-lineageos-microg-master-slim/resources/keyboard/Android10_function/system_usr_keylayout/* /system/usr/keylayout/</i></u></p></li>
+      <li><p><u><i>adb push ../Unihertz-Titan-lineageos-microg-master-slim/resources/uinput-titan/uinput-titan /system/bin/uinput-titan</i></u></p></li>
+      <li><p><u><i>adb push ../Unihertz-Titan-lineageos-microg-master-slim/resources/uinput-titan/titan.rc /system/etc/init/</i></u></p></li>
+      <li><p><u><i>adb push ../Unihertz-Titan-lineageos-microg-master-slim/resources/uinput-titan/titan-uinput.idc /system/usr/idc/</i></u></p></li>
+      <li><p><u><i>adb shell rm /system/bin/uinput-titan</i></u></p></li>
+      <li><p><u><i>adb shell rm /system/etc/init/titan.rc</i></u></p></li>
+      <li><p><u><i>adb shell rm /system/usr/idc/titan-uinput.idc</i></u></p></li>
+      <li><p><u><i>adb push ../Unihertz-Titan-lineageos-microg-master-slim/resources/keyboard/Android10/system_usr_idc/* /system/usr/idc/</i></u></p></li>
+      <li><p><u><i>adb push ../Unihertz-Titan-lineageos-microg-master-slim/resources/keyboard/Android10/system_usr_keychars/* /system/usr/keychars/</i></u></p></li>
+      <li><p><u><i>adb push ../Unihertz-Titan-lineageos-microg-master-slim/resources/keyboard/Android10/system_usr_keylayout/* /system/usr/keylayout/</i></u></p></li>
+      <li><p><u><i>adb shell pm disable-user com.android.statementservice</i></u></p></li>
+      <li><p><u><i>adb shell setprop persist.sys.overlay.devinputjack true</i></u></p></li>
+      <li><h2><b><u>7. Fixing VoLTE:</u></b></h2></li>
+      <li><p><u><i>adb shell settings put system persist.dbg.ims_volte_enable 1</i></u></p></li>
+      <li><p><u><i>adb shell settings put system persist.dbg.volte_avail_ovr 1</i></u></p></li>
+      <li><p><u><i>adb shell settings put system persist.dbg.vt_avail_ovr 1</i></u></p></li>
+      <li><p><u><i>adb shell settings put system persist.dbg.wfc_avail_ovr 1</i></u></p></li>
+      <li><p><u><i>adb shell settings put system persist.radio.rat_on combine</i></u></p></li>
+      <li><p><u><i>adb shell settings put system persist.radio.data_ltd_sys_ind 1</i></u></p></li>
+      <li><p><u><i>adb shell settings put system persist.radio.data_con_rprt 1</i></u></p></li>
+      <li><p><u><i>adb shell settings put system persist.radio.calls.on.ims 1</i></u></p></li>
+      <li><h2><b><u>8. Disabling the bugged Keyboard-Touchpad:</u></b></h2></li>
+      <li><p><u><i>adb push ../excluded-input-devices.xml /etc/excluded-input-devices.xml</i></u></p></li>
+      <li><h2><b><u>9. Fixing Networking:</u></b></h2></li>
+      <li><p><u><i>adb shell settings put global restricted_networking_mode 0</i></u></p></li>
+      <li><p><u><i>adb shell settings put global persist.restricted_networking_mode 0</i></u></p></li>
+      <li><h2><b><u>10. Changing a few Unihertz-Specific-Device-Setting and installing a Keyboard-App:</u></b></h2></li>
+      <li>Resetting the APN-Settings, Setting the APN for my Provider manually and saving them.</li>
+      <li>"Open Settings->Phh Treble Settings->Misc features->Use alternate ay to detect headset"</li>
+      <li>"Open Settings -> Phh Treble Settings -> IMS Features -> Check: Request IMS Network"</li>
+      <li>"Open Settings -> Phh Treble Settings -> IMS Features -> "Install IMS APK For MediaTek R Vendor"" [If thois Step dose not work: Download the ims-mtk-q.apk from phhusson's website: <a href="https://treble.phh.me/stable/">https://treble.phh.me/stable/</a> and install it with <u><i>adb install ims-mtk-q.apk</i></u></li>
+      <li>adb reboot</li>
+      <li>Installing Kika-Keyboard or BB-Keyboard.</li>
+    </ul>  
+    <h3>And that was pretty much it. Now everything works great. The super.img situation on modern android makes updating GSI's even more annoying especially because you need to create a super.img everytime and then still need to apply all the keyboard files again after booting the first time after the update. Rumplestilzken offers finished GSI's on there Github. With them you only need to create the super.img. No need to any of the steps after step 4.</h3>
+    <h3>A lot of Thanks to rumplestilzken for documenting, creating tools and workarounds, for all the research and especially for the help and proofreading of my steps during the modding process. You made this modding process so much less painful, so much safer and easier, especially with your mksuper-tool and the gargoyle-GSI's!</h3>
+    <h3>A lot of settings and modifications I do to Android after insalling everthing (stuff like ACCA, AdAway, ...) can be found in my old Blogpost about the OG Unihertz Titan UFS and GISs and Android 13: <a href="https://catwithcode.github.io/Blog/2022.08.07_Unihertz_Titan_GSI_UFS/Unihertz_Titan_GSI_UFS.html">https://catwithcode.github.io/Blog/2022.08.07_Unihertz_Titan_GSI_UFS/Unihertz_Titan_GSI_UFS.html</a></h3>
+    <br>
+    <br>
+    <b>Sources:</b>
+    <ul>
+      <li><a href="https://github.com/rumplestilzken">https://github.com/rumplestilzken</a></li>
+      <li><a href="https://www.reddit.com/r/Magisk/comments/osicoa/help_question_can_i_patch_the_bootimg_for_a/">https://www.reddit.com/r/Magisk/comments/osicoa/help_question_can_i_patch_the_bootimg_for_a/</a></li>
+      <li><a href="https://github.com/rumplestilzken/device_unihertz_gargoyle/blob/main/gargoyle_slim/rumplestilzken_firstboot.sh">https://github.com/rumplestilzken/device_unihertz_gargoyle/blob/main/gargoyle_slim/rumplestilzken_firstboot.sh</a></li>
+      <li><a href="https://github.com/rumplestilzken/mksuper">https://github.com/rumplestilzken/mksuper</a></li>
+      <li><a href="https://github.com/rumplestilzken/unihertz_titan_lineageos20/releases">https://github.com/rumplestilzken/unihertz_titan_lineageos20/releases</a></li>
+      <li><a href="https://source.android.com/docs/core/architecture/bootloader/locking_unlocking?hl=de">https://source.android.com/docs/core/architecture/bootloader/locking_unlocking?hl=de</a></li>
+      <li><a href="https://unihertz-titan.neocities.org/#Unihertz%20Titan%20TWRP%20recovery%20&%20rooting">https://unihertz-titan.neocities.org/#Unihertz%20Titan%20TWRP%20recovery%20&%20rooting</a></li>
+      <li><a href="https://gist.github.com/rumplestilzken/1d66b6e3aae16ece75f06b00d466d246">https://gist.github.com/rumplestilzken/1d66b6e3aae16ece75f06b00d466d246</a></li>
+      <li><a href="https://github.com/topjohnwu/Magisk">https://github.com/topjohnwu/Magisk</a></li>
+      <li><a href="https://rumplestilzken.neocities.org/#Donations">https://rumplestilzken.neocities.org/#Donations</a></li>
+      <li><a href="https://rumplestilzken.neocities.org/">https://rumplestilzken.neocities.org/</a></li>
+      <li><a href="https://unihertz-titan.neocities.org/">https://unihertz-titan.neocities.org/</a></li>
+      <li><a href="https://catwithcode.github.io/Blog/2022.08.07_Unihertz_Titan_GSI_UFS/Unihertz_Titan_GSI_UFS.html">https://catwithcode.github.io/Blog/2022.08.07_Unihertz_Titan_GSI_UFS/Unihertz_Titan_GSI_UFS.html</a></li>
+      <li><a href="https://github.com/phhusson/treble_experimentations/wiki/Generic-System-Image-%28GSI%29-list">https://github.com/phhusson/treble_experimentations/wiki/Generic-System-Image-%28GSI%29-list</a></li>
+      <li><a href="https://github.com/AndyCGYan/lineage_build_unified/tree/lineage-20-td">https://github.com/AndyCGYan/lineage_build_unified/tree/lineage-20-td</a></li>
+      <li><a href="https://sourceforge.net/projects/andyyan-gsi/files/lineage-20-td/">https://sourceforge.net/projects/andyyan-gsi/files/lineage-20-td/</a></li>
+      <li><a href="https://forum.xda-developers.com/t/gsi-13-lineageos-20-trebledroid-based.4517345/">https://forum.xda-developers.com/t/gsi-13-lineageos-20-trebledroid-based.4517345/</a></li>
+      <li><a href="https://github.com/rumplestilzken/unihertz_titan_lineageos20">https://github.com/rumplestilzken/unihertz_titan_lineageos20</a></li>
+      <li><a href="https://github.com/rumplestilzken/unihertz_titan_lineageos20/releases/tag/v1.1.1">https://github.com/rumplestilzken/unihertz_titan_lineageos20/releases/tag/v1.1.1</a></li>
+      <li><a href="https://discord.gg/mk38SpTQ">https://discord.gg/mk38SpTQ</a></li>
+      <li><a href="https://discord.gg/mk38SpTQ">https://discord.gg/mk38SpTQ</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1110622826790141982">https://discord.com/channels/722458117266210887/722618142039343114/1110622826790141982</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1110624753921822800">https://discord.com/channels/722458117266210887/722618142039343114/1110624753921822800</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1110942293491462144">https://discord.com/channels/722458117266210887/722618142039343114/1110942293491462144</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1110943752379437096">https://discord.com/channels/722458117266210887/722618142039343114/1110943752379437096</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1110944250230743111">https://discord.com/channels/722458117266210887/722618142039343114/1110944250230743111</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1110945972286136394">https://discord.com/channels/722458117266210887/722618142039343114/1110945972286136394</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1110961512119541820">https://discord.com/channels/722458117266210887/722618142039343114/1110961512119541820</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1110962714513260555">https://discord.com/channels/722458117266210887/722618142039343114/1110962714513260555</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1110963673507299481">https://discord.com/channels/722458117266210887/722618142039343114/1110963673507299481</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1110963878126424165">https://discord.com/channels/722458117266210887/722618142039343114/1110963878126424165</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1110963915384442960">https://discord.com/channels/722458117266210887/722618142039343114/1110963915384442960</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1110964286001532978">https://discord.com/channels/722458117266210887/722618142039343114/1110964286001532978</a></li>
+      <li><a href="https://github.com/SolidHal/Unihertz-Titan-lineageos-microg">https://github.com/SolidHal/Unihertz-Titan-lineageos-microg</a></li>
+      <li><a href="https://askubuntu.com/questions/659427/cant-access-virtualbox-shared-folder">https://askubuntu.com/questions/659427/cant-access-virtualbox-shared-folder</a></li>
+      <li><a href="https://forum.xda-developers.com/t/guide-enabling-volte-vowifi-v2.4028073/">https://forum.xda-developers.com/t/guide-enabling-volte-vowifi-v2.4028073/</a></li>
+      <li><a href="https://forum.xda-developers.com/t/closed-unihertz-titan-slim-with-lineageos-20-networking-configuration-issue.4572379/">https://forum.xda-developers.com/t/closed-unihertz-titan-slim-with-lineageos-20-networking-configuration-issue.4572379/</a></li>
+      <li><a href="https://www.reddit.com/r/unihertz/">https://www.reddit.com/r/unihertz/</a></li>
+      <li><a href="https://www.reddit.com/r/UnihertzTitan/">https://www.reddit.com/r/UnihertzTitan/</a></li>
+      <li><a href="https://www.reddit.com/r/UnihertzTitanSlim/">https://www.reddit.com/r/UnihertzTitanSlim/</a></li>
+      <li><a href="https://forum.xda-developers.com/t/gargoyle-gsi-lineageos-20-for-unihertz-titan-pocket-and-slim.4577117/">https://forum.xda-developers.com/t/gargoyle-gsi-lineageos-20-for-unihertz-titan-pocket-and-slim.4577117/</a></li>
+      <li><a href="https://forum.xda-developers.com/t/closed-unihertz-titan-slim-with-lineageos-20-networking-configuration-issue.4572379/post-88392967">https://forum.xda-developers.com/t/closed-unihertz-titan-slim-with-lineageos-20-networking-configuration-issue.4572379/post-88392967</a></li>
+      <li><a href="https://github.com/SolidHal/Unihertz-Titan-lineageos-microg/">https://github.com/SolidHal/Unihertz-Titan-lineageos-microg/</a></li>
+      <li><a href="https://github.com/rumplestilzken/device_unihertz_gargoyle/tree/main/gargoyle_slim/keyboard">https://github.com/rumplestilzken/device_unihertz_gargoyle/tree/main/gargoyle_slim/keyboard</a></li>
+      <li><a href="https://treble.phh.me/stable/">https://treble.phh.me/stable/</a></li>
+      <li><a href="https://github.com/phhusson/treble_app/blob/7e223b19932c6203d9b2b2458646494fcb5a84f0/app/src/main/java/me/phh/treble/app/ImsSettings.kt#L101">https://github.com/phhusson/treble_app/blob/7e223b19932c6203d9b2b2458646494fcb5a84f0/app/src/main/java/me/phh/treble/app/ImsSettings.kt#L101</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1111269971469815898">https://discord.com/channels/722458117266210887/722618142039343114/1111269971469815898</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1111270488954650694">https://discord.com/channels/722458117266210887/722618142039343114/1111270488954650694</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1111271238476763207">https://discord.com/channels/722458117266210887/722618142039343114/1111271238476763207</a></li>
+      <li><a href="https://discord.com/channels/722458117266210887/722618142039343114/1111271884441530429">https://discord.com/channels/722458117266210887/722618142039343114/1111271884441530429</a></li>
+  </ul>
+  <h5>2023.05.24 - 19:21</h5>  
+  </body>
+</html>
