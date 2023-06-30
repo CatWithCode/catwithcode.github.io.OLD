@@ -155,7 +155,7 @@ sudo docker-compose up -d
         <p><u><i>sudo chmod -R 0750 /mnt/md0/nextcloud/data/</i></u></p>
       </li>
       <li><h3>Starting up all docker containers and setting up the database.</h3>
-        <p><u><i>sudo docker exec -it mysql-server /bin/bash</i></u></p>
+        <p><u><i>sudo docker exec -it nextcloud-mariadb-server /bin/bash</i></u></p>
         <p><u><i>mariadb -u root -p</i></u></p>
         <p>***************</p>
         <p><u><i>CREATE DATABASE nextcloud;</i></u></p>
