@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://catwithcode.github.io/Assets/GetHead.js"></script>
+    <title>CatWithCode - Automatic reboot of a Linux Server</title>
+  </head>
+  <body align="left" onload="createiFrame()">
+    <script src="https://catwithcode.github.io/Assets/GetTopBar.js"></script>
+    
+    <h1>Automatic reboot of a Linux Server</h1>
+    <h3>I have just set up a Linux home server. I want it to shut down at night when no one is using it. After a bit of research I figured it out. I just wanted to document how I did it.</h3>
+    <h3>I used a feature of the motherboard for the automatic boot. Almost all mainboards support power on at AC-POWER (If power is lost the PC turn on when it comes back) and RTC-Boot (often in the APM settings), which boots the server at a specific time. How to set this up is different for almost every mainboard. You will have to look it up in your UEFI/BIOS or use the manual. See the source section for how I set it up. There is also a link to my Nexcloud blog entry where I changed the time on a Linux server. This also covers how to change the time on your mainboard. This might help if your BIOS time is always a few hours off after a reboot for some unknown reason. Linux likes to set the time to UTC.</h3>
+    <h3>For the automatic shutdown I used Cron, which executes commands at specific times. The time format can be confusing, but once you understand it, it is really intuitive. Cron cannot execute a lot of things. To get around this, I created a bash file that executes all the necessary stuff for a clean shutdown.</h3>
+    <h3>A example Cron file can look like this. It can be edited by running "<u><i>sudo crontab -e</i></u>" in the terminal. This example Cron file runs a bash file from Monday to Friday at 21:00 and Saturday to Sunday at 23:00:</h3>
+<xmp>0 21 * * 1 /bin/sh /home/blogtest/TimeToSleep.sh
+0 21 * * 2 /bin/sh /home/blogtest/TimeToSleep.sh
+0 21 * * 3 /bin/sh /home/blogtest/TimeToSleep.sh
+0 21 * * 4 /bin/sh /home/blogtest/TimeToSleep.sh
+0 21 * * 5 /bin/sh /home/blogtest/TimeToSleep.sh
+0 23 * * 6 /bin/sh /home/blogtest/TimeToSleep.sh
+0 23 * * 0 /bin/sh /home/blogtest/TimeToSleep.sh
+</xmp>
+    <h3>The code in the bash file is quite simple. It checks if the defined username (in this case "blogtest") is logged in via ssh. if so, it will not shut down the server. this is to prevent the server from shutting down while it is being served by the user. The file is created with sudo to ensure that only the admins can edit it. The echo is there so that if the user "blogtest" is logged in and currently at the terminal, they will notice the blocked a shoutdown. Theoretically you could add more conditions like, only if no one is coping files in nextcloud or if no one is currently logged in into the minecraft-server.</h3>
+    <h3><u><i>sudo nano /home/blogtest/TimeToSleep.sh TimeToSleep.sh</i></u></h3>
+<xmp>#!/bin/bash
+
+#Check ssh for users; blogtest:
+if (who | cut -d' ' -f1 | sort | uniq) | grep -q 'blogtest'; then
+  echo "blogtest is there."
+else
+  shutdown -h now
+fi  
+</xmp>
+    <h3>I hope I could help you with this example setup for an automatic shoudown for a server to save energy / keep software running cleanly.</h3>
+    <br>
+    <b>Sources:</b>
+    <ul>
+      <li><a href="https://www.asus.com/DE/support/FAQ/1043640">https://www.asus.com/DE/support/FAQ/1043640</a></li>
+      <li><a href="https://wiki.ubuntuusers.de/Cron/">https://wiki.ubuntuusers.de/Cron/</a></li>
+      <li><a href="https://www.digitalocean.com/community/tutorials/how-to-use-cron-to-automate-tasks-ubuntu-1804">https://www.digitalocean.com/community/tutorials/how-to-use-cron-to-automate-tasks-ubuntu-1804</a></li>
+      <li><a href="https://stackoverflow.com/questions/42792467/how-to-create-a-bash-script-in-linux-that-checks-if-the-user-is-local-or-not">https://stackoverflow.com/questions/42792467/how-to-create-a-bash-script-in-linux-that-checks-if-the-user-is-local-or-not</a></li>
+      <li><a href="https://linuxhandbook.com/linux-logged-in-users/">https://linuxhandbook.com/linux-logged-in-users/</a></li>
+      <li><a href="https://catwithcode.github.io/Blog/2023.06.30-02_Automatic_Linux_Server_Reboot/Automatic_Linux_Server_Reboot.html">https://catwithcode.github.io/Blog/2023.06.30-02_Automatic_Linux_Server_Reboot/Automatic_Linux_Server_Reboot.html</a></li>
+    </ul>
+    <h5>2023.06.30 - 19:50</h5>
+  </body>
+</html>

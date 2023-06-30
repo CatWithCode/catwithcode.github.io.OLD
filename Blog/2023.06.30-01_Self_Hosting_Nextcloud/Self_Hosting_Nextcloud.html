@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://catwithcode.github.io/Assets/GetHead.js"></script>
+    <title>CatWithCode - My experiance installing a Nextcloud-Server</title>
+  </head>
+  <body align="left" onload="createiFrame()">
+    <script src="https://catwithcode.github.io/Assets/GetTopBar.js"></script>
+    
+    <h1>My experiance installing a Nextcloud-Server.</h1>
+    <h3>I had an old PC sitting around doing nothing and I wanted a home server. After researching and looking up how to do things I got to work on it. I wanted an easy way to host my own game servers for games like minecraft, services like a youtube proxy or a RSS-feed and many more. But what I wanted most was a NextCloud server. I had to learn how to use Docker and Docker networking in such a way that it remained secure and accessible within my network, only by devices that we allowed. Everything should also be easily reversible or removable if we stop playing a game or a self-hosted service stops working. Docker is perfect for this.</h3>
+    <h3>Afte all this I must say I love docker and I really liek Nextcloud. As soon as you learn how to setup and use evrthing it works perfectly. As you might notice this blog entry is more of a blog entry then a documentation which are more commen here. This is because every configuration will be different for everyone, as no-one has the same network, devices and/or needs. I will also not metntens secruety relevent thing down below. Security first, and making sure that everyone does there own homework in the security department, and not just copying commands from someone else's documentation and not knowing what they are doing.</h3>
+    <h3>Note1: <u>"*" = Some kind of personal data.</u></h3>
+    <h3>Note2: <u>Nextcloud 26 is used because many applications are not ready for 27.</u></h3>
+    <h3>Note3: <u>As stated above, information about security and how to access the server from the outside is not mentioned/removed in this blog post.</u></h3>
+    <br>
+    <h3><b><u>Soooo.... This is how I had set up the basic stuff:</u></b></h3>
+    <ol>
+      <li><h3>Installing a Linux-Server.</h3></li>
+      <li><h3>Getting the IP of the new Server.</h3>
+        <p><u><i>ip addr</i></u></p>
+      </li>
+      <li><h3>SSH onto it.</h3>
+        <p><u><i>ssh *******@192.168.**.**</i></u></p>
+      </li>
+      <li><h3>Setting up a static IP.</h3>
+        <p><u><i>sudo nano /etc/netplan/00-installer-config.yaml</i></u></p>
+<xmp>network:
+  ethernets:
+    eno1:
+      addresses: [192.168.**.**/24]
+      gateway4: 192.168.**.1
+    enp2s0:
+      addresses: [192.168.**.**/24]
+      gateway4: 192.168.**.1
+</xmp>
+      </li>
+      <li><h3>Loading the new config</h3>
+        <p><u><i>sudo netplan apply</i></u></p>
+      </li>
+      <li><h3>Check that your Internet access is still working.</h3>
+        <p><u><i>ping 1.1.1.1</i></u></p>
+      </li>
+      <li><h3>Setting time.</h3>
+        <p><u><i>sudo timedatectl set-timezone ******/*******</i></u></p>
+        <p><u><i>sudo timedatectl set-local-rtc 1</i></u></p>
+      </li>
+      <li><h3>Adding Docker to the Server.</h3>
+        <p><u><i>sudo add-apt-repository universe</i></u></p>
+        <p><u><i>sudo apt-get update</i></u></p>
+        <p><u><i>sudo apt-get upgrade</i></u></p>
+        <p><u><i>sudo apt-get install ca-certificates curl gnupg</i></u></p>
+        <p><u><i>sudo install -m 0755 -d /etc/apt/keyrings</i></u></p>
+        <p><u><i>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</i></u></p>
+        <p><u><i>sudo chmod a+r /etc/apt/keyrings/docker.gpg</i></u></p>
+<u><i><xmp>echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+</xmp></i></u>
+        <p><u><i>sudo apt-get update</i></u></p>
+        <p><u><i>sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin git docker-compose</i></u></p>
+        <p><u><i>sudo docker run hello-world</i></u></p>
+      </li>
+      <li><h3>Setting up the Firewall</h3>
+        <p><u><i>sudo apt install ufw</i></u></p>
+        <p><u><i>sudo ufw allow ssh</i></u></p>
+        <p><u><i>sudo ufw enable</i></u></p>
+        <p><u><i>sudo ufw allow 80/tcp</i></u></p>
+        <p><u><i>sudo ufw allow 443/tcp</i></u></p>
+        <p><u><i>sudo ufw reload</i></u></p>
+        <p><u><i>sudo ufw status verbose</i></u></p>
+        <h2><b>THIS SCRIPT IS THE EASY WAY SETTING IT UP! CAN BE DONE MANUALY! CHECK THE SCRIPT BEFOR RUNNING IT!</b></h2>
+        <p><u><i>sudo wget -O /usr/local/bin/ufw-docker https://github.com/chaifeng/ufw-docker/raw/master/ufw-docker</i></u></p>
+        <p><u><i>sudo chmod +x /usr/local/bin/ufw-docker</i></u></p>
+        <p><u><i>ufw-docker install</i></u></p>
+        <p><u><i>sudo systemctl restart ufw</i></u></p>
+        <p><u><i>sudo reboot</i></u></p>
+      </li>
+      <li><h3>Preparing a RAID (Highly recommended!): [<a href="https://www.digitalocean.com/community/tutorials/how-to-create-raid-arrays-with-mdadm-on-ubuntu-22-04">https://www.digitalocean.com/community/tutorials/how-to-create-raid-arrays-with-mdadm-on-ubuntu-22-04</a>].</h3>        
+        <p><u><i>lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT</i></u></p>
+        <p><u><i>sudo mdadm --create --verbose /dev/md0 --level=1 --raid-devices=2 /dev/sda /dev/sdb</i></u></p>
+        <p>y</p>
+        <p><u><i>cat /proc/mdstat</i></u></p>
+        <p>The command above shows the progress of the raid creation. <u>DON'T REBOOT UNTIL IT'S DONE!</u> You can continue to set everything up, just DON'T reboot.</p>
+        <p><u><i>sudo mkfs.ext4 -F /dev/md0</i></u></p>
+        <p><u><i>sudo mkdir -p /mnt/md0</i></u></p>
+        <p><u><i>sudo mount /dev/md0 /mnt/md0</i></u></p>
+        <p><u><i>df -h -x devtmpfs -x tmpfs</i></u></p>
+        <p><u><i>sudo mdadm --detail --scan | sudo tee -a /etc/mdadm/mdadm.conf</i></u></p>
+        <p>Make a backup of the the "mdadm.conf" file.</p>
+        <p><u><i>sudo update-initramfs -u</i></u></p>
+        <p><u><i>echo '/dev/md0 /mnt/md0 ext4 defaults,nofail,discard 0 0' | sudo tee -a /etc/fstab</i></u></p>
+        <p><u><i>sudo nano /etc/fstab</i></u></p>
+      </li>
+      <li><h3>Preparing the Folders.</h3>
+        <p><u><i>sudo mkdir /home/*******/nextcloud</i></u></p>
+        <p><u><i>sudo mkdir /mnt/md0/nextcloud</i></u></p>
+        <p><u><i>sudo mkdir /mnt/md0/nextcloud/data</i></u></p>
+        <p><u><i>sudo mkdir /mnt/md0/nextcloud/db</i></u></p>        
+      </li>
+      <li><h3>Creating the compose file.</h3>
+        <p><u><i>nano /home/*******/nextcloud/docker-compose.yml</i></u></p>
+<xmp>version: '3.7'
+services:
+  mariadb:
+    restart: always
+    container_name: nextcloud-mariadb-server
+    volumes:
+    - '/mnt/md0/nextcloud/db:/var/lib/mysql'
+    environment:
+    - MYSQL_ROOT_PASSWORD=***************
+    - MYSQL_ROOT_HOST=%
+    image: mariadb:latest
+  nextcloud:
+    restart: always
+    volumes:
+    - '/mnt/md0/nextcloud/data:/var/www/html'
+    container_name: nextcloud
+    depends_on:
+    - 'mariadb'
+    ports:
+    - '8080:80'
+    environment:
+    - MYSQL_HOST=mariadb
+    - MYSQL_DATABASE=nextcloud
+    - MYSQL_USER=***************
+    - MYSQL_PASSWORD=***************
+    image: 'nextcloud:26.0.3'
+  cron:
+    image: rcdailey/nextcloud-cronjob
+    restart: always
+    network_mode: none
+    container_name: nextcloud_cron
+    volumes:
+    - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    - '/etc/localtime:/etc/localtime:ro'
+    environment:
+    - NEXTCLOUD_CONTAINER_NAME=nextcloud
+    - NEXTCLOUD_CRON_MINUTE_INTERVAL=5
+</xmp>
+      </li>
+      <li><h3>Creating the Updater/Restarter.</h3>
+        <p><u><i>sudo nano /home/********/nextcloud/nextcloud_UPDATER.sh</i></u></p>
+<xmp>#!/bin/bash
+
+cd /home/**********/nextcloud
+sudo docker-compose down
+sudo docker-compose up -d
+</xmp>
+        <p><u><i>chmod a+x /home/**********/nextcloud/nextcloud_UPDATER.sh</i></u></p>
+      </li>
+      <li><h3>Setting permissions.</h3>
+        <p><u><i>sudo chown -R www-data:www-data /mnt/md0/nextcloud/data/</i></u></p>
+        <p><u><i>sudo chmod -R 0750 /mnt/md0/nextcloud/data/</i></u></p>
+      </li>
+      <li><h3>Starting up all docker containers and setting up the database.</h3>
+        <p><u><i>sudo docker exec -it mysql-server /bin/bash</i></u></p>
+        <p><u><i>mariadb -u root -p</i></u></p>
+        <p>***************</p>
+        <p><u><i>CREATE DATABASE nextcloud;</i></u></p>
+        <p><u><i>CREATE USER '*************'@'%' IDENTIFIED BY '*************';</i></u></p>
+        <p><u><i>GRANT ALL PRIVILEGES ON nextcloud.* TO '*************'@'%';</i></u></p>
+        <p><u><i>exit;</i></u></p>
+        <p><u><i>exit</i></u></p>     
+      </li>
+      <li><h3>Opening and setting up Nextcloud.</h3>
+        <p192.168.**.**:8080</i></u></p> 
+        <p>http://192.168.**.**:8080"</p>
+        <p>root</p>
+        <p>root</p>
+        <p>*************</p>
+        <p>*************</p>
+        <p>nextcloud</p>
+        <p>mariadb</p>        
+      </li>
+      <li><h3>Skipping recommended apps.</h3></li>
+      <li><h3>Checking the containers</h3>
+        <p><u><i>sudo docker container ls -a</i></u></p> 
+      </li>
+      <li><h3>Cron should be used for internal updating of feeds and other things.
+        Change it in the general administration settings. A separate container is used to run it, to keep everything self-contained.</h3></li>
+      <li><h3>Now configure everything to your liking.</h3></li>
+      <li><h3>DONE!</h3></li>
+    </ol>
+    <br>
+    <h3>Now everything is set up. Files, the database, configs and other important things will be on a RAID and are much safer from drive failure than just on the system drive or a single drive. Firewall and Docker are configured for use within a local network and everything can be easily replicated, expanded or removed by using the compose files and removing individual directories for the no longer needed service. I hope I could help you get started or finding the next step for your setup!</h3>
+    <br>
+    <br>
+    <b>Sources:</b>
+    <ul>
+      <li><a href="https://docs.nextcloud.com/server/22/user_manual/en/external_storage/external_storage.html">https://docs.nextcloud.com/server/22/user_manual/en/external_storage/external_storage.html</a></li>
+      <li><a href="https://docs.nextcloud.com/server/22/admin_manual/installation/example_ubuntu.html">https://docs.nextcloud.com/server/22/admin_manual/installation/example_ubuntu.html</a></li>
+      <li><a href="https://docs.nextcloud.com/desktop/3.3/navigating.html">https://docs.nextcloud.com/desktop/3.3/navigating.html</a></li>
+      <li><a href="https://docs.nextcloud.com//server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron">https://docs.nextcloud.com//server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron</a></li>
+      <li><a href="https://docs.docker.com/storage/volumes/">https://docs.docker.com/storage/volumes/</a></li>
+      <li><a href="https://docs.docker.com/engine/reference/commandline/run/">https://docs.docker.com/engine/reference/commandline/run/</a></li>
+      <li><a href="https://docs.docker.com/samples/mariadb/">https://docs.docker.com/samples/mariadb/</a></li>
+      <li><a href="https://docs.docker.com/engine/reference/commandline/inspect/">https://docs.docker.com/engine/reference/commandline/inspect/</a></li>
+      <li><a href="https://stackoverflow.com/questions/30449313/how-do-i-make-a-docker-container-start-automatically-on-system-boot">https://stackoverflow.com/questions/30449313/how-do-i-make-a-docker-container-start-automatically-on-system-boot</a></li>
+      <li><a href="https://github.com/chaifeng">https://github.com/chaifeng</a></li>
+      <li><a href="https://docs.docker.com/engine/reference/commandline/container_update/">https://docs.docker.com/engine/reference/commandline/container_update/</a></li>
+      <li><a href="https://docs.docker.com/engine/reference/commandline/container_ls/">https://docs.docker.com/engine/reference/commandline/container_ls/</a></li>
+      <li><a href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a></li>
+      <li><a href="https://github.com/chaifeng/ufw-docker">https://github.com/chaifeng/ufw-docker</a></li>
+      <li><a href="https://docs.docker.com/engine/reference/commandline/config/">https://docs.docker.com/engine/reference/commandline/config/</a></li>
+      <li><a href="https://www.linuxtechi.com/static-ip-address-on-ubuntu-server/">https://www.linuxtechi.com/static-ip-address-on-ubuntu-server/</a></li>
+      <li><a href="https://docs.docker.com/engine/install/ubuntu/#prerequisites">https://docs.docker.com/engine/install/ubuntu/#prerequisites</a></li>
+      <li><a href="https://docs.docker.com/config/containers/start-containers-automatically/">https://docs.docker.com/config/containers/start-containers-automatically/</a></li>
+      <li><a href="https://docs.docker.com/config/pruning/">https://docs.docker.com/config/pruning/</a></li>
+      <li><a href="https://askubuntu.com/questions/1378182/how-do-i-set-a-static-ip-in-ubuntu-20-04-3-lts">https://askubuntu.com/questions/1378182/how-do-i-set-a-static-ip-in-ubuntu-20-04-3-lts</a></li>
+      <li><a href="https://strobelstefan.de/2021/03/28/ufw-app-profile-fuer-die-nextcloud/">https://strobelstefan.de/2021/03/28/ufw-app-profile-fuer-die-nextcloud/</a></li>
+      <li><a href="https://docs.docker.com/compose/migrate/">https://docs.docker.com/compose/migrate/</a></li>
+      <li><a href="https://wiki.archlinux.org/title/Fstab">https://wiki.archlinux.org/title/Fstab</a></li>
+      <li><a href="https://docs.docker.com/engine/reference/builder/">https://docs.docker.com/engine/reference/builder/</a></li>
+      <li><a href="https://www.calculator.net/concrete-calculator.html">https://www.calculator.net/concrete-calculator.html</a></li>
+      <li><a href="https://www.howtogeek.com/devops/how-to-use-docker-with-a-ufw-firewall/">https://www.howtogeek.com/devops/how-to-use-docker-with-a-ufw-firewall/</a></li>
+      <li><a href="https://docs.docker.com/engine/reference/commandline/container_start/">https://docs.docker.com/engine/reference/commandline/container_start/</a></li>
+      <li><a href="https://askubuntu.com/questions/154180/how-to-mount-a-new-drive-on-startup">https://askubuntu.com/questions/154180/how-to-mount-a-new-drive-on-startup</a></li>
+      <li><a href="https://www.howtogeek.com/410442/how-to-display-the-date-and-time-in-the-linux-terminal-and-use-it-in-bash-scripts/">https://www.howtogeek.com/410442/how-to-display-the-date-and-time-in-the-linux-terminal-and-use-it-in-bash-scripts/</a></li>
+      <li><a href="https://serverfault.com/questions/338393/ufw-blocking-port-80-when-it-should-not">https://serverfault.com/questions/338393/ufw-blocking-port-80-when-it-should-not</a></li>
+      <li><a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-20-04">https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-20-04</a></li>
+      <li><a href="https://phoenixnap.com/kb/set-up-cron-job-linux">https://phoenixnap.com/kb/set-up-cron-job-linux</a></li>
+      <li><a href="https://learnubuntu.com/shutdown-ubuntu/">https://learnubuntu.com/shutdown-ubuntu/</a></li>
+      <li><a href="https://stackoverflow.com/questions/30383845/what-is-the-best-practice-of-docker-ufw-under-ubuntu">https://stackoverflow.com/questions/30383845/what-is-the-best-practice-of-docker-ufw-under-ubuntu</a></li>
+      <li><a href="https://www.baeldung.com/linux/cron-job-testing-debugging">https://www.baeldung.com/linux/cron-job-testing-debugging</a></li>
+      <li><a href="https://help.nextcloud.com/t/cant-reach-dockerized-nextcloud-instance-when-firewall-is-up-ufw/57411">https://help.nextcloud.com/t/cant-reach-dockerized-nextcloud-instance-when-firewall-is-up-ufw/57411</a></li>
+      <li><a href="https://unix.stackexchange.com/questions/42715/how-can-i-make-cron-run-a-job-right-now-for-testing-debugging-without-changing">https://unix.stackexchange.com/questions/42715/how-can-i-make-cron-run-a-job-right-now-for-testing-debugging-without-changing</a></li>
+      <li><a href="https://github.com/nextcloud/docker/tree/master/.examples">https://github.com/nextcloud/docker/tree/master/.examples</a></li>
+      <li><a href="https://www.baeldung.com/ops/docker-cron-job">https://www.baeldung.com/ops/docker-cron-job</a></li>
+      <li><a href="https://stackoverflow.com/questions/74660315/docker-containers-mariadb-connection-issue-with-nextcloud">https://stackoverflow.com/questions/74660315/docker-containers-mariadb-connection-issue-with-nextcloud</a></li>
+      <li><a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-time-synchronization-on-ubuntu-20-04">https://www.digitalocean.com/community/tutorials/how-to-set-up-time-synchronization-on-ubuntu-20-04</a></li>
+      <li><a href="https://www.airplane.dev/blog/docker-cron-jobs-how-to-run-cron-inside-containers">https://www.airplane.dev/blog/docker-cron-jobs-how-to-run-cron-inside-containers</a></li>
+      <li><a href="https://www.reddit.com/r/NextCloud/comments/10qtup7/nextcloud_in_docker_cron_issues_with_apps_like/">https://www.reddit.com/r/NextCloud/comments/10qtup7/nextcloud_in_docker_cron_issues_with_apps_like/</a></li>
+      <li><a href="https://hub.docker.com/r/rcdailey/nextcloud-cronjob">https://hub.docker.com/r/rcdailey/nextcloud-cronjob</a></li>
+      <li><a href="https://www.howtogeek.com/devops/how-to-add-a-volume-to-an-existing-docker-container/">https://www.howtogeek.com/devops/how-to-add-a-volume-to-an-existing-docker-container/</a></li>
+      <li><a href="https://github.com/rcdailey/nextcloud-cronjob/issues/15">https://github.com/rcdailey/nextcloud-cronjob/issues/15</a></li>
+      <li><a href="https://stackoverflow.com/questions/75535222/dockerized-nextcloud-installation-internal-server-error-deadlock">https://stackoverflow.com/questions/75535222/dockerized-nextcloud-installation-internal-server-error-deadlock</a></li>
+      <li><a href="https://github.com/nextcloud/news/issues?q=import">https://github.com/nextcloud/news/issues?q=import</a></li>
+      <li><a href="https://wiki.ubuntuusers.de/fstab/">https://wiki.ubuntuusers.de/fstab/</a></li>
+      <li><a href="https://github.com/nextcloud/news/issues/2242">https://github.com/nextcloud/news/issues/2242</a></li>
+      <li><a href="https://man.archlinux.org/man/systemd.mount.5">https://man.archlinux.org/man/systemd.mount.5</a></li>
+      <li><a href="https://nextcloud.com/install/#instructions-server">https://nextcloud.com/install/#instructions-server</a></li>
+      <li><a href="https://bobcares.com/blog/docker-change-container-configuration/">https://bobcares.com/blog/docker-change-container-configuration/</a></li>
+      <li><a href="https://docs.docker.com/compose/compose-file/04-version-and-name/">https://docs.docker.com/compose/compose-file/04-version-and-name/</a></li>
+      <li><a href="https://docs.docker.com/engine/reference/commandline/container_stop/">https://docs.docker.com/engine/reference/commandline/container_stop/</a></li>
+      <li><a href="https://docs.nextcloud.com/server/27/admin_manual/installation/harden_server.html">https://docs.nextcloud.com/server/27/admin_manual/installation/harden_server.html</a></li>
+      <li><a href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/external_storage_configuration_gui.html">https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/external_storage_configuration_gui.html</a></li>
+      <li><a href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_database/linux_database_configuration.html">https://docs.nextcloud.com/server/latest/admin_manual/configuration_database/linux_database_configuration.html</a></li>
+      <li><a href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/external_storage/local.html">https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/external_storage/local.html</a></li>
+      <li><a href="https://askubuntu.com/questions/972215/a-start-job-is-running-for-wait-for-network-to-be-configured-ubuntu-server-17-1">https://askubuntu.com/questions/972215/a-start-job-is-running-for-wait-for-network-to-be-configured-ubuntu-server-17-1</a></li>
+      <li><a href="https://docs.nextcloud.com/server/latest/admin_manual/installation/example_ubuntu.html">https://docs.nextcloud.com/server/latest/admin_manual/installation/example_ubuntu.html</a></li>
+      <li><a href="https://docs.nextcloud.com/server/latest/admin_manual/installation/source_installation.html#apache-configuration-label">https://docs.nextcloud.com/server/latest/admin_manual/installation/source_installation.html#apache-configuration-label</a></li>
+      <li><a href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/background_jobs_configuration.html">https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/background_jobs_configuration.html</a></li>
+      <li><a href="https://docs.nextcloud.com/server/latest/admin_manual/installation/source_installation.html#enabling-ssl">https://docs.nextcloud.com/server/latest/admin_manual/installation/source_installation.html#enabling-ssl</a></li>
+      <li><a href="https://askubuntu.com/questions/837932/at-boot-networking-service-is-incredibly-slow-5-minutes-on-ubuntu-16-10">https://askubuntu.com/questions/837932/at-boot-networking-service-is-incredibly-slow-5-minutes-on-ubuntu-16-10</a></li>
+      <li><a href="https://docs.nextcloud.com/server/latest/admin_manual/office/example-docker.html?highlight=docker">https://docs.nextcloud.com/server/latest/admin_manual/office/example-docker.html?highlight=docker</a></li>
+      <li><a href="https://docs.sevenbridges.com/docs/mount-a-usb-drive-in-a-docker-container">https://docs.sevenbridges.com/docs/mount-a-usb-drive-in-a-docker-container</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/SYN_cookies">https://en.wikipedia.org/wiki/SYN_cookies</a></li>
+      <li><a href="https://forum-raspberrypi.de/forum/thread/56433-external-storage-auf-nextcloud-docker/">https://forum-raspberrypi.de/forum/thread/56433-external-storage-auf-nextcloud-docker/</a></li>
+      <li><a href="https://forums.docker.com/t/docker-compose-yml-is-invalid-because-unsupported-config/51463">https://forums.docker.com/t/docker-compose-yml-is-invalid-because-unsupported-config/51463</a></li>
+      <li><a href="https://forums.docker.com/t/help-with-yml-values-do-not-match-any-regexes/100441">https://forums.docker.com/t/help-with-yml-values-do-not-match-any-regexes/100441</a></li>
+      <li><a href="https://forums.linuxmint.com/viewtopic.php?t=377580">https://forums.linuxmint.com/viewtopic.php?t=377580</a></li>
+      <li><a href="https://askubuntu.com/questions/14365/mount-an-external-drive-at-boot-time-only-if-it-is-plugged-in">https://askubuntu.com/questions/14365/mount-an-external-drive-at-boot-time-only-if-it-is-plugged-in</a></li>
+      <li><a href="https://gist.github.com/ichiTechs/83e228fa1e6c83543623a1bf06f3eb32">https://gist.github.com/ichiTechs/83e228fa1e6c83543623a1bf06f3eb32</a></li>
+      <li><a href="https://gist.github.com/yyuu/4335041">https://gist.github.com/yyuu/4335041</a></li>
+      <li><a href="https://github.com/Damaso-DD">https://github.com/Damaso-DD</a></li>
+      <li><a href="https://github.com/TheFrenchGhosty">https://github.com/TheFrenchGhosty</a></li>
+      <li><a href="https://github.com/nextcloud/docker">https://github.com/nextcloud/docker</a></li>
+      <li><a href="https://github.com/nextcloud/all-in-one/discussions/1138">https://github.com/nextcloud/all-in-one/discussions/1138</a></li>
+      <li><a href="https://github.com/nextcloud/docker/issues/236">https://github.com/nextcloud/docker/issues/236</a></li>
+      <li><a href="https://goneuland.de/nextcloud-server-mit-docker-compose-und-traefik-installieren/">https://goneuland.de/nextcloud-server-mit-docker-compose-und-traefik-installieren/</a></li>
+      <li><a href="https://serverfault.com/questions/633067/how-do-i-auto-start-docker-containers-at-system-boot">https://serverfault.com/questions/633067/how-do-i-auto-start-docker-containers-at-system-boot</a></li>
+      <li><a href="https://goneuland.de/traefik-v2-3-reverse-proxy-mit-crowdsec-im-stack-einrichten/">https://goneuland.de/traefik-v2-3-reverse-proxy-mit-crowdsec-im-stack-einrichten/</a></li>
+      <li><a href="https://help.nextcloud.com/t/add-internal-second-hard-disk-to-add-more-storage/111175/2">https://help.nextcloud.com/t/add-internal-second-hard-disk-to-add-more-storage/111175/2</a></li>
+      <li><a href="https://help.nextcloud.com/t/button-neuer-benutzer-funktioniert-nicht/150638">https://help.nextcloud.com/t/button-neuer-benutzer-funktioniert-nicht/150638</a></li>
+      <li><a href="https://help.nextcloud.com/t/cant-connect-to-mysql/51405">https://help.nextcloud.com/t/cant-connect-to-mysql/51405</a></li>
+      <li><a href="https://help.nextcloud.com/t/change-mariadb-user-password-in-nc-20-0-10/119039">https://help.nextcloud.com/t/change-mariadb-user-password-in-nc-20-0-10/119039</a></li>
+      <li><a href="https://help.nextcloud.com/t/change-data-directory-with-docker/46408/2">https://help.nextcloud.com/t/change-data-directory-with-docker/46408/2</a></li>
+      <li><a href="https://help.nextcloud.com/t/change-port-443-and-80/13742/3">https://help.nextcloud.com/t/change-port-443-and-80/13742/3</a></li>
+      <li><a href="https://help.nextcloud.com/t/configuring-mariadb-database-when-using-docker/137449">https://help.nextcloud.com/t/configuring-mariadb-database-when-using-docker/137449</a></li>
+      <li><a href="https://help.nextcloud.com/t/connection-timeout-unable-to-connect/116162">https://help.nextcloud.com/t/connection-timeout-unable-to-connect/116162</a></li>
+      <li><a href="https://help.nextcloud.com/t/docker-cron-problem/139220">https://help.nextcloud.com/t/docker-cron-problem/139220</a></li>
+      <li><a href="https://help.nextcloud.com/t/docker-setup-cron/78547/2">https://help.nextcloud.com/t/docker-setup-cron/78547/2</a></li>
+      <li><a href="https://help.nextcloud.com/t/gelost-nextcloud-mit-docker-compose-und-ubuntu-20-04-als-vps-host-system/133853/38">https://help.nextcloud.com/t/gelost-nextcloud-mit-docker-compose-und-ubuntu-20-04-als-vps-host-system/133853/38</a></li>
+      <li><a href="https://help.nextcloud.com/t/expend-disk-space-inside-the-docker-container/125689">https://help.nextcloud.com/t/expend-disk-space-inside-the-docker-container/125689</a></li>
+      <li><a href="https://help.nextcloud.com/t/how-do-i-symlink-a-folder-in-my-home-directory-to-nextcloud-data-directory-in-ubuntu/25877">https://help.nextcloud.com/t/how-do-i-symlink-a-folder-in-my-home-directory-to-nextcloud-data-directory-in-ubuntu/25877</a></li>
+      <li><a href="https://help.nextcloud.com/t/nextcloud-installation-error-while-trying-to-create-admin-user/20775/18">https://help.nextcloud.com/t/nextcloud-installation-error-while-trying-to-create-admin-user/20775/18</a></li>
+      <li><a href="https://help.nextcloud.com/t/how-to-add-hdd-storage-local-external-storage-on-nextcloudpi-docker-raspberrypi/129250/2">https://help.nextcloud.com/t/how-to-add-hdd-storage-local-external-storage-on-nextcloudpi-docker-raspberrypi/129250/2</a></li>
+      <li><a href="https://help.nextcloud.com/t/no-permissions-to-configure-external-storage/29411/4">https://help.nextcloud.com/t/no-permissions-to-configure-external-storage/29411/4</a></li>
+      <li><a href="https://help.nextcloud.com/t/solved-docker-install-file-storage-outside-docker/61173/2">https://help.nextcloud.com/t/solved-docker-install-file-storage-outside-docker/61173/2</a></li>
+      <li><a href="https://help.nextcloud.com/t/upload-button-in-web-interface-is-not-working/22770/2">https://help.nextcloud.com/t/upload-button-in-web-interface-is-not-working/22770/2</a></li>
+      <li><a href="https://help.nextcloud.com/t/where-and-how-are-the-acutal-files-stored/30565/5">https://help.nextcloud.com/t/where-and-how-are-the-acutal-files-stored/30565/5</a></li>
+      <li><a href="https://help.ubuntu.com/community/UFW">https://help.ubuntu.com/community/UFW</a></li>
+      <li><a href="https://hub.docker.com/_/mariadb">https://hub.docker.com/_/mariadb</a></li>
+      <li><a href="https://hub.docker.com/r/nextcloud/all-in-one">https://hub.docker.com/r/nextcloud/all-in-one</a></li>
+      <li><a href="https://i.imgur.com/CgTvbG5.png">https://i.imgur.com/CgTvbG5.png</a></li>
+      <li><a href="https://itsfoss.com/linux-system-monitoring-tools/">https://itsfoss.com/linux-system-monitoring-tools/</a></li>
+      <li><a href="https://lehrerfortbildung-bw.de/st_digital/netz/virtual/container/docker/index.html">https://lehrerfortbildung-bw.de/st_digital/netz/virtual/container/docker/index.html</a></li>
+      <li><a href="https://linuxopsys.com/topics/list-network-interfaces-in-linux">https://linuxopsys.com/topics/list-network-interfaces-in-linux</a></li>
+      <li><a href="https://linuxize.com/post/how-to-list-and-delete-ufw-firewall-rules/">https://linuxize.com/post/how-to-list-and-delete-ufw-firewall-rules/</a></li>
+      <li><a href="https://manjaro.site/how-to-run-nextcloud-in-docker-container/">https://manjaro.site/how-to-run-nextcloud-in-docker-container/</a></li>
+      <li><a href="https://manpages.ubuntu.com/manpages/lunar/en/man8/systemd-networkd-wait-online.service.8.html">https://manpages.ubuntu.com/manpages/lunar/en/man8/systemd-networkd-wait-online.service.8.html</a></li>
+      <li><a href="https://mariadb.com/kb/en/installing-and-using-mariadb-via-docker/">https://mariadb.com/kb/en/installing-and-using-mariadb-via-docker/</a></li>
+      <li><a href="https://mariushosting.com/synology-how-to-install-nextcloud-using-docker/">https://mariushosting.com/synology-how-to-install-nextcloud-using-docker/</a></li>
+      <li><a href="https://phoenixnap.com/kb/docker-run-override-entrypoint">https://phoenixnap.com/kb/docker-run-override-entrypoint</a></li>
+      <li><a href="https://phoenixnap.com/kb/update-docker-image-container">https://phoenixnap.com/kb/update-docker-image-container</a></li>
+      <li><a href="https://strobelstefan.de/2021/12/11/schritt-fuer-schritt-zur-eigenen-nextcloud/">https://strobelstefan.de/2021/12/11/schritt-fuer-schritt-zur-eigenen-nextcloud/</a></li>
+      <li><a href="https://thesmarthomejourney.com/2021/02/11/moving-docker-data-to-an-external-ssd/">https://thesmarthomejourney.com/2021/02/11/moving-docker-data-to-an-external-ssd/</a></li>
+      <li><a href="https://www.reddit.com/r/NextCloud/comments/jem8cv/nextcloud_died_on_docker_container_restart/">https://www.reddit.com/r/NextCloud/comments/jem8cv/nextcloud_died_on_docker_container_restart/</a></li>
+      <li><a href="https://www.reddit.com/r/NextCloud/comments/k60e9l/nextcloud_docker_file_location/">https://www.reddit.com/r/NextCloud/comments/k60e9l/nextcloud_docker_file_location/</a></li>
+      <li><a href="https://www.composerize.com/">https://www.composerize.com/</a></li>
+      <li><a href="https://www.reddit.com/r/docker/comments/hhkbfw/errors_with_docker_compose/">https://www.reddit.com/r/docker/comments/hhkbfw/errors_with_docker_compose/</a></li>
+      <li><a href="https://www.reddit.com/r/homelab/comments/13pgebu/nextcloud_docker_in_ubuntu_server_cannot_connect/">https://www.reddit.com/r/homelab/comments/13pgebu/nextcloud_docker_in_ubuntu_server_cannot_connect/</a></li>
+      <li><a href="https://www.digitalocean.com/community/tutorials/how-to-create-raid-arrays-with-mdadm-on-ubuntu-22-04">https://www.digitalocean.com/community/tutorials/how-to-create-raid-arrays-with-mdadm-on-ubuntu-22-04</a></li>
+    </ul>
+    <h5>2023.06.30 - 18:40</h5>
+  </body>
+</html>

@@ -23,11 +23,11 @@
       <li><h2><b><u>2. Preparing, Unlocking and Reseting the phone:</u></b></h2></li>
       <li>Starting the phone</li>
       <li>Testing everything for a few days to make sure the Hardware works to 100%, because warranty.</li>
-      <li>Going into the settings, enabling "OEM Unlock" and "USB-Debugging"</li>
+      <li>Going into the settings, enabling "OEM Unlock", "USB-Debugging and "Root-Debugging".</li>
       <li><p><u><i>adb reboot bootloader</i></u></p></li>
       <li><p><u><i>fastboot flashing unlock</i></u></p></li>
       <li>YES</li>
-      <li>Going into the settings again, enabling "OEM Unlock" and "USB-Debugging</li>
+      <li>Going into the settings again, enabling "OEM Unlock", "USB-Debugging and "Root-Debugging".</li>
       <li><h2><b><u>3. Rooting the phone:</u></b></h2></li>
       <li>Preparing a boot.img with the Magisk App ([Theoretically not needed, did still boot with them] with vbmeta-patches)</li>
       <li><p><u><i>adb reboot bootloader</i></u></p></li>
@@ -44,7 +44,7 @@
       <li><p><u><i>fastboot erase userdata</i></u></p></li>
       <li><p><u><i>fastboot flash super super.new.img</i></u></p></li>
       <li><p><u><i>fastboot reboot</i></u></p></li>
-      <li>Going into the settings again, enabling "OEM Unlock" and "USB-Debugging</li>
+      <li>Going into the settings again, enabling "OEM Unlock", "USB-Debugging and "Root-Debugging".</li>
       <li><h2><b><u>5. Preparing the Keyboard Files:</u></b></h2></li>
       <li>Downloading this: <a href="https://github.com/SolidHal/Unihertz-Titan-lineageos-microg/">https://github.com/SolidHal/Unihertz-Titan-lineageos-microg/</a> and replacing the files inside the "resources/keyboard/Android10" Folder with these: <a href="https://github.com/rumplestilzken/device_unihertz_gargoyle/tree/main/gargoyle_slim/keyboard">https://github.com/rumplestilzken/device_unihertz_gargoyle/tree/main/gargoyle_slim/keyboard</a></li>
       <li><h2><b><u>6. Copying the Keyboard Files:</u></b></h2></li>
@@ -97,6 +97,7 @@
       <li><p><u><i>adb shell settings put system persist.sys.bt.unsupport.stdfeatures 000001</i></u></p></li>
       <li><p><u><i>adb shell settings put system persist.sys.phh.disable_a2dp_offload 1</i></u></p></li>
       <li>adb reboot</li>
+      <li>Disable "Root-Debugging" and "USB-Debugging and then Reboot.</li>
       <li>Installing Kika-Keyboard or BB-Keyboard.</li>
     </ul>  
     <h3>And that was pretty much it. Now everything works great. The super.img situation on modern android makes updating GSI's even more annoying especially because you need to create a super.img everytime and then still need to apply all the keyboard files again after booting the first time after the update. Rumplestilzken offers finished GSI's on there Github. With them you only need to create the super.img. No need to any of the steps after step 4.</h3>
@@ -162,6 +163,6 @@
       <li><a href="https://discord.com/channels/722458117266210887/722494185776611399/1120727294831501444">https://discord.com/channels/722458117266210887/722494185776611399/1120727294831501444</a></li>
       <li><a href="https://discord.com/channels/722458117266210887/722494185776611399/1120732284396515428">https://discord.com/channels/722458117266210887/722494185776611399/1120732284396515428</a></li>
   </ul>
-  <h5>2023.06.20 - 21:36</h5>  
+  <h5>2023.06.28 - 23:24</h5>  
   </body>
 </html>
