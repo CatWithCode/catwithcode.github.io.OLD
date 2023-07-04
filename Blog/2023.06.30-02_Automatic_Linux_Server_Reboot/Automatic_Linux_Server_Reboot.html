@@ -20,7 +20,7 @@
 0 23 * * 6 /bin/sh /home/blogtest/TimeToSleep.sh
 0 23 * * 0 /bin/sh /home/blogtest/TimeToSleep.sh
 </xmp>
-    <h3>The code in the bash file is quite simple. It checks if the defined username (in this case "blogtest") is logged in via ssh. if so, it will not shut down the server. this is to prevent the server from shutting down while it is being served by the user. The file is created with sudo to ensure that only the admins can edit it. The echo is there so that if the user "blogtest" is logged in and currently at the terminal, they will notice the blocked a shoutdown. Theoretically you could add more conditions like, only if no one is coping files in nextcloud or if no one is currently logged in into the minecraft-server.</h3>
+    <h3>The code in the bash file is quite simple. It checks if the defined username (in this case "blogtest") is logged in via ssh, if so, it will not shut down the server. this is to prevent the server from shutting down while it is being served by the user. The file is created with sudo to ensure that only the admins can edit it. The echo is there so that if the user "blogtest" is logged in and currently at the terminal, they will notice the blocked a shoutdown. Theoretically you could add more conditions like, only if no one is coping files in nextcloud or if no one is currently logged in into the minecraft-server.</h3>
     <h3><u><i>sudo nano /home/blogtest/TimeToSleep.sh</i></u></h3>
 <xmp>#!/bin/bash
 
