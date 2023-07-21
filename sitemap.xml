@@ -15,7 +15,7 @@
 </url>
 <url>
   <loc>https://catwithcode.github.io/blog.html</loc>
-  <lastmod>2023-07-16T19:40:23+00:00</lastmod>
+  <lastmod>2023-07-21T17:30:23+00:00</lastmod>
 </url>
 <url>    
   <loc>https://catwithcode.github.io/privacy.html</loc>
@@ -140,6 +140,10 @@
 <url>
   <loc>https://catwithcode.github.io/Blog/2023.07.16_Scrcpy_Fix_Broken_Image/Scrcpy_Fix_Broken_Image.html</loc>
   <lastmod>2023-07-16T19:30:23+00:00</lastmod>
+</url>
+<url>
+  <loc>https://catwithcode.github.io/Blog/2023.07.20_Chroot_Linux_3D_Android/Chroot_Linux_3D_Android.html</loc>
+  <lastmod>2023-07-21T17:30:23+00:00</lastmod>
 </url>
 
 </urlset>

@@ -13,7 +13,7 @@
     <h3>The solution was simple (so simple, in fact, that I am angry at myself for not having thought of it sooner / finding it sooner). Execute this in your Terminal:</h3>
     <p><u><i>scrcpy --list-encoders</i></u></p>
     <h3>Then try codec after codec until one works, and use that one from now on. It really is that simple. For my Unihertz Titan Slim with a LinageOS 20 GSI it was:</h3>
-    <p><u><i>scrcpy --video-codec=h264 --video-encoderc2.android.avc.encoder' --audio-codec=opus --audio-encoder='c2.android.opus.encoder'</i></u></p>
+    <p><u><i>scrcpy --video-codec=h264 --video-encoderc2.android.avc.encoder' --audio-codec=opus --audio-encoder='c2.android.opus.encoder' --forward-all-clicks</i></u></p>
     <br>
     <h3>More readable:</h3>
     <ul>
@@ -22,17 +22,19 @@
       <li>--video-encoderc2.android.avc.encoder'</li>
       <li>--audio-codec=opus</li>
       <li>--audio-encoder='c2.android.opus.encoder'</li>
+      <li>--forward-all-clicks</li>
       <h3>---</h3>
       <li>scrcpy</li>
       <li>--video-codec=h264 --video-encoderc2.android.avc.encoder'</li>
       <li>--audio-codec=opus --audio-encoder='c2.android.opus.encoder'</li>
-      
+      <li>--forward-all-clicks</li>      
     </ul>
     <br>
     <b>Sources:</b>
     <ul>
       <li><a href="https://github.com/Genymobile/scrcpy/issues/4143">https://github.com/Genymobile/scrcpy/issues/4143</a></li>
       <li><a href="https://github.com/Genymobile/scrcpy">https://github.com/Genymobile/scrcpy</a></li>
+      <li><a href="https://www.reddit.com/r/scrcpy/comments/vteg5z/mouse_right_click_back_button/">https://www.reddit.com/r/scrcpy/comments/vteg5z/mouse_right_click_back_button/</a></li>
     </ul>
     <h5>2023.07.16 - 19:45</h5>
   </body>

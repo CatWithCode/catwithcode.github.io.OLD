@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://catwithcode.github.io/Assets/GetHead.js"></script>
+    <title>CatWithCode - Installing Linux on Android in chroot with 3D acceleration</title>
+  </head>
+  <body align="left" onload="createiFrame()">
+    <script src="https://catwithcode.github.io/Assets/GetTopBar.js"></script>
+    
+    <h1>Installing Linux on Android in chroot with 3D acceleration</h1>
+    <h3>Well... it was a lot of work. But it was worth it! Once everything is set up, you have a Linux installation on your Android phone at native speed (if you don't think about the resources Android needs to run). Even 3D acceleration for games works! It is still buggy and in very early development, but it works well enough. And the X11 hardware acceleration works great for everything else. It is literally an ARM PC in your phone. I used a lot of pre made tools to set everything up. All the stuff you need to do is soooo muuuucccchh. I would take weeks if I had to learn, try and setup everything muliple times. Read all the scripts and what each file does before e you use/execute them!</h3>
+    <h3>Originally I wanted to use a native installation of Linux on my Unihertz phone, but well. No source code makes it almost impossible if you value your time and sanity. I will not rant again. If you want to know more: <a href="https://catwithcode.github.io/Blog/2023.07.15_Unihertz_Titan_Slim_UbuntuTouch_Fail/Unihertz_Titan_Slim_UbuntuTouch_Fail.html">https://catwithcode.github.io/Blog/2023.07.15_Unihertz_Titan_Slim_UbuntuTouch_Fail/Unihertz_Titan_Slim_UbuntuTouch_Fail.html</a></h3>
+    <h3>What can you do with it? You can run a lot of Linux software, play a lot of games with Box64 (everything from actual big 3D games to modern emulators wink* wink*). The crazy thing is that the chroot intall has nativ access to your hardware (Except for the GPU, probably due to an Android driver already loaded, thats why you need the special driver. something something android). Well, what you can do is almost everything.</h3>
+    <h3>So what do you need? A rooted phone (No proot is not an alternative to chroot. The layers in between makes it not even comparable in performance aspect when it comes to responsiveness and peek performance), a good amount of memory and time.</h3>
+    <h3>Thanks to everyone involved in all the projects used! Everything used to make this is linked in the sources section..</h3>
+    <h3>I expect you to know your way around a shell and Linux, and at least be able to read bash code.</h3>
+    <h3>Every time I write "CLOSE" you have to go back to android, stop termux and termux-x11 in the android settings, then start termux and type "chroot-installer stop" in that order! This is also how you completely close the Linux season, and no, because of the way chroot works, there is currently no better way to close everything.</h3>
+    <h3>You will see that if you use chroot with a folder, dbus will not work properly and everything will load slowly. I dont know if this is a bug or misconfiguration. But this is why you make a disk image. If you use the scripts to install the rootfs with the file option, something goes wrong with the configuration and 3D acceleration will not work and the filesystem will corrupt after a few boots. If you need more size, you can resize the disc image afterwards with "<u><i>resize2fs ubuntu.img 50G</i></u>". This is only possible because the chroot was installed as a folder and is still used as such by the scripts, but inside a disk image. There are no partitions or anything. Just one big root directory, more or less. If you want to make a small image, before using it, for backup purposes, use 10 GB on the create command. This should be large enough for a clean install. The biggest advantages of a disk image are: no permissions issues, no ownership issues and it's very portable and easy to backup/transfer to another device without any problems. You just need to re-configure your termux and put the folders like the .chroot-installer folder back into it. Also: You can use any distro you like. But Ubuntu works best. You can also create a disk-image with "Linux Deploy" and copy it over, or create your own. Just make sure you configure everything correctly, otherwise sound, 3D acceleration, hardware rendering and/or dbus will not work!</h3>
+    <h3>The goal of this experiment was to get Ubuntu Touch or KDE Mobile running in chroot, but it did not work because of missing repositories with Ubuntu Touch and incompatibility with KDE Mobile. But this is also very useful, close enough and cool! If I find a way to make Linux more usable on such small screens (different DE or panel configuration) I will definitely add it!</h3>
+    <h3>And on the Internet, as usual: IF YOU TRY ANYTHING WRITTEN ON THIS BLOG YOU ARE DOING IT AT YOUR OWN RISK! IT SHOULD BE OBVIOUS! DON'T COME TO ME CRYING IF SOMETHING WENT WRONG. THAT'S YOUR PROBLEM AND ONLY YOURS! If you do one or a few things wrong or an error happens, you can wipe your your entire storage and even brick your phone (yes, that is actually possible)!</h3>
+    <h3>How I did it:</h3>
+    <h3>
+      <ol>
+        <li>
+          <h3>Preparing the Phone:</h3>
+          <ul>
+            <li>Root your phone</li>
+            <li>Install BusyBox. Either use a Magisk module or install it with the BusyBox app (with the app you will need to modify its install script on Android 12 and newer: <a href="https://github.com/meefik/busybox/issues/93#issue-586634498">https://github.com/meefik/busybox/issues/93#issue-586634498</a>. On GSI-ROMs you need to execute the BusyBox install every reboot.).</li>
+            <li>Install from F-Droid: Termux, Termux-API</li>
+            <li>Install from GitHub: Termux-X11, com.termux.shell_loader</li>
+            <li>Change the battery settings for the apps to unrestricted</li>
+            <li><u><i>adb shell "settings put global settings_enable_monitor_phantom_procs false"</i></u></li>
+            <li><u><i>adb reboot</i></u></li>
+          </ul>
+        </li>
+        <li>
+          <h3>Preparing Termux:</h3>
+          <ul>
+            <li><u><i>apt update</i></u></li>
+            <li><u><i>apt upgrade</i></u> [Yes to everthing]</li>
+            <li><u><i>pkg install x11-repo</i></u></li>
+            <li><u><i>apt install xwayland xorg-server-xvfb git wget</i></u></li>
+            <li><u><i>termux-setup-storage</i></u></li>
+            <li><u><i>su</i></u> [Allow root access]</li>
+            <li>Push the "termux-x11-nightly-1.02.07-0-all.deb"-File from the com.termux.shell_loader-Archive to your phone and <u><i>cd</i></u> to it.</li>
+            <li><u><i>apt update</i></u></li>
+            <li><u><i>apt upgrade</i></u></li>
+            <li><u><i>nano ~/.termux/termux.properties</i></u> [Remove the "#" before the text "#allow-external-apps=yes"]</li>
+            <li><u><i>exit</i></u></li>
+          </ul>
+        </li>
+        <li>
+          <h3>Installing a rootfs:</h3>
+          <ul>
+            <li><u><i>git clone https://github.com/Pipetto-crypto/Chroot-Installer.git</i></u></li>
+            <li><u><i>cd Chroot-Installer</i></u></li>
+            <li><u><i>chmod +x setup.sh</i></u></li>
+            <li><u><i>./setup.sh</i></u></li>
+            <li><u><i>bash chroot-installer install Ubuntu ubuntu -b -d</i></u></li>
+
+            <h3>If something goes wrong in one of the scripts, look at the line in the script and do it yourself:</h3>
+
+            <li><u><i>folder</i></u></li>
+            <li>Choose a username</li>
+            <li>Choose your-password and the root-password</li>
+            <li><u><i>xfce</i></u></li>
+            <li><u><i>cd</i></u></li>
+            <li><u><i>sudo cp chroot-installer $PATH</i></u></li>
+            <li><u><i>chmod +x $PATH/chroot-installer</i></u></li>
+            <li><u><i>chroot-installer start</i></u></li>
+            
+            <h3>Setting up the chroot install:</h3>
+
+            <li><u><i>cd scripts/</i></u></li>
+            <li><u><i>./install_vnc.sh</i></u></li>
+            <li><u><i>xfce</i></u> [USE XFCE, even if you want a different one or one that is not listed! You can install others later by rerunning this script, or just install them yourself if they are not listed!]</li>
+            <li><u><i>./setup_env.sh</i></u></li>
+            <li><u><i>./install_box.sh</i></u></li>
+            <li><u><i>sudo chmod +x winetricks</i></u></li>
+            <li><u><i>sudo mv winetricks /usr/bin/winetricks</i></u></li>
+            <li><u><i>cd</i></u></li>
+            <li><u><i>apt install nano</i></u></li>
+            <li><u><i>ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime</i></u> [Use your own Area]</li>
+            <li><u><i>apt install locales</i></u></li>
+            <li><u><i>locale-gen de_DE</i></u> [Use your language]</li>
+            <li><u><i>locale-gen de_DE.UTF-8</i></u> [Use your language]</li>
+            <li><u><i>echo "LANG=de_DE" > /etc/locale.conf</i></u></li>
+            <li><u><i>echo "LANG=de_DE-UTF" > /etc/locale.conf</i></u></li>
+            <li><u><i>passwd</i></u></li>
+            <li><u><i>groupadd storage</i></u></li>
+            <li><u><i>groupadd wheel</i></u></li>
+            <li><u><i>groupadd video</i></u></li>
+            <li><u><i>useradd -m -g users -G wheel,audio,video,storage -s /bin/bash YOUR_USERNAME</i></u></li>
+            <li><u><i>visudo</i></u> [Find the "root ALL=(ALL:ALL) ALL"-line, copy it a line below with your username: "YOUR_USERNAME ALL=(ALL:ALL) ALL"]</li>
+            <li><u><i>passwd YOUR_USERNAME</i></u></li>
+            <li><u><i>sudo chown -R YOUR_USERNAME /home/YOUR_USERNAME</i></u></li>
+            <li><u><i>su YOUR_USERNAME</i></u></li>
+            <li><u><i>cd</i></u></li>
+            <li>
+              <p><u><i>nano .profile</i></u></p>
+              <p>Add the following at the end:</p>
+              <p>---</p>
+<xmp>#Fixing Audio:
+export PULSE_SERVER=127.0.0.1 && pulseaudio --start --disable-shm=1 --exit-idle-time=-1
+
+#Starting the Desktop:
+sh $HOME/.startDE.sh
+</xmp>
+              <p>---</p>
+            </li>
+            <li>
+              <p><u><i>nano .startDE.sh</i></u></p>
+              <p>---</p>
+<xmp>#!/bin/bash
+
+echo "Starting Xwayland and everthing else soon. Press CTRL+C to cancel. 3sec..."
+sleep 3
+
+#XFCE:
+echo "Starting XFCE"
+dbus-launch --exit-with-session startxfce4
+
+#???:
+#echo "Starting ???"
+#dbus-launch --exit-with-session ???
+
+echo "Have fun in Xwayland! <3"
+</xmp>
+              <p>---</p>
+            </li>
+            <li><u><i>chmod +x .startDE.sh</i></u></li>
+            <h3>CLOSE</h3>
+            <li><u><i>chroot-installer stop</i></u></li>
+          </ul>
+        </li>
+        <li>
+          <h3>Setting up the rest in Termux:</h3>
+          <ul>
+            <li>
+              <p><u><i>nano startUbuntu.sh</i></u></p>
+              <p>---</p>
+<xmp>#!/bin/bash
+
+#CleanUp:
+pkill Xwayland
+sleep 2
+killall -9 termux-x11 Xwayland pulseaudio virgl_test_server_android termux-wake-lock
+sleep 2
+chroot-installer stop
+sleep 2
+
+#Starting Termux-X11, then the Driver:
+am start --user 0 -n com.termux.x11/com.termux.x11.MainActivity
+termux-x11 :0 -ac &
+sleep 2
+
+#Then the 3D-Driver:
+virgl_test_server_android &
+
+#Xwayland:
+chroot-installer start -w -v
+#chroot-installer start -w -va
+
+#XFVB:
+#chroot-installer start -x -va
+#chroot-installer start -x -v
+</xmp>
+            <p>---</p>
+            </li>
+            <li><u><i>chmod +x startUbuntu.sh</i></u></li>
+            <li><u><i>pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1</i></u></li>
+            <li><u><i>pacmd load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1</i></u></li>
+            <li><u><i>exit</i></u></li>
+          </ul>
+        </li>
+        <li>
+          <h3>First startup and last setup steps:</h3>
+          <ul>
+            <li><u><i>nano ./.chroot_installer/containers/Ubuntu.conf</i></u> [Change "root" to YOUR_USERNAME]</li>
+            <li><u><i>./startUbuntu.sh</i></u></li>
+            <li><u><i>sudo apt install software-properties-common</i></u></li>
+            <li><u><i>sudo add-apt-repository ppa:mozillateam/ppa</i></u></li>
+            <li>
+              <p><u><i>sudo nano /etc/apt/preferences.d/99mozillateamppa</i></u></p>
+              <p>---</p>
+<xmp>Package: firefox*
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 501
+
+Package: firefox*
+Pin: release o=Ubuntu
+Pin-Priority: -1
+</xmp>
+              <p>---</p>
+            </li>
+            <li><u><i>sudo apt update</i></u></li>
+            <li><u><i>sudo apt install -t 'o=LP-PPA-mozillateam' firefox</i></u></li>
+            <h3>CLOSE</h3>
+            <li><u><i>cd installed-rootfs</i></u></li>
+            <li><u><i>mkdir a && truncate -s 10G my.img && mkfs.ext4 my.img && mount -oloop my.img a/ && cp -a Ubuntu/. a/. && ls a/ && umount a/ && rmdir a/</i></u> [This long command creates a folder called a, creates a 10GB disk-image file (can be as large as you want/have/need), creates an ext4 filesystem inside of it, mounts the disk-image to the folder a, copies the contents of the Ubuntu installation to it, lists the contents in a/ for you to make sure everything looks like a normal Linux root directory, unmounts the disk-image and removes the a/ folder. Continue if everything was successful.]</li>
+            <li><u><i>rm -r Ubuntu/</i></u></li>
+            <li><u><i>rm -r a/</i></u></li>
+            <li><u><i>mkdir Ubuntu/</i></u></li>
+            <li><u><i>mv my.img /Ubuntu/ubuntu.img</i></u></li>
+            <li><u><i>cd Ubuntu/</i></u></li>
+            <li><u><i>chmod 777 ubuntu.img</i></u></li>
+            <li><u><i>cd</i></u></li>
+            <li>
+              <p><u><i>nano ./.chroot_installer/containers/Ubuntu.conf</i></u></p>
+              <p>---</p>
+<xmp>INSPATH=/data/data/com.termux/files/home/installed-rootfs/Ubuntu/ubuntu.img
+DISTRO=ubuntu
+USERNAME=YOUR_USERNAME
+default
+</xmp>
+            <p>---</p>
+            </li>            
+          </ul>
+        </li>
+        <li>
+          <h3>Installing a Backup-Tool [Read this for more information: <a href="https://github.com/laraib07/TermuxBackupTools">https://github.com/laraib07/TermuxBackupTools</a>]:</h3>
+          <h3><u><i>wget https://raw.githubusercontent.com/laraib07/TermuxBackupTools/master/rewind && chmod u+x rewind && mv rewind $PREFIX/bin/</i></u></h3>
+        </li>
+      </ol>
+    </h3>
+    <br>
+    <b>Sources:</b>
+    <ul>
+      <li><a href="https://catwithcode.github.io/Blog/2023.07.15_Unihertz_Titan_Slim_UbuntuTouch_Fail/Unihertz_Titan_Slim_UbuntuTouch_Fail.html">https://catwithcode.github.io/Blog/2023.07.15_Unihertz_Titan_Slim_UbuntuTouch_Fail/Unihertz_Titan_Slim_UbuntuTouch_Fail.html</a></li>
+      <li><a href="https://github.com/laraib07/TermuxBackupTools">https://github.com/laraib07/TermuxBackupTools</a></li>
+      <li><a href="https://askubuntu.com/questions/836545/session-manager-must-be-in-idle-state-when-requesting-a-shutdown">https://askubuntu.com/questions/836545/session-manager-must-be-in-idle-state-when-requesting-a-shutdown</a></li>
+      <li><a href="https://launchpad.net/ubuntu/+source/click/0.5.0-9">https://launchpad.net/ubuntu/+source/click/0.5.0-9</a></li>
+      <li><a href="https://en.m.wikipedia.org/wiki/Chroot">https://en.m.wikipedia.org/wiki/Chroot</a></li>
+      <li><a href="https://open-store.io/about">https://open-store.io/about</a></li>
+      <li><a href="https://wiki.ubuntuusers.de/PolicyKit/">https://wiki.ubuntuusers.de/PolicyKit/</a></li>
+      <li><a href="https://github.com/termux/termux-app/issues/2442">https://github.com/termux/termux-app/issues/2442</a></li>
+      <li><a href="https://github.com/termux/termux-x11/issues/273">https://github.com/termux/termux-x11/issues/273</a></li>
+      <li><a href="https://github.com/RobertSzujo/Termux-UbuntuBox/blob/main/README.md">https://github.com/RobertSzujo/Termux-UbuntuBox/blob/main/README.md</a></li>
+      <li><a href="https://askubuntu.com/questions/539243/how-to-change-visudo-editor-from-nano-to-vim">https://askubuntu.com/questions/539243/how-to-change-visudo-editor-from-nano-to-vim</a></li>
+      <li><a href="https://askubuntu.com/questions/1219271/im-having-a-problem-with-locale-and-locale-gen-in-ubuntu">https://askubuntu.com/questions/1219271/im-having-a-problem-with-locale-and-locale-gen-in-ubuntu</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Ubuntu_Touch">https://en.wikipedia.org/wiki/Ubuntu_Touch</a></li>
+      <li><a href="https://de.wikipedia.org/wiki/Lomiri">https://de.wikipedia.org/wiki/Lomiri</a></li>
+      <li><a href="https://github.com/termux/termux-x11">https://github.com/termux/termux-x11</a></li>
+      <li><a href="https://github.com/termux/termux-x11/actions/runs/5568615384">https://github.com/termux/termux-x11/actions/runs/5568615384</a></li>
+      <li><a href="https://wiki.termux.com/wiki/PRoot#Community_scripts">https://wiki.termux.com/wiki/PRoot#Community_scripts</a></li>
+      <li><a href="https://www.youtube.com/watch?v=snBl1xZYhsA">https://www.youtube.com/watch?v=snBl1xZYhsA</a></li>
+      <li><a href="https://ivonblog.com/en-us/">https://ivonblog.com/en-us/</a></li>
+      <li><a href="https://ivonblog.com/posts/alpaca-cpp-termux-android/">https://ivonblog.com/posts/alpaca-cpp-termux-android/</a></li>
+      <li><a href="https://www.youtube.com/watch?v=NHJstwOyLmc">https://www.youtube.com/watch?v=NHJstwOyLmc</a></li>
+      <li><a href="https://ivonblog.com/en-us/posts/termux-virglrenderer/">https://ivonblog.com/en-us/posts/termux-virglrenderer/</a></li>
+      <li><a href="https://ivonblog.com/en-us/posts/termux-x11/">https://ivonblog.com/en-us/posts/termux-x11/</a></li>
+      <li><a href="https://ivonblog.com/en-us/posts/termux-proot-distro-debian/">https://ivonblog.com/en-us/posts/termux-proot-distro-debian/</a></li>
+      <li><a href="https://github.com/meefik/linuxdeploy">https://github.com/meefik/linuxdeploy</a></li>
+      <li><a href="https://ubunlog.com/en/you-can-now-run-ubuntu-touch-apps-on-ubuntu-desktop/">https://ubunlog.com/en/you-can-now-run-ubuntu-touch-apps-on-ubuntu-desktop/</a></li>
+      <li><a href="https://github.com/meefik/busybox">https://github.com/meefik/busybox</a></li>
+      <li><a href="https://github.com/meefik/busybox/issues/125">https://github.com/meefik/busybox/issues/125</a></li>
+      <li><a href="https://github.com/meefik/busybox/issues/93">https://github.com/meefik/busybox/issues/93</a></li>
+      <li><a href="https://superuser.com/questions/838392/how-to-tar-a-directory-preserving-not-only-permissions-but-ownership-too">https://superuser.com/questions/838392/how-to-tar-a-directory-preserving-not-only-permissions-but-ownership-too</a></li>
+      <li><a href="https://ourcodeworld.com/articles/read/642/how-to-compress-a-whole-directory-including-subdirectories-using-tar-in-unix-based-os-with-the-cli">https://ourcodeworld.com/articles/read/642/how-to-compress-a-whole-directory-including-subdirectories-using-tar-in-unix-based-os-with-the-cli</a></li>
+      <li><a href="https://gitlab.freedesktop.org/mesa/mesa/-/issues/5149">https://gitlab.freedesktop.org/mesa/mesa/-/issues/5149</a></li>
+      <li><a href="https://askubuntu.com/questions/1233288/unable-to-logout-from-guest-session-on-xubuntu-20-04">https://askubuntu.com/questions/1233288/unable-to-logout-from-guest-session-on-xubuntu-20-04</a></li>
+      <li><a href="https://docs.ubports.com/en/latest/systemdev/testing-locally.html#building-on-the-device-itself">https://docs.ubports.com/en/latest/systemdev/testing-locally.html#building-on-the-device-itself</a></li>
+      <li><a href="https://docs.ubports.com/en/latest/about/process/ppa.html?highlight=Lomiri">https://docs.ubports.com/en/latest/about/process/ppa.html?highlight=Lomiri</a></li>
+      <li><a href="https://forum.manjaro.org/t/gufw-doesnt-start/111471">https://forum.manjaro.org/t/gufw-doesnt-start/111471</a></li>
+      <li><a href="https://userbase.kde.org/KDEConnect#ufw">https://userbase.kde.org/KDEConnect#ufw</a></li>
+      <li><a href="https://f-droid.org/de/packages/com.termux/">https://f-droid.org/de/packages/com.termux/</a></li>
+      <li><a href="https://f-droid.org/de/packages/com.termux.api/">https://f-droid.org/de/packages/com.termux.api/</a></li>
+      <li><a href="https://phoenixnap.com/kb/add-apt-repository-command-not-found-ubuntu">https://phoenixnap.com/kb/add-apt-repository-command-not-found-ubuntu</a></li>
+      <li><a href="https://fostips.com/ubuntu-21-10-two-firefox-remove-snap/">https://fostips.com/ubuntu-21-10-two-firefox-remove-snap/</a></li>
+      <li><a href="https://bbs.archlinux.org/viewtopic.php?id=77646">https://bbs.archlinux.org/viewtopic.php?id=77646</a></li>
+      <li><a href="https://ivonblog.com/en-us/posts/fix-termux-signal9-error/">https://ivonblog.com/en-us/posts/fix-termux-signal9-error/</a></li>
+      <li><a href="https://www.reddit.com/r/termux/comments/xfny8t/debian_chroot_running_through_termuxx11/">https://www.reddit.com/r/termux/comments/xfny8t/debian_chroot_running_through_termuxx11/</a></li>
+      <li><a href="https://github.com/ryanfortner/box64-debs">https://github.com/ryanfortner/box64-debs</a></li>
+      <li><a href="https://github.com/Herick75/Box4Droid/tree/main/Apps">https://github.com/Herick75/Box4Droid/tree/main/Apps</a></li>
+      <li><a href="https://github.com/Pipetto-crypto/Chroot-Installer">https://github.com/Pipetto-crypto/Chroot-Installer</a></li>
+      <li><a href="https://github.com/Grima04/virgl-vtest-launcher">https://github.com/Grima04/virgl-vtest-launcher</a></li>
+      <li><a href="https://github.com/Pipetto-crypto/Chroot-Installer/tree/master/setup/extraconfigs">https://github.com/Pipetto-crypto/Chroot-Installer/tree/master/setup/extraconfigs</a></li>
+      <li><a href="https://www.youtube.com/watch?v=rI6RBKzm_CI">https://www.youtube.com/watch?v=rI6RBKzm_CI</a></li>
+      <li><a href="https://github.com/Pipetto-crypto/Chroot-Installer">https://github.com/Pipetto-crypto/Chroot-Installer</a></li>
+      <li><a href="https://www.youtube.com/watch?v=nphCEYfI-dE">https://www.youtube.com/watch?v=nphCEYfI-dE</a></li>
+      <li><a href="https://www.omgubuntu.co.uk/2022/04/how-to-install-firefox-deb-apt-ubuntu-22-04">https://www.omgubuntu.co.uk/2022/04/how-to-install-firefox-deb-apt-ubuntu-22-04</a></li>
+      <li><a href="https://github.com/Pipetto-crypto/Chroot-Docs">https://github.com/Pipetto-crypto/Chroot-Docs</a></li>
+      <li><a href="https://unix.stackexchange.com/questions/503211/how-can-an-image-file-be-created-for-a-directory">https://unix.stackexchange.com/questions/503211/how-can-an-image-file-be-created-for-a-directory</a></li>
+    </ul>
+    <h5>2023.07.21 - 20:00</h5>
+  </body>
+</html>
