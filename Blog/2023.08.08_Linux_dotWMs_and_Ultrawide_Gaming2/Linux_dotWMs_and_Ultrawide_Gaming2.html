@@ -6,12 +6,12 @@
   </head>
   <body align="left" onload="createiFrame()">
     <script src="https://catwithcode.github.io/Assets/GetTopBar.js"></script>
-    
+    <h1>My experience with tiling window managers / dot-WM's and part2 of Ultrawide gaming on Linux entry</h1>
+    <br>
     <h3>Here is the first entry with KDE and ultrawide gaming:</h3>
     <a href="https://catwithcode.github.io/Blog/2023.04.07_Linux_Force_Triple_Screen_Gaming_without_Eyefinity_or_Surround/Linux_Force_Triple_Screen_Gaming_without_Eyefinity_or_Surround.html">https://catwithcode.github.io/Blog/2023.04.07_Linux_Force_Triple_Screen_Gaming_without_Eyefinity_or_Surround/Linux_Force_Triple_Screen_Gaming_without_Eyefinity_or_Surround.html</a>
     <br>
     <br>
-    <h1>My experience with tiling window managers / dot-WM's and part2 of Ultrawide gaming on Linux entry</h1>
     <h3>I tried a few new desktops on Linux and found two in particular that I love.</h3>
     <h3>The first one is Wayfire. It is crazy how fast and beautiful this WM is, and as usual with WM's with dotfiles as they are now known, it is customizable into oblivion. It is a floating WM and that is rare with such dotfile WM's. It works great for everything except one thing. Multi-monitor gaming is not possible on this WM. The windows wrap around a triangle by design, which means that multi-screen gaming or very large windows are not possible.</h3>
     <h3>I tried a couple of tiling window managers, but most were just too stiff for me. Then I tried Hyprland. It is exactly what I wanted and how I use my PC most of the time. Window tile dynamically, logical and easy. The best part is that you can use window rules, key binds and gamescope to play on multiple monitors. It makes gaming in general very convenient because you can just SHIFT+TAB and move the window around and do whatever you want with the SteamOverlay on the screen. It is literally the best WM I have ever used in terms of how everything works and how to use it.</h3>
@@ -44,6 +44,14 @@ bind = SUPER, G, moveactive, exact 0 260
     <br>
     <u>It only works with floating windows, and if the rules do not work with a window, you can force it to float:</u>
 <xmp>bind = SUPER, V, togglefloating</xmp>
+    <br>
+    <u>The Steam Game-StartUp-Options</u>:
+    <br>
+    <br>
+    2K Ultrawide:
+<xmp>gamescope -h 1440 -w 7680 -b %command%</xmp>
+    2K Normal:
+<xmp>gamescope -h 1440 -w 2560 -b %command%</xmp>
     </h3>
     <br>
     <b>Sources:</b>
@@ -51,7 +59,8 @@ bind = SUPER, G, moveactive, exact 0 260
       <li><a href="https://wayfire.org/">https://wayfire.org/</a></li>
       <li><a href="https://github.com/WayfireWM/wayfire/wiki/Configuration">https://github.com/WayfireWM/wayfire/wiki/Configuration</a></li>
       <li><a href="https://hyprland.org/">https://hyprland.org/</a></li>
-      <li><a href="https://wiki.hyprland.org/">https://wiki.hyprland.org/</a></li>      
+      <li><a href="https://wiki.hyprland.org/">https://wiki.hyprland.org/</a></li>
+      <li><a href="https://catwithcode.github.io/Blog/2023.04.07_Linux_Force_Triple_Screen_Gaming_without_Eyefinity_or_Surround/Linux_Force_Triple_Screen_Gaming_without_Eyefinity_or_Surround.html">https://catwithcode.github.io/Blog/2023.04.07_Linux_Force_Triple_Screen_Gaming_without_Eyefinity_or_Surround/Linux_Force_Triple_Screen_Gaming_without_Eyefinity_or_Surround.html</a></li>
     </ul>
     <h5>2023.08.07 - 22:30</h5>
   </body>
