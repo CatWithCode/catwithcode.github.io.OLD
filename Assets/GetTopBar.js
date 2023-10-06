@@ -19,3 +19,5 @@ document.write('\
     <br>\
     \
 ');
+
+$('#testing').load("/Assets/styles.css");
