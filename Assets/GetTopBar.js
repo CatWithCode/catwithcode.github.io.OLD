@@ -1,1 +1,1 @@
-document.write(<a href="Blog/2023.09.23_I_THINK_YOU_SOULD_NOT_USE_UNITY/I_THINK_YOU_SOULD_NOT_USE_UNITY.html"/>);
+document.write(<a href="/Assets/TopBar.html"/>);
