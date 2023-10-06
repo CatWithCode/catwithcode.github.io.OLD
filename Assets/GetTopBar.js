@@ -1,1 +1,2 @@
-document.write(src="https://catwithcode.github.io/Assets/TopBar.html");
+$a = "bruh2"
+document.write($a);
