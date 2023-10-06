@@ -7,4 +7,8 @@ document.write('\
     \
 ');
 
-$('#testing').load("TopBar.html");
+$(document).ready(function(){
+   
+    $('#testing').load("/Assets/TopBar.html");
+ 
+ });
