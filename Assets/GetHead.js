@@ -6,9 +6,3 @@ document.write('\
     <meta name="description" content="Blog for random computer stuff from my daily life. Girl from Germany. Work as a Software Developer. Programming, Linux, Hacking, Modding and tinkering.">\
     \
 ');
-
-$(document).ready(function(){
-   
-    $('#testing').load("/Assets/TopBar.html");
- 
- });
