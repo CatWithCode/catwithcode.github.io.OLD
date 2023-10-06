@@ -1,1 +1,1 @@
-document.write(<a href="/Assets/TopBar.html"/>);
+document.write(<a href="https://catwithcode.github.io/Assets/TopBar.html"/>);
