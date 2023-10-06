@@ -7,4 +7,4 @@ document.write('\
     \
 ');
 
-$('#testing').load("/Assets/TopBar.html");
+$('#testing').load("TopBar.html");
