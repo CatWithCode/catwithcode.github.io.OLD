@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="https://catwithcode.github.io/Assets/GetHead.js"></script>
+    <script src="/Assets/GetHead.js"></script>
     <title>CatWithCode - AMD Radeon RX 7900 XT/XTX on Linux shortly after release</title>
   </head>
   <body align="left" onload="createiFrame()">
-    <script src="https://catwithcode.github.io/Assets/GetTopBar.js"></script>    
+    <script src="/Assets/GetTopBar.js"></script>    
     <h1>AMD Radeon RX 7900 XT/XTX on Linux <u>shortly after release:</u></h1>
     <br>
     <h3><u>UPDATE FROM 2023.01.08:</u> Thx to some people in this Github-Issue: "<a href="https://github.com/CatWithCode/catwithcode.github.io/issues/1">https://github.com/CatWithCode/catwithcode.github.io/issues/1</a>" I discovered that Arch is not really working... actually... it kinda works great... IDK. It ONLY works if the iGPU of the CPU is enabled. Nothing is connected to it, but for some unknown reason everything works as long as this condition is checked. NO performance issues or anything! With iGPU disabled everything is extremely broken. As far as everyone can tell, it has something to do with a still outdated version of LLVM (The 7900XT/XTX needs version 15 or higher). For me it is perfectly working so I don't worry about it, but if you don't have a iGPU on your CPU the 7900XT/XTX will still not work without some fixing work! I left some good discoveries and information in the Sources Section if you need a starting point. All this will definitely change in the very near future, but for now that's all we got. When even Arch is too outdated for your hardware you know you bought bleeding edge. Also, some games show multiple ways to display the game (I only have displays on the 7900XT and some games give me the option to display it on one of the three displays with 2 different GPUs each (<a href="https://github.com/CatWithCode/catwithcode.github.io/issues/1#issuecomment-1374572918">https://github.com/CatWithCode/catwithcode.github.io/issues/1#issuecomment-1374572918</a>). Some games that come as a Flatpack have the issue of relying on some Flatpack dependency that is too outdated to recognize the 7900XT/XTX and only render the game on the iGPU (DXVK-HUD can tell you what the game gets rendered on). XIVLauncher for example. AUR or compiling yourself is the only option currently (Will also definitely change in the near future!).</h3>
