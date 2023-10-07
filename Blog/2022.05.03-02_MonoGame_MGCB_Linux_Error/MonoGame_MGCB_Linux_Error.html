@@ -1,73 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="/Assets/GetHead.js"></script>
     <title>CatWithCode - MonoGame with MGCB-Editor on Linux</title>
   </head>
-  <body align="left">
-    <script src="/Assets/GetTopBar.js"></script>
-    
-    <h1>MonoGame with MGCB-Editor on a Rolling-Release Linux Distros</h1>    
-    <h3>If you get the following Error when you are trying to use the MGCB-Editor:</h3>
-    <p><u><i>"System.NullReferenceException: Object reference not set to an instance of an object. at Gtk.Widget.DrawnSignalCallback(IntPtr inst, IntPtr arg0, IntPtr gch)"</i></u></p>
-    <h3>or Intellisense is not working in your Monogame Project, then this Blog-Entry is for you! There is (at the moment) a issues with Monogame and Rolling-Release Linux Distros like Arch Linux. Its glib2. That makes the use of the MGCB-Editor impossible on Linux without the downgrading and breaking of a lot of things. But there is a fix. Not a super clean one but it works.</h3>
-    <p>Swap #USERNAME# with your Linux Username!</p>
-    <p>I don't show how to create a project in this Blog-Entry. This is only about the "mgcb-editor" issue.</p>
-    <p>If Monogame finally gets an update an fixes that Bug you don't need to do that wine part anymore.</p>
-    <p>You also could try to compile the the GitHub-version of Monogame. But I could not because of glib2.</p>
+  <body>
     <br>
-    <ol>
-      <li><p>First you need to fulfill some dependencies. Install the following packages (on other Disros find them, on Arch just execute the following):</p>
-        <p><u><i>sudo pacman -S code dotnet-sdk mono mono-tools mono-msbuild mono-msbuild-sdkresolver mono-addins</u></p>
-      </li>
-      <br>
-      <li>You need to install Visual Studio Code from the official Website or the AUR on Arch Linux. The OSS version will not work! For some reason the OSS version can not use the .NET-CORE stuff for C#. If your system complains that CSS-VS-Code and the MS-VS-CODE version interfere, uninstall the OSS-VS-CODE.
-      <br>
-      <br>
-      <b>MS-VS-CODE Version's:</b>
-      <p>
-        <a href="https://code.visualstudio.com/">visualstudio.com</a> 
-        <b> or </b> 
-        <a href="https://aur.archlinux.org/packages/visual-studio-code-bin">AUR</a>
-      </p>
-      </li>
-      <br>
-      <li><p>Install the following VS-Code-Addons shown in the Addons-Image below (yes also the Unity one).</p></li>
-      <br>
-      <li><p>Now download and install "dotNET-SDK 3.1" inside a wine-prefix:</p>
-      <p>
-        <b>dotNET-SDK 3.1: </b>
-        <a href="https://dotnet.microsoft.com/en-us/download/dotnet/3.1">dotnet.microsoft.com</a> 
-      </p>
-      </li>
-      <br>
-      <li><p>Navigate to the Monogame insall Location: "/home/#USERNAME#/.dotnet/tools/.store/dotnet-mgcb-editor/3.8.0.1641/dotnet-mgcb-editor/3.8.0.1641/tools/netcoreapp3.1/any/" and check of everything is there including "mgcb-editor-wpf.exe".</p></li>
-      <br>
-      <li>
-        <p>Now start the "mgcb-editor-wpf.exe" inside your wine-prefix with:</p>
-        <p>"export DOTNET_ROOT="C:\\Program Files\\dotnet" && wine /home/#USERNAME#/.dotnet/tools/.store/dotnet-mgcb-editor/3.8.0.1641/dotnet-mgcb-editor/3.8.0.1641/tools/netcoreapp3.1/any/mgcb-editor-wpf.exe"</p>
-        <br>
-        <p>It is very slow and a little Buggy but it works. Add your "Content.mgcb" and start working. Assets you want to add MUST be in the same folder OR lower (subfolder). Anything else will break paths in the "Content.mgcb". This happens because of the way wine is routing path's.</p>
-        <p>It's also very VERY important that DXVK or simular is NOT intstalled in the wine-prefix. It will break the WPF interface!</p>
-        <p>You also MUST start the "mgcb-editor" always with this command. For some reason "DOTNET_ROOT"-Variable gets lost after a reboot after the first installation.</p>
-        <p>That's it. Now you can use the Content-Manager and start working on your project.</p>
-      </li>      
-    </ol>
+    <h1>WE MOVED!</h1>
+    <h3>SORRY FOR THE INCONVENIENCE, BUT I HAVE MOVED!</h3>
     <br>
-    <figure>
-      <img src="DATA/VS-Code-Addons-for-Monogame.jpg" alt="VS-Code-Addons Image" style="width:70%;height:20%";/>
-      <figcaption> VS-Code-Addons needed </figcaption>
-    </figure>
+    <h1>Link to the same entry on the new website:</h1>
+    <h1><a href="https://catwithcode.moe/Blog/2022.05.03-02_MonoGame_MGCB_Linux_Error/MonoGame_MGCB_Linux_Error.html">https://catwithcode.moe/Blog/2022.05.03-02_MonoGame_MGCB_Linux_Error/MonoGame_MGCB_Linux_Error.html</a></h1>
     <br>
-    <b>Sources:</b>
-    <ul>
-      <li><a href="https://github.com/MonoGame/MonoGame/issues/7491">github.com</a></li>
-      <li><a href="https://docs.monogame.net/articles/tools/mgcb_editor.html">docs.monogame.net</a></li>
-      <li><a href="https://docs.monogame.net/articles/getting_started/1_setting_up_your_development_environment_ubuntu.html">docs.monogame.net</a></li>
-      <li><a href="https://docs.monogame.net/articles/getting_started/2_creating_a_new_project_netcore.html">docs.monogame.net</a></li>
-      <li><a href="https://docs.monogame.net/articles/getting_started/3_understanding_the_code.html">docs.monogame.net</a></li>
-      <li><a href="https://docs.monogame.net/articles/getting_started/4_adding_content.html">docs.monogame.net</a></li>      
-    </ul>    
-    <h5>2022.05.03 - 14:36</h5>  
+    <br>
+    <h4><u>Note:</u> <i>This website will be deleted in the near future. Please use the new one!</i></h4>
+    <h5>2023.10.07 - 17:00</h5>
   </body>
 </html>

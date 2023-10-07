@@ -1,34 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="/Assets/GetHead.js"></script>
     <title>CatWithCode - Playing Music with your PC-Speaker on Linux</title>
   </head>
-  <body align="left" onload="createiFrame()">
-    <script src="/Assets/GetTopBar.js"></script>
-    
-    <h1>Playing Music with your PC-Speaker on Linux</h1>
-    <h3>If you are still a "fan" (It is just very useful to have when troubleshooting, OK?) of PC-Speaker (the thing that beeps at you when your PC starts) like me you defiantly wondered at least once if you can make noise inside of your OS with it. Turns out you can.</h3>
-    <h3>It is as easy as making sure that this file dose not exist "<u><i>/etc/modprobe.d/nobeep.conf</i></u>" which would disabled the speaker hardware for the normal OS, giving normal users access to it with this rule "<u><i>ACTION=="add", SUBSYSTEM=="input", ATTRS{name}=="PC Speaker", ENV{DEVNAME}!="", TAG+="uaccess"</i></u>" in this file "<u><i>/etc/udev/rules.d/70-pcspkr-beep.rules</i></u>" and after one reboot the fun can begin. (It is highly recommended that you use the Arch Wiki for all steps, rather than blindly copying the information provided: <a href="https://wiki.archlinux.org/title/PC_speaker">https://wiki.archlinux.org/title/PC_speaker</a>)</h3>
-    <h3>There are some, not many, people who have created music for this purpose. There are even tools to convert music files into beep commands. beep is the software that gives you easy access to the speaker. The most common command converter is wavtobeep (requires: beep, python3, pip, scipy and sox), which converts wav files into a beep command. There are also some miditobeep converter out there (several with the same name). I have only played around with wavtobeep. It works great as long as you make the wav files mono and prepare them a bit (as little background noise and unneeded stuff as possible).</h3>
-    <h3>I linked a few cool things I found while researching in the Sources section.</h3>
-    <h3>One really cool thing you can do is to take a startup and shutdown sound (from Windows XP for example) and turn it into a beep command. Using wavtobeep I did this with an 8-bit version of it and when I turn my PC on or off it sounds like a old school Windows XP PC but the sound is coming from the PC itself lol. This was already annoying after a few times hearing it, but it was still funny. You could use any sound that can be reproduced with a PC speaker. So many possibilities :D. Unfortunately, I cannot provide the commands for them because of copyright. But I can linked to the 8-bit version I used to create it and you can go from there: <a href="https://onlinesequencer.net/932148">https://onlinesequencer.net/932148</a></h3>
-    <h3>Thats it. Just wanted to share this funny beep thing I found.</h3>
+  <body>
+    <br>
+    <h1>WE MOVED!</h1>
+    <h3>SORRY FOR THE INCONVENIENCE, BUT I HAVE MOVED!</h3>
+    <br>
+    <h1>Link to the same entry on the new website:</h1>
+    <h1><a href="https://catwithcode.moe/Blog/2023.07.02_Linux_Music_with_PC-Speaker/Linux_Music_with_PC-Speaker.html">https://catwithcode.moe/Blog/2023.07.02_Linux_Music_with_PC-Speaker/Linux_Music_with_PC-Speaker.html</a></h1>
     <br>
     <br>
-    <b>Sources:</b>
-    <ul>
-      <li><a href="https://github.com/ShaneMcC/beeps">https://github.com/ShaneMcC/beeps</a></li>
-      <li><a href="https://wiki.archlinux.org/title/PC_speaker">https://wiki.archlinux.org/title/PC_speaker</a></li>
-      <li><a href="https://github.com/NaWer/beep">https://github.com/NaWer/beep</a></li>
-      <li><a href="https://www.kirrus.co.uk/2014/02/linux-beep-music-2/">https://www.kirrus.co.uk/2014/02/linux-beep-music-2/</a></li>
-      <li><a href="https://blog.dhampir.no/content/fun-with-beep">https://blog.dhampir.no/content/fun-with-beep</a></li>
-      <li><a href="https://ubuntuforums.org/showthread.php?t=1157670">https://ubuntuforums.org/showthread.php?t=1157670</a></li>
-      <li><a href="https://github.com/tomas-teijeiro/wavtobeep">https://github.com/tomas-teijeiro/wavtobeep</a></li>
-      <li><a href="https://github.com/Cqoicebordel/mid2beep">https://github.com/Cqoicebordel/mid2beep</a></li>
-      <li><a href="https://github.com/baobao1270/mid2beep">https://github.com/baobao1270/mid2beep</a></li>
-      <li><a href="https://onlinesequencer.net/932148">https://onlinesequencer.net/932148</a></li>      
-    </ul>
-    <h5>2023.07.02 - 22:10</h5>
+    <h4><u>Note:</u> <i>This website will be deleted in the near future. Please use the new one!</i></h4>
+    <h5>2023.10.07 - 17:00</h5>
   </body>
 </html>

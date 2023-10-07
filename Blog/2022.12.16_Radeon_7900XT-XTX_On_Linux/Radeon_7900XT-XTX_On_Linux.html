@@ -1,116 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="/Assets/GetHead.js"></script>
     <title>CatWithCode - AMD Radeon RX 7900 XT/XTX on Linux shortly after release</title>
   </head>
-  <body align="left" onload="createiFrame()">
-    <script src="/Assets/GetTopBar.js"></script>    
-    <h1>AMD Radeon RX 7900 XT/XTX on Linux <u>shortly after release:</u></h1>
+  <body>
     <br>
-    <h3><u>UPDATE FROM 2023.01.08:</u> Thx to some people in this Github-Issue: "<a href="https://github.com/CatWithCode/catwithcode.github.io/issues/1">https://github.com/CatWithCode/catwithcode.github.io/issues/1</a>" I discovered that Arch is not really working... actually... it kinda works great... IDK. It ONLY works if the iGPU of the CPU is enabled. Nothing is connected to it, but for some unknown reason everything works as long as this condition is checked. NO performance issues or anything! With iGPU disabled everything is extremely broken. As far as everyone can tell, it has something to do with a still outdated version of LLVM (The 7900XT/XTX needs version 15 or higher). For me it is perfectly working so I don't worry about it, but if you don't have a iGPU on your CPU the 7900XT/XTX will still not work without some fixing work! I left some good discoveries and information in the Sources Section if you need a starting point. All this will definitely change in the very near future, but for now that's all we got. When even Arch is too outdated for your hardware you know you bought bleeding edge. Also, some games show multiple ways to display the game (I only have displays on the 7900XT and some games give me the option to display it on one of the three displays with 2 different GPUs each (<a href="https://github.com/CatWithCode/catwithcode.github.io/issues/1#issuecomment-1374572918">https://github.com/CatWithCode/catwithcode.github.io/issues/1#issuecomment-1374572918</a>). Some games that come as a Flatpack have the issue of relying on some Flatpack dependency that is too outdated to recognize the 7900XT/XTX and only render the game on the iGPU (DXVK-HUD can tell you what the game gets rendered on). XIVLauncher for example. AUR or compiling yourself is the only option currently (Will also definitely change in the near future!).</h3>
+    <h1>WE MOVED!</h1>
+    <h3>SORRY FOR THE INCONVENIENCE, BUT I HAVE MOVED!</h3>
     <br>
-    <h3><u>UPDATE FROM 2022.12.23:</u> Arch has now all the Updates needed to boot and run great. But at the moment the .ISO's are still to old. Install them, update them, install the newest stable Kernel and AFTER that they will run perfectly. I recommend Kernel 6.1.0-1 and newer.</h3>
-    <br>
-    <h3>Software-Versions I had at the end:</h3>
-    <ul>
-      <li>OS: Pop!_OS 22.04 LTS x86_64</li>
-      <li>Kernel: 6.0.6-76060006-generic</li>
-      <li>Driver: Mesa 22.3.1 - kisak-mesa PPA</li>
-      <li>DE: GNOME 42.3.1</li>
-      <li>WM: Mutter</li>
-    </ul>
-    <h3>!!!In a few weeks/months this all will not be necessary anymore. Then firmware and driver will be new enough in the most Linux-Distros!!!</h3>
-    <h3>This is done with no more work in mind. That means as soon as Pop OS supports these GPUs all of this is replaced automatically and you don't need to do anything else.</h3>
-    <h3>If there is a Linux-firmware update and it, for some reason, does not contain the newest files, with support for the new GPUS you need to copy everything there again and redoo the initramfs thing!</h3>
-    <h3>OpenSuse Tumbelweed, Manjaro and Arch did not work or were really broken.</h3> 
-    <h3>Long story short. I bought a new PC and did not realise how new the Radeon 7900XT actually is (2 days at the time of writing). It did not work on Linux as expected after so little time. But after some research and try and error I found multiple things to get it working.
-      <h3>I tested several Linux Distributions and only ONE kind did work... everything Ubuntu based. Sure with a lot of will, you can get it to work elsewhere, but good luck with that in the long term. I'm sure it has something to with the way mesa is compiled. At least some Arch Reddit entry's suggested that. That's surly why this exact ppa Mesa works so good.</h3>
+    <h1>Link to the same entry on the new website:</h1>
+    <h1><a href="https://catwithcode.moe/Blog/2022.12.16_Radeon_7900XT-XTX_On_Linux/Radeon_7900XT-XTX_On_Linux.html">https://catwithcode.moe/Blog/2022.12.16_Radeon_7900XT-XTX_On_Linux/Radeon_7900XT-XTX_On_Linux.html</a></h1>
     <br>
     <br>
-    <h2><u>HOW I DID IT:</u></h2>
-    <br>
-    <h3>I USED POP OS! """Easiest""" way to get it working.</h3>
-    <br>
-    <h3>Plug a Display into the motherboard if possible or install a different GPU (Or do everything on a different PC until you're done).</h3>
-    <br>
-    <h3>Install Pop OS and update it.</h3>
-    <br>
-    <h3>Install the newest "Stable" MESA-Driver. NOT THE GIT-VERSION! It is most likely still broke and/or compiled wrong in this use case:</h3>    
-    <h3>I recomand this (Seems to have been properly compiled with the latest packages for these new GPUs): <u><a href="https://launchpad.net/~kisak/+archive/ubuntu/kisak-mesa">https://launchpad.net/~kisak/+archive/ubuntu/kisak-mesa</a></u></h3>
-    <p><u><i>sudo add-apt-repository ppa:kisak/kisak-mesa</i></u></p>
-    <p><u><i>sudo apt update</i></u></p>
-    <p><u><i>sudo apt upgrade</i></u></p>
-    <br>
-    <h3>Now we need to force Pop OS to use the new Repository for MESA.</h3>
-    <p><u><i>sudo gedit /etc/apt/preferences.d/kisak-pin-2000</i></u></p>
-    <h3>Now put the following into the File:</h3>
-    <h4><u>Package: *</u></h4>
-    <h4><u>Pin: release o=LP-PPA-kisak-kisak-mesa</u></h4>
-    <h4><u>Pin-Priority: 2000</u></h4>
-    <br>
-    <h3>Now update again:</h3>
-    <p><u><i>sudo apt update</i></u></p>
-    <p><u><i>sudo apt upgrade</i></u></p>
-    <br>
-    <h3>Make sure that you use a Kernel newer then 6.0 (Pop OS uses "6.0.6-76060006-generic" at the time of writing).</h3>
-    <br>
-    <h3>The only thing missing to get Linux to boot with the GPU as the Display-Output is the Firmware. Most Distors will not have the firmware files for some time, so you need to force the Kernel to use them.</h3>
-    <h3>Download the newest Linux Firmware .tar.gz: <a href="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git">https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git</a></h3>
-    <h3>Now you need to put all AMDGPU files in your Firmware folder (I highlight recommend that you backup "/lib/firmware/amdgpu/" before using this command):</h3>
-    <p><u><i>sudo cp "PATH TO ARCHIVE"/linux-firmware/amdgpu/* /lib/firmware/amdgpu/</i></u></p>
-    <br>
-    <h3>The only thing missing now is to rebuild the initframfs. After that, the Kernel should recognize the GPU:</h3>
-    <p><u><i>sudo update-initramfs -c -k $(uname -r)</i></u></p>
-    <br>
-    <h3>I highlight recommend using WAYLAND! XORG is really buggy with this Setup (Crashes and invisible Curser) but WAYLAND works near perfectly (As perfect as Wayland can work):</h3>
-    <p><u><i>sudo gedit /etc/gdm3/custom.conf</i></u></p>
-    <h3>Now comment out the following line that says:</h3>
-    <p><u><i>WaylandEnable=false</i></u></p>
-    <h3>After that it sould look like this:</h3>
-    <p><u><i>#WaylandEnable=false</i></u></p>
-    <br>
-    <h3>If you really want to use X11 you can fix the curser Issue. "Rav8es" on GitHub explained how. Did not test it (Only using Wayland):</h3>
-    <a href="https://github.com/CatWithCode/catwithcode.github.io/issues/1#issuecomment-1364848537">https://github.com/CatWithCode/catwithcode.github.io/issues/1#issuecomment-1364848537</a>
-    <br>
-    <br>
-    <br>
-    <h3>Reboot (Make sure you are not automatically logged in. You need to change to Wayland!)</h3>
-    <h3>On the login-Screen, after you click on your Profile, there is a little gear icon on the bottom right. Click on it and make sure to set it to something like "POP with WAYLAND" or similar (GNOME, KDE ON WAYLAND,...). If there is and option like "Gnome under XORG" then the normal "Gnome" is the Wayland version.</h3>
-    <h3>After you logged in, check if you are on Wayland. If yes, check if everything works.</h3>
-    <br>
-    <h3>DONE!</h3>
-    <br>
-    <h3>Hope I helped you!</h3>
-    <br>
-    <h3>THANKS TO EVERYONE IN THE "Sources"-SECTION! Without all your posts I would have never got it to work!</h3>
-    <b>Sources:</b>
-    <ul>
-      <li><a href="https://www.reddit.com/r/linux_gaming/comments/lc84f0/kisak_mesa_ppa_not_working_on_pop_os/">https://www.reddit.com/r/linux_gaming/comments/lc84f0/kisak_mesa_ppa_not_working_on_pop_os/</a></li>
-      <li><a href="https://itsfoss.com/install-mesa-ubuntu/">https://itsfoss.com/install-mesa-ubuntu/</a></li>
-      <li><a href="https://www.reddit.com/r/pop_os/comments/gnyblm/how_to_use_wayland/">https://www.reddit.com/r/pop_os/comments/gnyblm/how_to_use_wayland/</a></li>
-      <li><a href="https://www.phoronix.com/review/rx7900xt-rx7900xtx-linux">https://www.phoronix.com/review/rx7900xt-rx7900xtx-linux</a></li>
-      <li><a href="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git">https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git</a></li>
-      <li><a href="https://askubuntu.com/questions/1351911/what-does-regenerate-your-initramfs-mean">https://askubuntu.com/questions/1351911/what-does-regenerate-your-initramfs-mean</a></li>
-      <li><a href="https://www.reddit.com/r/linux_gaming/comments/zk0462/amd_radeon_rx_7900_xtx_rx_7900_xt_linux_support/">https://www.reddit.com/r/linux_gaming/comments/zk0462/amd_radeon_rx_7900_xtx_rx_7900_xt_linux_support/</a></li>
-      <li><a href="https://www.reddit.com/r/linux_gaming/comments/zk0462/comment/j051f4b/?utm_source=share&utm_medium=web2x&context=3">https://www.reddit.com/r/linux_gaming/comments/zk0462/comment/j051f4b/?utm_source=share&utm_medium=web2x&context=3</a></li>
-      <li><a href="https://www.reddit.com/r/linux_gaming/comments/zk0462/comment/j0descb/?utm_source=share&utm_medium=web2x&context=3">https://www.reddit.com/r/linux_gaming/comments/zk0462/comment/j0descb/?utm_source=share&utm_medium=web2x&context=3</a></li>
-      <li><a href="https://www.reddit.com/r/linux_gaming/comments/zk0462/comment/j0enk28/?utm_source=share&utm_medium=web2x&context=3">https://www.reddit.com/r/linux_gaming/comments/zk0462/comment/j0enk28/?utm_source=share&utm_medium=web2x&context=3</a></li>
-      <li><a href="https://www.reddit.com/r/archlinux/comments/zn8fhb/rx_7900xtx_llvmpipe/?utm_source=share&utm_medium=web2x&context=3">https://www.reddit.com/r/archlinux/comments/zn8fhb/rx_7900xtx_llvmpipe/?utm_source=share&utm_medium=web2x&context=3</a></li>
-      <li><a href="https://www.reddit.com/r/archlinux/comments/zn8fhb/comment/j0g3v66/?utm_source=share&utm_medium=web2x&context=3">https://www.reddit.com/r/archlinux/comments/zn8fhb/comment/j0g3v66/?utm_source=share&utm_medium=web2x&context=3</a></li>      
-      <li><a href="https://superuser.com/questions/1518079/ubuntu-cursor-is-invisible-after-a-fresh-install-of-ubuntu-18-04-3-lts-on-a-dell">https://superuser.com/questions/1518079/ubuntu-cursor-is-invisible-after-a-fresh-install-of-ubuntu-18-04-3-lts-on-a-dell</a></li>
-      <li><a href="https://wiki.archlinux.org/title/AMDGPU#Cursor_corruption">https://wiki.archlinux.org/title/AMDGPU#Cursor_corruption</a></li> 
-      <li><a href="https://launchpad.net/~oibaf/+archive/ubuntu/graphics-drivers">https://launchpad.net/~oibaf/+archive/ubuntu/graphics-drivers</a></li> 
-      <li><a href="https://launchpad.net/~kisak/+archive/ubuntu/kisak-mesa">https://launchpad.net/~kisak/+archive/ubuntu/kisak-mesa</a></li>
-      <li><a href="https://www.phoronix.com/news/RDNA3-AMDGPU-Firmware-Added">https://www.phoronix.com/news/RDNA3-AMDGPU-Firmware-Added</a></li>
-      <li><a href="https://github.com/CatWithCode/catwithcode.github.io/issues/1#issuecomment-1364848537">https://github.com/CatWithCode/catwithcode.github.io/issues/1#issuecomment-1364848537</a></li>
-      <li><a href="https://github.com/Rav8es">https://github.com/Rav8es</a></li>
-      <li><a href="https://github.com/CatWithCode/catwithcode.github.io/issues/1">https://github.com/CatWithCode/catwithcode.github.io/issues/1</a></li>
-      <li><a href="https://github.com/Mondrethos">https://github.com/Mondrethos</a></li>
-      <li><a href="https://github.com/kprinssu">https://github.com/kprinssu</a></li>
-      <li><a href="https://github.com/doitsujin/dxvk">https://github.com/doitsujin/dxvk</a></li>
-      <li><a href="https://github.com/CatWithCode/catwithcode.github.io/issues/1#issuecomment-1374572918">https://github.com/CatWithCode/catwithcode.github.io/issues/1#issuecomment-1374572918</a></li>
-    </ul>    
-    <h5>2023.01.08 - 14:34</h5>  
+    <h4><u>Note:</u> <i>This website will be deleted in the near future. Please use the new one!</i></h4>
+    <h5>2023.10.07 - 17:00</h5>
   </body>
 </html>

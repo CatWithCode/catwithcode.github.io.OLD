@@ -1,46 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="/Assets/GetHead.js"></script>
     <title>CatWithCode - Brother Network-Scanner on Linux with a Firewall in between</title>
   </head>
-  <body align="left" onload="createiFrame()">
-    <script src="/Assets/GetTopBar.js"></script>
-    
-    <h1>Brother Network-Scanner on Linux with a Firewall in between</h1>
-    <h3>Well... Brother printers and scanners can be tricky to get working under Linux because they often use or need their own drivers. Now put a firewall in between and you are ready for some fun... . Yayyy... . I got it to work and documented my way of doing it, so you don't have to 😞. I used ufw with gufw as the frontend. This should work on all firewall's by just replacing the steps in there configuration.</h3>
-    <ol>
-      <li>Install "Gufw"</li>
-      <li>Go to "Rules", press the "+"-Button, Select "Preconfigured" and find "CUPS", "SANE-Scanner" and if it's still there "SANE-Manual".</li>
-      <li>Make sure to install "sane" and start/enable it.</li>
-      <li>Make sure you have "brscan" installed. There are multiple versions of it, make sure to check which one Brother offers you on there website for your printer. For me it was "brscan4". If you use Arch they are also in the AUR.</li>
-      <li>Make sure you have "sane-airscan" installed.</li>
-      <li>Everything should be working now, right? Wrong! The printer/scanner, after being found and "ping'd" (asked to create a connection) by Sane, will answer back, but separately, which will be blocked by a securely configured firewall. You need to make sure that Sane opens a connection to the printer/scanner DIRECTLY by adding it manually. Normally the IP of a printer/scanner should be static, if you're using DHCP for it's IP, this will need to be updated regularly. You could also just add the printers IP to your firewall and allow it, but that would compromise security <u><b>BY A LOT</b></u>. With that out of the way, here is how to manually configure the scanner:
-        <p><u><i>sudo brsaneconfig4 -a name=MFC_L1234N model=MFC-L1234N ip=192.168.178.63</i></u></p>
-        -"brsaneconfig4" needs to be your verion (2, 3, 4, 5, ...)
-        <br>
-        -"name" can by anything you want (don't use spaces or special characters for your own sanity)
-        <br>
-        -"model" Must be your exact model number (With "-" and "_").
-        <br>
-        -"ip" must be the IP of your printer/scanner. To find out what IP it has, you can use the WebUI of it, look in the settings if it has a display or disable your firewall, use "<u><i>scanimage -L</i></u>" to find it and then re-enable the firewall.
-      </li>      
-    </ol>
-    <h3>Now, when you launch your favourite scanning tool, such as Simple-Scan, you should see the scanner and sould be able to scan documents with it.</h3>
-    <h3>I hope I could help you!</h3>
+  <body>
+    <br>
+    <h1>WE MOVED!</h1>
+    <h3>SORRY FOR THE INCONVENIENCE, BUT I HAVE MOVED!</h3>
+    <br>
+    <h1>Link to the same entry on the new website:</h1>
+    <h1><a href="https://catwithcode.moe/Blog/2023.06.14_Brother_Network-Scanner_Linux_with_Firewall/Brother_Network-Scanner_Linux_with_Firewall.html">https://catwithcode.moe/Blog/2023.06.14_Brother_Network-Scanner_Linux_with_Firewall/Brother_Network-Scanner_Linux_with_Firewall.html</a></h1>
     <br>
     <br>
-    <b>Sources:</b>
-    <ul>
-      <li><a href="https://wiki.archlinux.org/title/SANE/Scanner-specific_problems">https://wiki.archlinux.org/title/SANE/Scanner-specific_problems</a></li>
-      <li><a href="https://wiki.archlinux.org/title/Sane">https://wiki.archlinux.org/title/Sane</a></li>
-      <li><a href="https://wiki.archlinux.org/title/Uncomplicated_Firewall">https://wiki.archlinux.org/title/Uncomplicated_Firewall</a></li>
-      <li><a href="https://wiki.ubuntuusers.de/Simple_Scan/">https://wiki.ubuntuusers.de/Simple_Scan/</a></li>
-      <li><a href="https://wiki.ubuntuusers.de/SANE-Scanserver_im_Netzwerk/">https://wiki.ubuntuusers.de/SANE-Scanserver_im_Netzwerk/</a></li>
-      <li><a href="https://man.archlinux.org/man/sane-airscan.5.de">https://man.archlinux.org/man/sane-airscan.5.de</a></li>
-      <li><a href="https://www.brother.de/support/treiber">https://www.brother.de/support/treiber</a></li>
-      <li><a href="https://security.stackexchange.com/questions/184323/how-should-firewall-be-configured-to-allow-using-an-image-scanner-over-wifi-to-a">https://security.stackexchange.com/questions/184323/how-should-firewall-be-configured-to-allow-using-an-image-scanner-over-wifi-to-a</a></li>      
-    </ul>
-    <h5>2023.06.14 - 20:45</h5>
+    <h4><u>Note:</u> <i>This website will be deleted in the near future. Please use the new one!</i></h4>
+    <h5>2023.10.07 - 17:00</h5>
   </body>
 </html>

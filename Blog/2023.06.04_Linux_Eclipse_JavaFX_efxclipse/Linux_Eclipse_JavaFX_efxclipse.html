@@ -1,73 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="/Assets/GetHead.js"></script>
     <title>CatWithCode - TITEL</title>
   </head>
-  <body align="left" onload="createiFrame()">
-    <script src="/Assets/GetTopBar.js"></script>
-
-    <h1>Using Eclipse with JavaFX (with SceneBuilder, e(fx)clipse and fixed .fxml-Bug) on Linux</h1>    
-    <h3>I wanted to use my Eclipse work environment on Linux, but if you look a bit into it you will see that there is a lot of tinkering needed to get everything working when it comes to JavaFX. Here I will document how I did it.</h3>
-    <h3>Limitations: You need to install Eclipse and the SceneBuilder on your system and you can NOT use the Eclipse Flatpak because there is a filesystem path/permission issue ans I use Arch Linux and the AUR here.</h3>
-    <h3>Now for the important part. How I did it:</h3>
-    <ol>
-      <li>Install "eclipse-java" from the AUR</li>
-      <li>Start Eclipse</li>
-      <li>Go into Help >> Eclipse Marketplace >> Install e(fx)clipse</li>
-      <li>Wait until everything is installed, and when it asks you to restart Eclipse, press "Restart Eclipse".</li>
-      <li>Close Eclipse</li>
-      <li>Install java-openjfx, java-openjfx-doc, java-openjfx-src</li>
-      <li>Install javafx-scenebuilder from the AUR</li>
-      <li>Open Eclipse and go into Window >> Preferences >> Java >> Build Path >> User Libraries</li>
-      <li>Click "New" and call it "JavaFX"</li>
-      <li>Select "JavaFX" and click "Add External JARs..."</li>
-      <li>Go to "/usr/lib/jvm/java-20-openjdk-lib/" and select all .jar's by holding down Ctrl</li>
-      <li>If the paths still show up corectly in Eclipse press "Apply and Close"</li>
-      <li>Now go to Window >> Preferences >> JavaFX and click "Browse..." for the "SceneBuilder executable" and got to "/opt/scenebuilder/bin/" and select "SceneBuilder"</li>
-      <li>"Apply" and "Apply and Close"</li>
-      <li>Go to Help >> Install New Software >> Add >> Name = "e(fx)clipse nightly" and Location = "https://download.eclipse.org/efxclipse/updates-nightly/site/" >> Add >> Select everything >> Next >> Finish >> Wait until everything is installed, and when it asks you to restart Eclipse, press "Restart Eclipse".</li>
-      <h3>>> Eclipse is now properly configured. Now you need to configure your JavaFX project:</h3>
-      <li>Create a JavaFX-Project</li>
-      <li>Now rightclick on the Project >> Properties >> Java Build Path >> Configute Build Path</li>
-      <li>Select Libraries and select the "Modulepath" folder, Select "Add Library...", User Library, Select JavaFX and the click "Finish" and then "Apply" and "Apply and Close"</li>
-      <li>Left click on your Project, then in the top bar press the arrow next to the 'Run Main' button and select 'Run Configurations'. Go to the "Arguments" tab and paste the following into "VM Arguments". Do the same for all the entries under "Java Application":
-        <br>
-        <p><u><i>--module-path /usr/lib/jvm/java-20-openjdk/lib --add-modules javafx.controls,javafx.fxml</i></u></p>
-      </li>
-      <li>"Apply" and "Apply and Close"</li>
-    </ol>
-    <h3><b>NOTE:</b> If you have a problem with your project where all the JavaFX stuff works except for javafx.fxml and Java complains that it is missing, just add the following to your "module-info.java" inside of your project:</h3>
-    <p><u><i>requires javafx.fxml;</i></u></p>
+  <body>
     <br>
-    <h3>Now you should be able to use JavaFX inside your project, you should be able to create new .fxml files without error, use the Scenebuilder and compile your project in any way you like. Unfortunately, you have to add all the project configuration stuff to each new project you create, but it only takes a minute or two. How I could help you by documenting how I did it.</h3>
+    <h1>WE MOVED!</h1>
+    <h3>SORRY FOR THE INCONVENIENCE, BUT I HAVE MOVED!</h3>
     <br>
-    <b>Sources:</b>
-    <ul>
-      <li><a href="https://aur.archlinux.org/packages/eclipse-java">https://aur.archlinux.org/packages/eclipse-java</a></li>
-      <li><a href="https://aur.archlinux.org/packages/javafx-scenebuilder">https://aur.archlinux.org/packages/javafx-scenebuilder</a></li>
-      <li><a href="https://archlinux.org/packages/extra/x86_64/java-openjfx/">https://archlinux.org/packages/extra/x86_64/java-openjfx/</a></li>
-      <li><a href="https://archlinux.org/packages/extra/x86_64/java-openjfx-doc/">https://archlinux.org/packages/extra/x86_64/java-openjfx-doc/</a></li>
-      <li><a href="https://archlinux.org/packages/extra/x86_64/java-openjfx-src">https://archlinux.org/packages/extra/x86_64/java-openjfx-src/</a></li>
-      <li><a href="https://aur.archlinux.org/">https://aur.archlinux.org/</a></li>
-      <li><a href="https://archlinux.org/">https://archlinux.org/</a></li>
-      <li><a href="https://stackoverflow.com/questions/74758570/cant-create-new-fxml-file-in-eclipse">https://stackoverflow.com/questions/74758570/cant-create-new-fxml-file-in-eclipse</a></li>
-      <li><a href="https://stackoverflow.com/questions/35065468/cannot-create-fxml-file-in-javafx-project-in-eclipse">https://stackoverflow.com/questions/35065468/cannot-create-fxml-file-in-javafx-project-in-eclipse</a></li>
-      <li><a href="https://wiki.archlinux.org/title/Eclipse">https://wiki.archlinux.org/title/Eclipse</a></li>
-      <li><a href="https://www.eclipse.org/efxclipse/index.html">https://www.eclipse.org/efxclipse/index.html</a></li>
-      <li><a href="https://github.com/flathub/org.eclipse.Java/issues/62">https://github.com/flathub/org.eclipse.Java/issues/62</a></li>
-      <li><a href="https://flathub.org/apps/org.eclipse.Java">https://flathub.org/apps/org.eclipse.Java</a></li>
-      <li><a href="https://stackoverflow.com/questions/10802964/where-how-does-eclipse-store-user-libraries">https://stackoverflow.com/questions/10802964/where-how-does-eclipse-store-user-libraries</a></li>
-      <li><a href="https://discourse.gnome.org/t/in-flatpak-how-does-one-get-access-to-run-user-uid-doc/3927">https://discourse.gnome.org/t/in-flatpak-how-does-one-get-access-to-run-user-uid-doc/3927</a></li>
-      <li><a href="https://www.linuxquestions.org/questions/linux-software-2/flatpak-%27ungoogled-chromium%27-saves-files-to-run-user-1000-doc-instead-of-desired-location-4175722176/">https://www.linuxquestions.org/questions/linux-software-2/flatpak-%27ungoogled-chromium%27-saves-files-to-run-user-1000-doc-instead-of-desired-location-4175722176/</a></li>
-      <li><a href="https://openjfx.io/openjfx-docs/you">https://openjfx.io/openjfx-docs/you</a></li>
-      <li><a href="https://www.youtube.com/watch?v=_7OM-cMYWbQ">https://www.youtube.com/watch?v=_7OM-cMYWbQ</a></li>
-      <li><a href="https://youtu.be/owiV_3I29lM">https://youtu.be/owiV_3I29lM</a></li>
-      <li><a href="https://stackoverflow.com/a/76298615">https://stackoverflow.com/a/76298615</a></li>
-      <li><a href="https://www.reddit.com/r/JavaFX/comments/res81l/comment/hohuxwo/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button">https://www.reddit.com/r/JavaFX/comments/res81l/comment/hohuxwo/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button</a></li>
-      <li><a href="https://gluonhq.com/products/javafx/">https://gluonhq.com/products/javafx/</a></li>
-      <li><a href="https://github.com/openjfx/samples/">https://github.com/openjfx/samples/</a></li>
-    </ul>    
-    <h5>2023.06.04 - 20:23</h5>  
+    <h1>Link to the same entry on the new website:</h1>
+    <h1><a href="https://catwithcode.moe/Blog/2023.06.05_Linux_Eclipse_JavaFX_efxclipse/Linux_Eclipse_JavaFX_efxclipse.html">https://catwithcode.moe/Blog/2023.06.05_Linux_Eclipse_JavaFX_efxclipse/Linux_Eclipse_JavaFX_efxclipse.html</a></h1>
+    <br>
+    <br>
+    <h4><u>Note:</u> <i>This website will be deleted in the near future. Please use the new one!</i></h4>
+    <h5>2023.10.07 - 17:00</h5>
   </body>
 </html>

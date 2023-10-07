@@ -1,4 +1,11 @@
 # catwithcode.github.io
-This is my Blog where I post my daily discoveries and random thoughts.
+WE MOVED!
 
-[catwithcode.github.io/](/)
+
+SORRY FOR THE INCONVENIENCE, BUT I HAVE MOVED!
+
+
+Link to the same entry on the new website:
+
+
+https://catwithcode.moe/

@@ -1,55 +1,18 @@
 <!DOCTYPE html>
 <html lang="en"> 
   <head>
-    <script src="/Assets/GetHead.js"></script>
     <title>CatWithCode - AM5, X670, DDR5 and fixing XMP/EXPO</title>
   </head>
-  <body align="left" onload="createiFrame()">
-    <script src="/Assets/GetTopBar.js"></script>
-    
-    <h1>AM5, X670, DDR5 and fixing XMP/EXPO</h1>
-    <h2>Updates for the Gigabyte X670 GAMING X AX:--------------------------------</h2>
-    <h3><u>UPDATE FROM 2023.05.22:</u> The Update F6 fixed literally every issue I ever had with this platform. By now I am 100% sure it is/was some kind of voltage issue: <a href="https://download.gigabyte.com/FileList/BIOS/mb_bios_x670-gx-ax_f6.zip">https://download.gigabyte.com/FileList/BIOS/mb_bios_x670-gx-ax_f6.zip</a> [SHA256: <i>c5a2f2afefa1a1b6b54a53c5021cd9461941dfbaad2e61ba8d64266f0ac142fb</i>].
-    <h3><u>UPDATE FROM 2023.02.01:</u> LOL. They removed F4d as well (Thank's to NickHumphries: <a href="https://github.com/CatWithCode/catwithcode.github.io/issues/3#issue-1566352686">https://github.com/CatWithCode/catwithcode.github.io/issues/3#issue-1566352686</a>). It is still online: [SHA256: <i>b142eb7f96505e26b4667737b820afa6afb41487e69052b0137f963a2e168b31</i>]: <a href="https://download.gigabyte.com/FileList/BIOS/mb_bios_x670-gx-ax_f4d.zip">https://download.gigabyte.com/FileList/BIOS/mb_bios_x670-gx-ax_f4d.zip</a></h3>
-    <h3><u>UPDATE FROM 2023.01.20:</u> After a short chat with Gigabyte, they told me they will release a revised version of the F5f-BIOS soon. Why they removed it in the first place, they did not say. But I had some issues with WLAN and Bluetooth not working every so often after a reboot so there seems to be an actual  issue with the F5f-BIOS. Yesterday the released it. It is called "F4d" for some reason, but it works perfectly now. I also noticed that after an update or sometimes a BIOS-Settings change I get a black screen with a cursor for multiple seconds before the BIOS-screen shows up . When that happens WLAN or Bluetooth or even USB will not work correctly in the OS, To fix it I have to power off the PC completely, wait around 10 seconds until the system is truly powerless and then press the CMOS-RESET Button for around 20 seconds. I highly recommend to do this after every BIOS-update. For some reason, this mainboard seems to be a bit buggy after every update without fully resetting the CMOS. Seems like it does not fully reset the CMOS while installing an update.</h3>
-    <h3><u>UPDATE FROM 2023.01.18:</u> Gigabyte released a new Update [F4c]. It literally ruined the memory compatibility for me! If you want to use XMP/EXPO and had issues before, DON'T INSTALL IT!</h3>
-    <h3><u>UPDATE FROM 2023.01.12:</u> For unkown reasons Gigabyte removed the entry from there website, but the link to the file is still online [SHA256: <i>ba326a09b0a53ffd0addb9b9689407132c8a6d3ed92f78516eb717efb2e1970c</i>]: <a href="https://download.gigabyte.com/FileList/BIOS/mb_bios_x670-gx-ax_f5f.zip">https://download.gigabyte.com/FileList/BIOS/mb_bios_x670-gx-ax_f5f.zip</a></h3>
-    <h3><u>UPDATE FROM 2022.12.31:</u> Gigabyte released an Update on 29.12.2022 named "F5f" which fixes the issue for me and this Hardwarecombination in general! THX FOR LISTENING Gigabyte! GREAT JOB! If you still have issues, continue reading!</u></h3>
-    <h2>-----------------------------------------</h2>
-    <h3>I had the issue that my "Gigabyte X670 GAMING X AX" with "F5a"-BIOS together with an "AMD Ryzen 9 7900X" and "32GB (2x 16GB) G.Skill Trident Z5 RGB black DDR5-6000 DIMM CL40-40-40-96 Dual Kit" - "F5-6000J4040F16GX2-TZ5RK" with XMP enabled was not stable.</h3>
-    <h3>After a lot of trial and error I found out that it actually was stable <u>on the first boot</u>! That was the key to the issue. After contacting the Gigabyte Supoort and making sure that this hardware combination is actually tested by them (the Gigabyte labs confirmed that is stable with a screenshot. THX Gigabyte Support! You rock!) I was on the right way. After some more research I found an article that mentioned that there Overclocking was a lot more stable when they disabled "Memory Context Restore"! This Mainboard takes forever to boot up and a few more seconds are negligible in this case. SO I tried it. I enabled "XMP", "Low Latancy Supoort", "XMP High Bandwidth Supoort" and disabled the "Memory Context Restore"! IT WORKS NOW! The only thing still broken is sleep mode in Linux (IDK. about Windows. I don't use it). All of this can be avoided after Gigabyte fixes this issue in a new BIOS version. It's bleeding edge hardware and issues are to be expected! After that XMP would just work and Sleepmode would also not be broken with it enabled. It seems like a BIOS issue with certain RAM and CPU combinations. For now we just need to wait, don't use sleep mode and use this workaround.</h3>
+  <body>
     <br>
-    <h1><u>HOW I FIXED IT!:</u></h1>
-    <h3>Tweaker -> Extreme Memory Profile (XMP/EXPO) = Enabled</h3>
-    <h3>Tweaker -> Low Latancy Supoort = Enabled</h3>
-    <h3>Tweaker -> XMP High Bandwidth Supoort = Enabled</h3>
-    <h3>Tweaker -> Advanced Memory Settings -> Power Down Enable = Diabled</h3>
-    <h3>Settings -> AMD CBS -> UMC Common Options -> DDS Options -> DDR Memory Features -> Memory Context Restore = Disabled</h3>
+    <h1>WE MOVED!</h1>
+    <h3>SORRY FOR THE INCONVENIENCE, BUT I HAVE MOVED!</h3>
     <br>
-    <h1><u>Could also work:</u></h1>
-    <h3>Settings -> AMD CBS -> UMC Common Options -> DDS Options -> DDR Memory Features -> Memory Context Restore = Enabled</h3>
-    <h3>This forces the RAM to use the last good OC (settings?). Warning: This can cause Memory issues on boot, in the OS or can prevent the PC from booting all together (In such a case, a CMOS-RESET is needed (Remove the battery or pressing the CMOS-RESET Button on the mainboard)). Can help if the PC works fine but has irregularly random DRAM issues on POST.</h3>
-
-
-    <h3>I informed Gigabyte about my findings and hope they can fix it in an update! [Edit: THEY DID! THX!]</h3>
-    <h3>A lot of thanks to the people behind this article <a href="https://skatterbencher.com/2022/10/09/skatterbencher-46-amd-ryzen-9-7900x-overclocked-to-5900-mhz/">https://skatterbencher.com/2022/10/09/skatterbencher-46-amd-ryzen-9-7900x-overclocked-to-5900-mhz/</a>. It was the key at the end to get it fixed!</h3>
-    <b>Sources:</b>
-    <ul>
-      <li><a href="https://skatterbencher.com/2022/10/09/skatterbencher-46-amd-ryzen-9-7900x-overclocked-to-5900-mhz/">https://skatterbencher.com/2022/10/09/skatterbencher-46-amd-ryzen-9-7900x-overclocked-to-5900-mhz/</a></li>
-      <li><a href="https://skatterbencher.com/2022/10/09/skatterbencher-46-amd-ryzen-9-7900x-overclocked-to-5900-mhz/#Memory_Context_Restore">https://skatterbencher.com/2022/10/09/skatterbencher-46-amd-ryzen-9-7900x-overclocked-to-5900-mhz/#Memory_Context_Restore</a></li>
-      <li><a href="https://esupport.gigabyte.com">https://esupport.gigabyte.com</a></li>
-      <li><a href="https://www.gigabyte.com/Motherboard/X670-GAMING-X-AX-rev-10/support#support-dl-bios">https://www.gigabyte.com/Motherboard/X670-GAMING-X-AX-rev-10/support#support-dl-bios</a></li>
-      <li><a href="https://www.gigabyte.com/Motherboard/X670-GAMING-X-AX-rev-10/support#support-memsup">https://www.gigabyte.com/Motherboard/X670-GAMING-X-AX-rev-10/support#support-memsup</a></li>
-      <li><a href="https://www.gskill.com/product/165/374/1640229971/F5-6000J4040F16GX2-TZ5RK-F5-6000J4040F16GA2-TZ5RK">https://www.gskill.com/product/165/374/1640229971/F5-6000J4040F16GX2-TZ5RK-F5-6000J4040F16GA2-TZ5RK</a></li>
-      <li><a href="https://www.reddit.com/r/buildapc/comments/r00w8t/xmp_profile_on_msi_z690_motherboard_prevents/">https://www.reddit.com/r/buildapc/comments/r00w8t/xmp_profile_on_msi_z690_motherboard_prevents/</a></li>
-      <li><a href="https://youtu.be/XNw8bakYc0w">https://youtu.be/XNw8bakYc0w</a></li>
-      <li><a href="https://youtu.be/j2HrrpwTsCE">https://youtu.be/j2HrrpwTsCE</a></li>
-      <li><a href="https://youtu.be/Bi7jPcqOntk">https://youtu.be/Bi7jPcqOntk</a></li>
-      <li><a href="https://download.gigabyte.com/FileList/BIOS/mb_bios_x670-gx-ax_f5f.zip">https://download.gigabyte.com/FileList/BIOS/mb_bios_x670-gx-ax_f5f.zip</a></li>
-      <li><a href="https://youtu.be/UtVBFr-OVDM">https://youtu.be/UtVBFr-OVDM</a></li>
-      <li><a href="https://github.com/CatWithCode/catwithcode.github.io/issues/3#issue-1566352686">https://github.com/CatWithCode/catwithcode.github.io/issues/3#issue-1566352686</a></li>
-      <li><a href="https://github.com/NickHumphries">https://github.com/NickHumphries</a></li>
-    </ul>    
-    <h5>2023.05.22 - 07:15</h5>  
+    <h1>Link to the same entry on the new website:</h1>
+    <h1><a href="https://catwithcode.moe/Blog/2022.12.26_X670_DDR5_XMP-EXPO_FIX/X670_DDR5_XMP-EXPO_FIX.html">https://catwithcode.moe/Blog/2022.12.26_X670_DDR5_XMP-EXPO_FIX/X670_DDR5_XMP-EXPO_FIX.html</a></h1>
+    <br>
+    <br>
+    <h4><u>Note:</u> <i>This website will be deleted in the near future. Please use the new one!</i></h4>
+    <h5>2023.10.07 - 17:00</h5>
   </body>
 </html>

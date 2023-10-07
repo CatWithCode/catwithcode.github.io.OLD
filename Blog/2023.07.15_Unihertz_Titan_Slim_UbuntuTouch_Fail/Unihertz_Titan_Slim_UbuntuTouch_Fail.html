@@ -1,49 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="/Assets/GetHead.js"></script>
     <title>CatWithCode - I tried to continue a Ubuntu Touch port for the Unihert Titan and failed</title>
   </head>
-  <body align="left" onload="createiFrame()">
-    <script src="/Assets/GetTopBar.js"></script>
-    
-    <h1>I tried to continue a Ubuntu Touch port for the Unihert Titan and failed</h1>
-    <h3>I've knew about it for a while, but didn't think about it again until yesterday. I have had my Titan Slim for a while now and only now did it occur to me to try this port. My conclusion: this port is magic and a dead end at the same time, at least for me.</h3>
-    <h3>First of all I would like to say that the developer has done a fantastic job here, the port runs great and fast and the way it boots ubuntu from the userdata partition with a modded boot.img is just brilliant! But as far as I know, this project is going to be slow and hard to develop for. Without the kernel source, we cannot use dkms, which makes adding needed stuff like waydroid almost impossible because of the missing binder module. For every fix/mod, you would have to chnage the module to work with a generic kernel against the Titan kernel. And all this will not change until A: someone reverse-engineers the kernel (which is an unbelievable amount of work for such a small brand) or B: Unihertz stops being a GPL violator. They do not release the kernel source, which they are legally required to do under the GPL licence that the Linux kernel is under. THIS IS LITERALLY ILLEGAL! Many people send them requests and never get an answer, or are put on hold indefinitely. But there are far too few people who care about the phone, and even less about modifying it for custom roms and Linux. With enough time this port could be fixed up technically and work flawlessly, but the crazy amount of time needed and the amount of knowledge about kernel, Android and modules is just too much and not worth it! DO NOT BUY UNIHERTZ PHONES IF YOU CAN! There are only about 5 manufacturers of keyboard phones these days, and only two where the phones are actually good, but only one of them gives out the source code, but it costs twice as much. But as far as I have been able to read online, almost all the keyboard phones currently out there have problems. The hardware can be good/ok but the source is missing, the hardware is bad but the software is good, but nothing in between. The keyboard phone market it truly nearly dead.</h3>
-    <h3>One thing is for sure. I WILL NEVER BUY ANOTHER UNIHERTZ PHONE AGAIN. It is not much more then putting a few files into a zip-Archive and sending it out and they are just not doing it and wasting a lot of people's time for no good reason. Buy something else from someone who at least does not violate the GPL. THE THING that made their business viable/possible in the first place... 😡.</h3>
-    <h3>And now, after my rant, everything I could find out about the Ubuntu Touch Port. Might help someone if they want to try it out or pick up the project:</h3>
-    <h3>ALSO: THIS ONLY APPLIES TO THE TITAN POCKET AND TITAN SLIM! THE OG TITAN HAS A DIFFERENT MEMORY LAYOUT! THERE IS AN <u>UNTESTED</u> PORT OUT THERE, BUT AS FAR AS I KNOW IT IS ONLY FOR THE <u>EMMC</u>!</h3>
-    <ol>
-      <li><h3>Your Android installation will not be removed BUT your userdata will be erased. Your phone needs to be magisk-rooted and vbmeta pached. I did this in an older blog post. (link in sources section)</h3></li>
-      <li><h3>To run it, download the latest artifact for your phone and extract it. Inside is a boot.img and an .xz file. Extract the .xz file and put the .img image it contains into a folder called "userdata".</h3>
-        <h3>Go inside the folder and execute this: <p><u><i>resize2fs ubuntu.img 10G</i></u></p> [This will resize the Ubuntu-System to 10GB. This is useful if you want to modify the system or use apt.</h3>  
-        <h3>Now go up one folder and run this: <p><u><i>mke2fs -t ext4 -O ^metadata_csum userdata.img 20240000 -d userdata</i></u></p> [This will create the actual userdata.img with a size of 20GB. You can make all sizes as big as you want AS LONG as it dose not go above the actual size of the userdata-patition of the Titan.]</h3></li>
-      <li><h3><p><u><i>fastboot flash boot boot.img</i></u></p> and <p><u><i>fastboot flash userdata userdata.img</i></u></p> to install the System.</h3></li>
-      <li><h3>To get back to your Android system, just flash your rooted boot.img (magisk) and erase the userdata partition once.</h3></li>
-      <li><h3>To change the system partition, go into settings, enable developer mode and connect the phone to a pc with a usb and adb shell on it. Now just execute <p><u><i>sudo mount -o remount,rw /</i></u></p> and the system is writable until reboot. If this writes into an overlay in the userdata-patition or directly into the ubuntu.img idk.</h3></li>
-      <li><h3>DKMS actually works as expected</h3></li>
-      <li><h3>Without the right kernel headers you will not be able to compile modules.</h3></li>
-      <li><h3><u>What did not work for me:</u> GPS, Video recording, VoLTE, Speaker Audio, Headphone-Audio and SADLY waydroid (missing binder module)</h3></li>
-      <li><h3>Everything i found while researching is in the sources section.</h3></li>
-    </ol>
-    <h3>THX to rumplestilzken for helping to get the Port running for me!</h3>
+  <body>
     <br>
-    <b>Sources:</b>
-    <ul>
-      <li><a href="https://askubuntu.com/questions/399709/sudo-apt-get-install-is-showing-not-using-locking-for-read-only-file-var-lib">https://askubuntu.com/questions/399709/sudo-apt-get-install-is-showing-not-using-locking-for-read-only-file-var-lib</a></li>
-      <li><a href="https://unix.stackexchange.com/questions/22024/increasing-the-size-limit-for-var-cache-apt-archives">https://unix.stackexchange.com/questions/22024/increasing-the-size-limit-for-var-cache-apt-archives</a></li>
-      <li><a href="https://forum.xda-developers.com/t/increase-gsi-system-image-size-guide.3980189/">https://forum.xda-developers.com/t/increase-gsi-system-image-size-guide.3980189/</a></li>
-      <li><a href="https://www.youtube.com/watch?v=5Fl3Vg0ALYw">https://www.youtube.com/watch?v=5Fl3Vg0ALYw</a></li>
-      <li><a href="https://forum.xda-developers.com/t/gsi-arm64-a-ab-ubuntu-touch-ubports.4110581/">https://forum.xda-developers.com/t/gsi-arm64-a-ab-ubuntu-touch-ubports.4110581/</a></li>
-      <li><a href="https://github.com/anbox/anbox-modules">https://github.com/anbox/anbox-modules</a></li>
-      <li><a href="https://github.com/ubports/porting-notes/wiki/Generic-system-image-(GSI)#how-to-install-gsi">https://github.com/ubports/porting-notes/wiki/Generic-system-image-(GSI)#how-to-install-gsi</a></li>
-      <li><a href="https://github.com/ubuntu-touch-unihertz-titan/unihertz-titanslim-pocket">https://github.com/ubuntu-touch-unihertz-titan/unihertz-titanslim-pocket</a></li>
-      <li><a href="https://github.com/ubuntu-touch-unihertz-titan/unihertz-titanslim-pocket/actions/workflows/build.yml">https://github.com/ubuntu-touch-unihertz-titan/unihertz-titanslim-pocket/actions/workflows/build.yml</a></li>
-      <li><a href="https://github.com/rumplestilzken">https://github.com/rumplestilzken</a></li>
-      <li><a href="https://www.reddit.com/r/fxtec/">https://www.reddit.com/r/fxtec/</a></li>
-      <li><a href="https://community.fxtec.com">https://community.fxtec.com</a></li>
-      <li><a href="/Blog/2023.05.24_Unihertz_Titan-Slim_GSI_Modding/Unihertz_Titan-Slim_GSI_Modding.html">/Blog/2023.05.24_Unihertz_Titan-Slim_GSI_Modding/Unihertz_Titan-Slim_GSI_Modding.html</a></li>
-    </ul>
-    <h5>2023.07.15 - 20:30</h5>
+    <h1>WE MOVED!</h1>
+    <h3>SORRY FOR THE INCONVENIENCE, BUT I HAVE MOVED!</h3>
+    <br>
+    <h1>Link to the same entry on the new website:</h1>
+    <h1><a href="https://catwithcode.moe/Blog/2023.07.15_Unihertz_Titan_Slim_UbuntuTouch_Fail/Unihertz_Titan_Slim_UbuntuTouch_Fail.html">https://catwithcode.moe/Blog/2023.07.15_Unihertz_Titan_Slim_UbuntuTouch_Fail/Unihertz_Titan_Slim_UbuntuTouch_Fail.html</a></h1>
+    <br>
+    <br>
+    <h4><u>Note:</u> <i>This website will be deleted in the near future. Please use the new one!</i></h4>
+    <h5>2023.10.07 - 17:00</h5>
   </body>
 </html>

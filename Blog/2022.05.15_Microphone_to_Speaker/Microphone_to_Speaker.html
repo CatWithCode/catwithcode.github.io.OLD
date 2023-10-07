@@ -1,45 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="/Assets/GetHead.js"></script>
     <title>CatWithCode - Microphone to Speaker passthrough on Linux/WSL</title>
   </head>
-  <body align="left">
-    <script src="/Assets/GetTopBar.js"></script>
-    
-    <h1>Microphone to Speaker passthrough on Linux/WSL</h1>    
-    <h3>Sometimes you want to use a device and watch a video at the same time and you need to use headphones. In such cases it would be useful to pass the sound through your computer to your headphones without some sort of external mixing because reasons. On Linux this is actually very easy. You can use the pulsaudio(pavucontrol)'s loopback function to pipe a microphone or any other audio source through the microphone jack to the headphone jack. There is actually only one command needed. I use a bash file and created a menu entry so I can open it like a normal program. You can the audio-mixing of your desktop to controll the volume of the passthrough. Just use the microphone volume setting on your system. And YES this only works on Linux and WSL</h3>
-    <h2>BE CAREFUL! IF YOUR MICROPHONE SETTINGS ARE TOO HIGH YOUR PASSTHROUGH WILL BE EXTREMELY LOUD! LOWER YOUR MICROPHONE VOLUME BEFORE YOU TRY THIS! IT ALSO CAN DAMAGE YOUR MICROPHONE INPUT BECAUSE IT IS ABSOLUTELY NOT MADE FOR SUCH HIGH VOLTAGES. KEEP THE VOLUME OF YOUR DEVICE RELATIVELY LOW. FIND THE SWEET SPOT WHERE THE AUDIO IS LOUD ENOUGH SO YOU DON'T NEED TO MAKE THE SYSTEM MICROPHONE SO LOUD THAT YOU CAN HEAR STATIC NOISE. AND AGAIN, BE CAREFUL WITH THE MICROPHONE SETTINGS ON YOUR COMPUTER. IF THE MICROPHONE IS SET TO LOUD YOUR HEADSET WILL BE SO LOUD IT CAN BREAK OR EVEN HURT YOUR EARS. AS ALWAYS: IF YOU ARE DOING ANYTHING ON THIS WEBSITE, ITS OBVIOUSLY AT YOUR OWN RISK!</h2>
+  <body>
     <br>
-    <h3>Plug an AUX cable into your device's headphone jack and the other end into your computer's microphone jack. And yes, you can even use Bluetooth with this. IDK how good this will work or what input and output you need to set but it works.</h3>
-    <h3>You need to install pavucontrol.</h3>
-    <h3>Now you can pipe the sound through. Normally it automatically recognizes what you try to do. If that is right then this command is enough:</h3>
-    <p><u><i>pactl load-module module-loopback latency_msec=1</i></u></p>
-    <h3>If it doesn't work right automatically, then you need to use this command and change source and sink until you find the right source and output (Be careful! Sometimes you pipe some random noise through and that can be very VERY LOUD!):</h3>
-    <p><u><i>pactl load-module module-loopback latency_msec=1 source=1 sink=0</i></u></p>
-    <h3>You will notice that the command dose not wait for your input and the service runs in the background. To stop the passthrough you need to stop the service:</h3>
-    <p><u><i>pactl unload-module module-loopback</i></u></p>
-    <h3>To make it easy to use you can create a bash file:</h3>
-    <p><u><i>
-    echo "Mic2Speaker"
+    <h1>WE MOVED!</h1>
+    <h3>SORRY FOR THE INCONVENIENCE, BUT I HAVE MOVED!</h3>
     <br>
-    pactl load-module module-loopback latency_msec=1
+    <h1>Link to the same entry on the new website:</h1>
+    <h1><a href="https://catwithcode.moe/Blog/2022.05.15_Microphone_to_Speaker/Microphone_to_Speaker.html">https://catwithcode.moe/Blog/2022.05.15_Microphone_to_Speaker/Microphone_to_Speaker.html</a></h1>
     <br>
-    read -p "Press the Any-Key to Exit"
     <br>
-    pactl unload-module module-loopback
-    <br>
-    exit
-    </i></u></p>
-    <h3>That's it. If you create a menu entry you can start/exit it way more easily. With programs like menulibre (or you do it manually) it's done in seconds. Here is the command I use to start the bash file:</h3>
-    <p><u><i>gnome-terminal -- /PathToTheBashFile/Mic2Speaker.sh</i></u></p>
-    <br>
-    <b>Sources:</b>
-    <ul>
-      <li><a href="https://askubuntu.com/questions/403416/how-to-listen-live-sounds-from-input-from-external-sound-card">askubuntu.com</a></li>
-      <li><a href="https://askubuntu.com/questions/355082/pulseaudio-loopback-unload-audio-output-devices">askubuntu.com</a></li>
-      <li><a href="https://wiki.archlinux.org/title/PulseAudio">wiki.archlinux.org</a></li>
-    </ul>    
-    <h5>2022.05.15 - 20:15</h5>  
+    <h4><u>Note:</u> <i>This website will be deleted in the near future. Please use the new one!</i></h4>
+    <h5>2023.10.07 - 17:00</h5>
   </body>
 </html>
